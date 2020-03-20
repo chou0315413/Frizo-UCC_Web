@@ -14,60 +14,19 @@
       </ol>
     </nav>
     <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col-lg-1">
-            <img class="smallPicture" src="../assets/userPhoto/user.png" alt="userPhoto" />
-          </div>
-          <div class="col-lg-3 text-left">123</div>
-          <div class="col-lg-8 text-left">Dapibus ac facilisi</div>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col-lg-1">
-            <img class="smallPicture" src="../assets/userPhoto/user.png" alt="userPhoto" />
-          </div>
-          <div class="col-lg-3 text-left">123</div>
-          <div class="col-lg-8 text-left">Dapibus ac facilisi</div>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col-lg-1">
-            <img class="smallPicture" src="../assets/userPhoto/user.png" alt="userPhoto" />
-          </div>
-          <div class="col-lg-3 text-left">123</div>
-          <div class="col-lg-8 text-left">Dapibus ac facilisi</div>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col-lg-1">
-            <img class="smallPicture" src="../assets/userPhoto/user.png" alt="userPhoto" />
-          </div>
-          <div class="col-lg-3 text-left">123</div>
-          <div class="col-lg-8 text-left">Dapibus ac facilisi</div>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col-lg-1">
-            <img class="smallPicture" src="../assets/userPhoto/user.png" alt="userPhoto" />
-          </div>
-          <div class="col-lg-3 text-left">123</div>
-          <div class="col-lg-8 text-left">Dapibus ac facilisi</div>
-        </div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
-        <div class="row">
-          <div class="col-lg-1">
-            <img class="smallPicture" src="../assets/userPhoto/user.png" alt="userPhoto" />
-          </div>
-          <div class="col-lg-3 text-left">123</div>
-          <div class="col-lg-8 text-left">Dapibus ac facilisi</div>
-        </div>
-      </a>
+      <div v-for="index in contentList" :key="index">
+        <router-link :to="index.link">
+          <a class="list-group-item list-group-item-action">
+            <div class="row">
+              <div class="col-lg-1">
+                <img class="smallPicture" src="../assets/userPhoto/user.png" alt="userPhoto" />
+              </div>
+              <div class="col-lg-3 text-left">{{index.title}}</div>
+              <div class="col-lg-8 text-left">{{index.message}}</div>
+            </div>
+          </a>
+        </router-link>
+      </div>
     </div>
     <div class="btn-toolbar mt-3 center" role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -88,7 +47,43 @@
 
 <script>
 export default {
-  name: "ContentList"
+  name: "ContentList",
+  data() {
+    return {
+      contentList: [
+        {
+          title: "吉他社聯合大成發",
+          message: "快來參加!",
+          link: "/abc"
+        },
+        {
+          title: "吉他社聯合大成發",
+          message: "快來參加!",
+          link: "/abc"
+        },
+        {
+          title: "吉他社聯合大成發",
+          message: "快來參加!",
+          link: "/abc"
+        },
+        {
+          title: "吉他社聯合大成發",
+          message: "快來參加!",
+          link: "/abc"
+        },
+        {
+          title: "吉他社聯合大成發",
+          message: "快來參加!",
+          link: "/abc"
+        },
+        {
+          title: "熱舞社期末展",
+          message: "不見不散!",
+          link: "/def"
+        }
+      ]
+    };
+  }
 };
 </script>
 

@@ -5,6 +5,7 @@ import Login from "../components/Login";
 import Oauth2Redirect from "../pages/Oauth2Redirect";
 import UserInfo from "../components/UserInfo";
 import page404 from "../pages/page404";
+import test from "../components/test";
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,11 @@ export default new VueRouter({
             path: '/UserInfo',
             name: 'UserInfo',
             component: UserInfo
+        },
+        {
+            path: '/test',
+            name: 'test',
+            component: test
         },
         {
             path: '/*',
