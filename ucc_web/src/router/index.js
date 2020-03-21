@@ -6,8 +6,9 @@ import Oauth2Redirect from "../pages/Oauth2Redirect";
 import UserInfo from "../components/UserInfo";
 import page404 from "../pages/page404";
 import test from "../components/test";
+import TestStore from "@/pages/TestStore"
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 export default new VueRouter({
     mode: 'history',
@@ -38,9 +39,14 @@ export default new VueRouter({
             component: test
         },
         {
+            path: '/store',
+            name: 'store',
+            component: TestStore
+        },
+        {
             path: '/*',
             name: page404,
             component: page404
-        }
+        },
     ]
 })

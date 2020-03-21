@@ -2,6 +2,7 @@
   <div class="HomePage">
     <nav-header></nav-header>
     <ContentList></ContentList>
+    <router-link to="/store">到 Store 測試頁</router-link>
   </div>
 </template>
 
