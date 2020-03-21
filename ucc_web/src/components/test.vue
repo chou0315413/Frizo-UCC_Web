@@ -2,32 +2,20 @@
   <div class="ContentList mt-4">
     <nav aria-label="breadcrumb" class="float-right titieList">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item" @click="listPrint='hotList'">
           <a href="#">熱門</a>
         </li>
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item" @click="listPrint='newList'">
           <a href="#">最新</a>
         </li>
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item" @click="listPrint='followList'">
           <a href="#">追蹤</a>
         </li>
       </ol>
     </nav>
-    <div class="list-group">
-      <div v-for="index in contentList" :key="index">
-        <router-link :to="index.link">
-          <a class="list-group-item list-group-item-action">
-            <div class="row">
-              <div class="col-lg-1">
-                <img class="smallPicture" src="../assets/userPhoto/user.png" alt="userPhoto" />
-              </div>
-              <div class="col-lg-3 text-left">{{index.title}}</div>
-              <div class="col-lg-8 text-left">{{index.message}}</div>
-            </div>
-          </a>
-        </router-link>
-      </div>
-    </div>
+    <keep-alive>
+      <component :is="listPrint"></component>
+    </keep-alive>
     <div class="btn-toolbar mt-3 center" role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group mr-2" role="group" aria-label="First group">
         <button type="button" class="btn btn-secondary">1</button>
@@ -46,42 +34,20 @@
 </template>
 
 <script>
+import hotList from "@/components/listGroup/hotList";
+import newList from "@/components/listGroup/newList";
+import followList from "@/components/listGroup/followList";
+
 export default {
   name: "ContentList",
+  components: {
+    hotList,
+    newList,
+    followList
+  },
   data() {
     return {
-      contentList: [
-        {
-          title: "吉他社聯合大成發",
-          message: "快來參加!",
-          link: "/abc"
-        },
-        {
-          title: "吉他社聯合大成發",
-          message: "快來參加!",
-          link: "/abc"
-        },
-        {
-          title: "吉他社聯合大成發",
-          message: "快來參加!",
-          link: "/abc"
-        },
-        {
-          title: "吉他社聯合大成發",
-          message: "快來參加!",
-          link: "/abc"
-        },
-        {
-          title: "吉他社聯合大成發",
-          message: "快來參加!",
-          link: "/abc"
-        },
-        {
-          title: "熱舞社期末展",
-          message: "不見不散!",
-          link: "/def"
-        }
-      ]
+      listPrint: "hotList"
     };
   }
 };
@@ -96,18 +62,6 @@ export default {
   width: 900px;
   height: 430px;
   padding-top: 30px;
-}
-.list-group-item {
-  height: 55px;
-  border-left: none;
-  border-right: none;
-  border-radius: 0px;
-}
-.smallPicture {
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-  border: 1px solid #acacac;
 }
 .titieList {
   position: absolute;
