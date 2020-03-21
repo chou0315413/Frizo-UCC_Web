@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { signin } from "../api/auth";
+import { signin } from "@/api/auth";
 
 export default {
   data() {
