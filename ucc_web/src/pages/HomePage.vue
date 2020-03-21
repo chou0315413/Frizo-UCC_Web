@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import NavHeader from "../components/NavHeader";
-import ContentList from "../components/ContentList";
+import NavHeader from "@/components/NavHeader";
+import ContentList from "@/components/ContentList";
 
 export default {
   name: "HomePage",
