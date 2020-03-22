@@ -1,30 +1,30 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-  import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
-  methods:{
+  methods: {
     ...mapActions({
-      setUserInfo: 'auth/setUserInfo'
+      setUserInfo: "auth/setUserInfo"
     })
   },
 
   created() {
-    this.setUserInfo()
+    this.setUserInfo();
   },
 
-  name: 'App',
-}
+  name: "App"
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Malgun Gothic;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
