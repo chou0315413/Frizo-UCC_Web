@@ -16,24 +16,28 @@ const logout = async function ({commit}) {
 };
 
 const setUserInfo = function ({commit}) {
-    getUserInfo()
-        .then(res => {
-        let userInfo = {
-            userName: res.data.name,
-            userId: res.data.id,
-            email: res.data.email,
-            imgUrl: res.data.imageUrl,
-            provider: res.data.provider,
-        };
-        console.log("in actions: " + userInfo.userName + " " + userInfo.email);
-        commit(types.SET_IS_LOGIN, true);
-        commit('setUserInfo', userInfo)
-    })
-        .catch(error => {
-            commit(types.SET_IS_LOGIN, false);
-            console.log('user not login');
-            console.log(error)
-        })
+    if (localStorage.getItem('authToken') != null) {
+        getUserInfo()
+            .then(res => {
+                let userInfo = {
+                    userName: res.data.name,
+                    userId: res.data.id,
+                    email: res.data.email,
+                    imgUrl: res.data.imageUrl,
+                    provider: res.data.provider,
+                };
+                console.log("in actions: " + userInfo.userName + " " + userInfo.email);
+                commit(types.SET_IS_LOGIN, true);
+                commit('setUserInfo', userInfo)
+            })
+            .catch(error => {
+                commit(types.SET_IS_LOGIN, false);
+                alert('使用者憑證過期，請重新登入');
+                localStorage.clear();
+                console.log('user not login');
+                console.log(error)
+            })
+    }
 };
 
 const actions = {

@@ -30,7 +30,7 @@ export default new VueRouter({
             component: Oauth2Redirect
         },
         {
-            path: '/UserInfo',
+            path: '/user/me',
             name: 'UserInfo',
             component: UserInfo
         },
