@@ -1,7 +1,10 @@
-const currentCount = state => state.count;
+const isLogin = state => state.isLogin;
+
+const userInfo = state => state.userInfo;
 
 const getters = {
-    currentCount,
-}
+    isLogin,
+    userInfo,
+};
 
 export default getters

@@ -1,5 +1,12 @@
 const state = {
-    count: 0
+    userInfo: {
+        userId: '',
+        userName: '',
+        imgUrl: '',
+        email: '',
+        provider: '',
+    },
+    isLogin: false,
 };
 
 export default state

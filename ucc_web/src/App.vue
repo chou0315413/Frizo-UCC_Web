@@ -5,8 +5,19 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
 
 export default {
+  methods:{
+    ...mapActions({
+      setUserInfo: 'auth/setUserInfo'
+    })
+  },
+
+  created() {
+    this.setUserInfo()
+  },
+
   name: 'App',
 }
 </script>
