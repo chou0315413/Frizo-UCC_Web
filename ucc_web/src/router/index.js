@@ -8,6 +8,7 @@ import Oauth2Redirect from "@/pages/Oauth2Redirect";
 import UserInfo from "@/components/UserInfo";
 import page404 from "@/pages/page404";
 import test from "@/components/test";
+import register from "@/pages/register";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ export default new VueRouter({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: register
         },
         {
             path: '/oauth2/redirect',
