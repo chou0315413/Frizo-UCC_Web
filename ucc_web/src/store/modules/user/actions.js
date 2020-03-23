@@ -17,7 +17,6 @@ const setUserInfo = function ({commit}) {
                 commit(types.SET_USER_INFO, userInfo)
             })
             .catch(error => {
-                alert(error.message);
                 alert('使用者憑證過期，請重新登入');
                 cleanAuthStore();
                 console.log('user not login');
