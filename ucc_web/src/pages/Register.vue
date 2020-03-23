@@ -15,14 +15,24 @@
               v-model="userEmail"
             />
           </div>
-          <div class="input-group input-group-sm logInDivPading mb-3 mt-4 inputBorder">
+          <div class="input-group input-group-sm logInDivPading mb-3 mt-5 inputBorder">
             <input
               type="password"
               id="userPassword"
               class="form-control textLetterSpacing"
-              placeholder="輸入您的密碼"
+              placeholder="輸入您欲設定的密碼"
               aria-describedby="inputGroup-sizing-sm"
               v-model="userPassword"
+            />
+          </div>
+          <div class="input-group input-group-sm logInDivPading mb-3 mt-4 inputBorder">
+            <input
+              type="password"
+              id="reUserPassword"
+              class="form-control textLetterSpacing"
+              placeholder="請重複輸入您設定的密碼"
+              aria-describedby="inputGroup-sizing-sm"
+              v-model="reUserPassword"
             />
           </div>
           <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
@@ -42,7 +52,8 @@ export default {
   data() {
     return {
       userEmail: "",
-      userPassword: ""
+      userPassword: "",
+      reUserPassword: ""
     };
   }
 };
