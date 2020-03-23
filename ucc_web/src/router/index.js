@@ -40,7 +40,7 @@ export default new VueRouter({
             path: '/user',
             name: 'user',
             component: resolve => require(['@/pages/User.vue'], resolve),
-            children:[
+            children: [
                 { path: 'info', component: resolve => require(['@/components/user/Info.vue'], resolve) }
             ]
         },
