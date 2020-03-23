@@ -2,9 +2,10 @@ import axios from 'axios'
 
 let baseUrl = 'http://localhost:8080'; // 這裡設定網站的 base-url
 
-function getAuthToken (){
-    let token = (localStorage.getItem('authToken'));
-    return token
+function getAuthorization (){
+    let tokenType = (localStorage.getItem('tokenType'));
+    let accessToken = (localStorage.getItem('accessToken'));
+    return `${tokenType} ${accessToken}`
 }
 
 export const postRequest = (url, params) => {
@@ -12,7 +13,7 @@ export const postRequest = (url, params) => {
         baseURL: baseUrl,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': getAuthToken(),
+            'Authorization': getAuthorization(),
         },
     });
     return userRequest.post(url, params)
@@ -46,7 +47,7 @@ export const getRequest = (url, params) => {
         baseURL: baseUrl,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': getAuthToken(),
+            'Authorization': getAuthorization(),
         },
     });
     return userRequest.get(url, params)

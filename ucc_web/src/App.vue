@@ -10,7 +10,7 @@
 export default {
   methods:{
     ...mapActions({
-      setUserInfo: 'auth/setUserInfo'
+      setUserInfo: 'user/setUserInfo'
     })
   },
 

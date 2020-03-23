@@ -1,19 +1,16 @@
 <template>
   <div class="Header">
-    <router-link to="/">Home</router-link>
-    <router-link to="/user/me">User Info</router-link>
-    <a href @click.prevent="logout">Logout</a>
+    <router-link to="/"> Home </router-link>
+
+    <router-link to="/user"> User </router-link>
+
+    <router-link to="/login"> Login </router-link>
   </div>
 </template>
 
 <script>
 export default {
   name: "Header",
-  methods: {
-    logout() {
-      this.$router.push("/login");
-    }
-  }
 };
 </script>
 

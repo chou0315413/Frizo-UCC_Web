@@ -17,32 +17,18 @@
 <script>
   import {mapGetters} from 'vuex'
 export default {
-  name: "UserInfo",
+  name: "Info",
   data() {
     return {
-      userName: "Steven Chou",
-      userId: 9527
     };
   },
 
   computed: {
     ...mapGetters({
-      userInfo: 'auth/userInfo',
-      isLogin: 'auth/isLogin'
+      userInfo: 'user/userInfo',
     })
   },
 
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      if (vm.isLogin){
-        console.log('is login ? ' + vm.isLogin);
-        vm.$router.push({ path: '/user/me'})
-      }else{
-        vm.$router.push({ path: '/'})
-      }
-    });
-
-  }
 };
 </script>
 
