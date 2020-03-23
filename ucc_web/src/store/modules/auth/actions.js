@@ -1,14 +1,12 @@
+import {setAuthorization, cleanAuthStore} from '@/utils/AuthStore'
+
 const login = async function ({dispatch}, {tokenType, accessToken}) {
-    localStorage.clear();
-    localStorage.setItem('tokenType', tokenType);
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('isLogin', true);
+    setAuthorization({tokenType, accessToken});
     await dispatch('user/setUserInfo', null, { root: true });
 };
 
 const logout = async function () {
-    localStorage.clear();
-    window.location.reload();
+    cleanAuthStore()
 };
 
 const actions = {
