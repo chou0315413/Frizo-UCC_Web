@@ -19,6 +19,12 @@ export default new VueRouter({
         },
 
         {
+            path: '/register',
+            name: 'register',
+            component: resolve => require(['@/pages/Register.vue'], resolve)
+        },
+
+        {
             path: '/oauth2/redirect',
             name: 'oauth2',
             component: resolve => require(['@/pages/Oauth2Redirect.vue'], resolve)
