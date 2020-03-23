@@ -1,10 +1,6 @@
 <template>
   <div class="LogIn">
     {{userInfo}}
-    <router-link to="/HomePage">
-      <button type="button" class="btn btn-primary">其他網站</button>
-    </router-link>
-
     <!-- Button trigger modal -->
     <button
       type="button"
@@ -72,23 +68,23 @@
 
 <script>
 import { signin } from "@/api/auth";
-import {mapActions, mapGetters} from "vuex";
-import jquery from 'jquery'
+import { mapActions, mapGetters } from "vuex";
+import jquery from "jquery";
 export default {
   data() {
     return {
-      email: '',
-      password: '',
-      token:{
-        tokenType: '',
-        accessToken: '',
-      },
+      email: "",
+      password: "",
+      token: {
+        tokenType: "",
+        accessToken: ""
+      }
     };
   },
 
   methods: {
-    closeModal () {
-      jquery('#Login').modal('toggle');
+    closeModal() {
+      jquery("#Login").modal("toggle");
     },
 
     login() {
@@ -104,7 +100,7 @@ export default {
           const token = this.token;
           this.storeToken(token);
           this.closeModal();
-          this.$router.push("/")
+          this.$router.push("/");
         })
         .catch(err => {
           console.log(err.message);
@@ -113,14 +109,13 @@ export default {
     },
 
     ...mapActions({
-      storeToken: 'auth/login'
+      storeToken: "auth/login"
     })
-
   },
 
   computed: {
     ...mapGetters({
-      userInfo: 'auth/userInfo'
+      userInfo: "auth/userInfo"
     })
   },
 
