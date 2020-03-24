@@ -148,9 +148,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .Navbar {
-  position: fixed;
+  position: relative;
   width: 100%;
-  top: 0px;
 }
 #bar-links {
   display: none;

@@ -2,12 +2,12 @@
   <div class="LogIn">
     {{userInfo}}
     <!-- Button trigger modal -->
-    <button
+    <!-- <button
       type="button"
       class="btn btn-primary"
       data-toggle="modal"
       data-target="#Login"
-    >Launch demo modal</button>
+    >Launch demo modal</button>-->
 
     <!-- Modal -->
     <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-hidden="true" ref="modal">

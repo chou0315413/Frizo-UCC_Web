@@ -12,7 +12,7 @@
         </b-nav-item>
       </b-navbar-nav>
 
-      <b-navbar-brand href="#">Student Club for NTUB</b-navbar-brand>
+      <b-navbar-brand href="#">Student Club for UCC</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -30,9 +30,10 @@
               size="sm"
               class="mr-sm-2"
               id="search_box"
-              value="Search"
-              onfocus="if(this.value='Search') this.value=''"
-              onblur="if(this.value='') this.value='Search'"
+              v-model="search"
+              :value="search"
+              @focus="searchOnfocus"
+              @blur="searchOnblur"
             ></b-form-input>
             <b-button size="sm" class="my-2 my-sm-0 mr-5" type="submit">
               <font-awesome-icon icon="search" size="lg" />
@@ -56,43 +57,108 @@
             <b-dropdown-item href="#">##</b-dropdown-item>
           </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown right>
-            <!-- User DropDown -->
-            <template v-slot:button-content>
-              <font-awesome-icon icon="user-circle" size="lg" />
-              <span class="nav-font">User</span>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign in</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>
+          <!-- UserLogin Button -->
+          <b-nav-item class="nav-item mr-2" href="#" data-toggle="modal" data-target="#Login">
+            <font-awesome-icon icon="user-circle" size="lg" />
+            <span class="nav-font">Login</span>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+    <Login></Login>
   </div>
 </template>
 
 <script>
+import Login from "@/components/Login";
+
+import { signin } from "@/api/auth";
+import { mapActions, mapGetters } from "vuex";
+import jquery from "jquery";
+
 export default {
   name: "Navbar",
+
+  data() {
+    return {
+      email: "",
+      password: "",
+      token: {
+        tokenType: "",
+        accessToken: ""
+      },
+      search: "Search"
+    };
+  },
+
+  components: {
+    Login
+  },
+
   methods: {
-    clickfunction: function() {
+    closeModal() {
+      jquery("#Login").modal("toggle");
+    },
+
+    login() {
+      var userInfo = {
+        email: this.email,
+        password: this.password
+      };
+      var jsonData = userInfo;
+      signin(jsonData)
+        .then(resp => {
+          this.token.tokenType = resp.data.tokenType;
+          this.token.accessToken = resp.data.accessToken;
+          const token = this.token;
+          this.storeToken(token);
+          this.closeModal();
+          this.$router.push("/");
+        })
+        .catch(err => {
+          console.log(err.message);
+          alert("抱歉，您輸入帳密有誤喔!");
+        });
+    },
+
+    ...mapActions({
+      storeToken: "auth/login"
+    }),
+
+    clickfunction() {
       var x = document.getElementById("bar-links");
       if (x.style.display == "none") {
         x.style.display = "block";
       } else {
         x.style.display = "none";
       }
+    },
+
+    // search的使用者友善
+    searchOnfocus() {
+      if (this.search === "Search") {
+        this.search = "";
+      }
+    },
+
+    searchOnblur() {
+      if (this.search === "") {
+        this.search = "Search";
+      }
     }
+  },
+  computed: {
+    ...mapGetters({
+      userInfo: "auth/userInfo"
+    })
   }
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .Navbar {
-  position: fixed;
+  position: relative;
   width: 100%;
-  top: 0px;
 }
 #bar-links {
   display: none;
