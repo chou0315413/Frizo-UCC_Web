@@ -1,91 +1,75 @@
 <template>
-  <div class="Navbar">
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-nav class="nav-menu">
-        <b-nav-item id="bar-links">
-          <a href="#">menu content</a>
-          <a href="#">menu content</a>
-          <a href="#">menu content</a>
-        </b-nav-item>
-        <b-nav-item class="icon" @click="clickfunction()">
-          <font-awesome-icon icon="bars" size="lg" />
-        </b-nav-item>
-      </b-navbar-nav>
+  <div>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#Login"
+    >Launch demo modal</button>
 
-      <b-navbar-brand href="#">Student Club for NTUB</b-navbar-brand>
-
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <!-- <b-navbar-nav>
-                <b-nav-item href="#">Link</b-nav-item>
-                <b-nav-item href="#" disabled>Disabled</b-nav-item>
-        </b-navbar-nav>-->
-
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <!-- Search Bar -->
-          <b-nav-form>
-            <b-form-input
-              size="sm"
-              class="mr-sm-2"
-              id="search_box"
-              value="Search"
-              onfocus="if(this.value='Search') this.value=''"
-              onblur="if(this.value='') this.value='Search'"
-            ></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0 mr-5" type="submit">
-              <font-awesome-icon icon="search" size="lg" />
-            </b-button>
-          </b-nav-form>
-
-          <!-- Chat Button -->
-          <b-nav-item class="nav-item mr-2" href="#">
-            <font-awesome-icon icon="comment" size="lg" />
-            <span class="nav-font">Chat</span>
-          </b-nav-item>
-          <!-- friend-list DropDown -->
-          <b-nav-item-dropdown right>
-            <template v-slot:button-content>
-              <font-awesome-icon icon="user-friends" size="lg" />
-              <span class="nav-font">Friends</span>
-            </template>
-            <b-dropdown-item href="#">##</b-dropdown-item>
-            <b-dropdown-item href="#">##</b-dropdown-item>
-            <b-dropdown-item href="#">##</b-dropdown-item>
-            <b-dropdown-item href="#">##</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right>
-            <!-- User DropDown -->
-            <template v-slot:button-content>
-              <font-awesome-icon icon="user-circle" size="lg" />
-              <span class="nav-font">User</span>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign in</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-    <Login></Login>
-    <div class="test"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-hidden="true" ref="modal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content logInDiv">
+          <div class="modal-body">
+            <h4 class="mt-3">歡迎回到UCC.</h4>
+            <h5>登入帳號開始享受UCC吧</h5>
+            <div class="input-group input-group-sm logInDivPading mb-3 mt-4 inputBorder">
+              <input
+                type="text"
+                class="form-control textLetterSpacing"
+                placeholder="輸入您的 E-mail 信箱"
+                aria-describedby="inputGroup-sizing-sm"
+                v-model="email"
+              />
+            </div>
+            <div class="input-group input-group-sm logInDivPading mb-3 mt-4 inputBorder">
+              <input
+                type="password"
+                class="form-control textLetterSpacing"
+                placeholder="輸入您的密碼"
+                aria-describedby="inputGroup-sizing-sm"
+                v-model="password"
+              />
+            </div>
+            <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
+            <h6 class="mb-3 mt-4">其他登入方式</h6>
+            <div class="logInWay">
+              <button type="button" class="btn btn-outline-secondary mb-2 btnWidth">
+                <a
+                  href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
+                >Google登入</a>
+              </button>
+              <br />
+              <button type="button" class="btn btn-outline-secondary mb-3 btnWidth">
+                <a
+                  href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect"
+                >Facebook登入</a>
+              </button>
+            </div>
+            <h6 class="mt-3">
+              沒有帳號嗎?
+              <span>
+                <a href="#">註冊</a>
+              </span>
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Login from "@/components/Login";
-
 import { signin } from "@/api/auth";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import jquery from "jquery";
-
 export default {
-  name: "Navbar",
-
   data() {
     return {
+      dialogVisible: false,
+      onLoading: "true",
+      isLoading: "false",
       email: "",
       password: "",
       token: {
@@ -95,16 +79,13 @@ export default {
     };
   },
 
-  components: {
-    Login
-  },
-
   methods: {
     closeModal() {
       jquery("#Login").modal("toggle");
     },
 
     login() {
+      this.isLoading = "true";
       var userInfo = {
         email: this.email,
         password: this.password
@@ -127,50 +108,49 @@ export default {
 
     ...mapActions({
       storeToken: "auth/login"
-    }),
-
-    clickfunction: function() {
-      var x = document.getElementById("bar-links");
-      if (x.style.display == "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    }
-  },
-  computed: {
-    ...mapGetters({
-      userInfo: "auth/userInfo"
     })
-  }
+  },
+
+  name: "LogIn"
 };
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-.Navbar {
-  position: relative;
-  width: 100%;
-}
-#bar-links {
-  display: none;
-}
-.nav-menu {
-  margin-right: 5px;
-}
-.nav-menu a {
-  display: block;
-}
-.nav-menu a.icon {
-  display: block;
-  color: white;
+.logInDiv {
+  height: 500px;
+  background-image: url(../assets/signInBackground/login.jpg);
+  background-size: cover;
 }
 
-.modal-backdrop {
-  z-index: -1;
-}
-.test {
+.logInDivPading {
   position: relative;
-  height: 2000px;
-  background-color: aqua;
+  margin: auto;
+  width: 350px;
+}
+
+.inputBorder {
+  border: 1px #747474 solid;
+}
+
+.textLetterSpacing {
+  letter-spacing: 1px;
+}
+
+.centerPadding {
+  position: relative;
+  margin: auto;
+  text-align: center;
+  width: 300px;
+}
+
+.logInWay button {
+  position: relative;
+  width: 220px;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+.btnWidth {
+  width: 200px;
 }
 </style>
