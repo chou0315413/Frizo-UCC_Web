@@ -1,16 +1,15 @@
 <template>
   <div class="Header">
-    <router-link to="/"> Home </router-link>
+    <router-link to="/">Home</router-link>
 
-    <router-link to="/user"> User </router-link>
-
-    <router-link to="/login"> Login </router-link>
+    <router-link to="/user">User</router-link>--Login已在Navbar裡完成--
+    <!-- <router-link to="/login"> Login </router-link> -->
   </div>
 </template>
 
 <script>
 export default {
-  name: "Header",
+  name: "Header"
 };
 </script>
 

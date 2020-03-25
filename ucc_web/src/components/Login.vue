@@ -1,23 +1,11 @@
 <template>
-  <div class="LogIn">
-    <router-link to="/HomePage">
-      <button type="button" class="btn btn-primary">其他網站</button>
-    </router-link>
-
-    <!-- Button trigger modal -->
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#Login"
-    >Launch demo modal</button>
-
+  <div>
     <!-- Modal -->
     <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-hidden="true" ref="modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content logInDiv">
           <div class="modal-body">
-            <h4>歡迎回到UCC.</h4>
+            <h4 class="mt-3">歡迎回到UCC.</h4>
             <h5>登入帳號開始享受UCC吧</h5>
             <div class="input-group input-group-sm logInDivPading mb-3 mt-4 inputBorder">
               <input
@@ -37,10 +25,8 @@
                 v-model="password"
               />
             </div>
-            <div class="centerPadding mb-3">
-              <button type="submit" class="btn btn-link" id="dataConfirm" @click="login">登入</button>
-            </div>
-            <h6 class="mb-3">其他登入方式</h6>
+            <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
+            <h6 class="mb-3 mt-4">其他登入方式</h6>
             <div class="logInWay">
               <button type="button" class="btn btn-outline-secondary mb-2 btnWidth">
                 <a
@@ -48,13 +34,11 @@
                 >Google登入</a>
               </button>
               <br />
-              <button type="button" class="btn btn-outline-secondary mb-2 btnWidth">
+              <button type="button" class="btn btn-outline-secondary mb-3 btnWidth">
                 <a
                   href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect"
                 >Facebook登入</a>
               </button>
-              <br />
-              <button type="button" class="btn btn-outline-secondary btnWidth">E-mail 登入</button>
             </div>
             <h6 class="mt-3">
               沒有帳號嗎?
@@ -71,26 +55,30 @@
 
 <script>
 import { signin } from "@/api/auth";
-import {mapActions} from "vuex";
-import jquery from 'jquery'
+import { mapActions } from "vuex";
+import jquery from "jquery";
 export default {
   data() {
     return {
-      email: '',
-      password: '',
-      token:{
-        tokenType: '',
-        accessToken: '',
-      },
+      dialogVisible: false,
+      onLoading: "true",
+      isLoading: "false",
+      email: "",
+      password: "",
+      token: {
+        tokenType: "",
+        accessToken: ""
+      }
     };
   },
 
   methods: {
-    closeModal () {
-      jquery('#Login').modal('toggle');
+    closeModal() {
+      jquery("#Login").modal("toggle");
     },
 
     login() {
+      this.isLoading = "true";
       var userInfo = {
         email: this.email,
         password: this.password
@@ -103,7 +91,7 @@ export default {
           const token = this.token;
           this.storeToken(token);
           this.closeModal();
-          this.$router.push("/")
+          this.$router.push("/");
         })
         .catch(err => {
           console.log(err.message);
@@ -112,16 +100,14 @@ export default {
     },
 
     ...mapActions({
-      storeToken: 'auth/login'
+      storeToken: "auth/login"
     })
-
   },
 
   name: "LogIn"
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .logInDiv {
   height: 500px;
