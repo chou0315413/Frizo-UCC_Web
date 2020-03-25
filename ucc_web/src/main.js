@@ -14,6 +14,11 @@ library.add(faComment, faUserCircle, faUserFriends, faBars, faSearch)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 // 結束
 
+//ElementUI
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
