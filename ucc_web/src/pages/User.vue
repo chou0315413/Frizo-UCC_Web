@@ -21,6 +21,7 @@
 
 <script>
     import {mapActions} from "vuex";
+    import {authenticated} from "@/utils/AuthStore";
 
     export default {
         name: "User",
@@ -32,7 +33,7 @@
         },
 
         beforeRouteEnter (to, from, next) {
-            if (localStorage.getItem("isLogin")){
+            if (authenticated()){
                 next()
             }else{
                 next('/')

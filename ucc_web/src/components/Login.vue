@@ -1,6 +1,9 @@
 <template>
   <div class="LogIn">
-    {{userInfo}}
+    <router-link to="/HomePage">
+      <button type="button" class="btn btn-primary">其他網站</button>
+    </router-link>
+
     <!-- Button trigger modal -->
     <!-- <button
       type="button"
@@ -68,7 +71,7 @@
 
 <script>
 import { signin } from "@/api/auth";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import jquery from "jquery";
 export default {
   data() {
@@ -110,12 +113,6 @@ export default {
 
     ...mapActions({
       storeToken: "auth/login"
-    })
-  },
-
-  computed: {
-    ...mapGetters({
-      userInfo: "auth/userInfo"
     })
   },
 

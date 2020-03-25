@@ -1,8 +1,9 @@
 import * as types from './mutation-types'
-import {getUserInfo} from "../../../api/user";
+import {getUserInfo} from "@/api/user";
+import {authenticated, cleanAuthStore} from "@/utils/AuthStore";
 
 const setUserInfo = function ({commit}) {
-    if (localStorage.getItem('isLogin')) {
+    if (authenticated()) {
         getUserInfo()
             .then(res => {
                 let userInfo = {
@@ -17,7 +18,7 @@ const setUserInfo = function ({commit}) {
             })
             .catch(error => {
                 alert('使用者憑證過期，請重新登入');
-                localStorage.clear();
+                cleanAuthStore();
                 console.log('user not login');
                 console.log(error)
             })
