@@ -28,17 +28,17 @@
             <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
             <h6 class="mb-3 mt-4">其他登入方式</h6>
             <div class="logInWay">
-              <button type="button" class="btn btn-outline-secondary mb-2 btnWidth">
-                <a
-                  href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
-                >Google登入</a>
-              </button>
+              <a
+                href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
+              >
+                <button type="button" class="btn btn-outline-secondary mb-2 btnWidth">Google登入</button>
+              </a>
               <br />
-              <button type="button" class="btn btn-outline-secondary mb-3 btnWidth">
-                <a
-                  href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect"
-                >Facebook登入</a>
-              </button>
+              <a
+                href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect"
+              >
+                <button type="button" class="btn btn-outline-secondary mb-3 btnWidth">Facebook登入</button>
+              </a>
             </div>
             <h6 class="mt-3">
               沒有帳號嗎?
