@@ -7,24 +7,27 @@
           <div class="modal-body">
             <h4 class="mt-3">歡迎回到UCC.</h4>
             <h5>登入帳號開始享受UCC吧</h5>
-            <div class="input-group input-group-sm logInDivPading mb-3 mt-4 inputBorder">
+            <div class="input-group input-group-sm logInDivPading mb-3 mt-4">
               <input
                 type="text"
+                :class="{inputError : inputIsError}"
                 class="form-control textLetterSpacing"
                 placeholder="輸入您的 E-mail 信箱"
                 aria-describedby="inputGroup-sizing-sm"
                 v-model="email"
               />
             </div>
-            <div class="input-group input-group-sm logInDivPading mb-3 mt-4 inputBorder">
+            <div class="input-group input-group-sm logInDivPading mt-4">
               <input
                 type="password"
+                :class="{inputError : inputIsError}"
                 class="form-control textLetterSpacing"
                 placeholder="輸入您的密碼"
                 aria-describedby="inputGroup-sizing-sm"
                 v-model="password"
               />
             </div>
+            <div class="alertDiv mb-3">{{alertDiv.alertText}}</div>
             <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
             <h6 class="mb-3 mt-4">其他登入方式</h6>
             <div class="logInWay">
@@ -68,7 +71,11 @@ export default {
       token: {
         tokenType: "",
         accessToken: ""
-      }
+      },
+      alertDiv: {
+        alertText: ""
+      },
+      inputIsError: false
     };
   },
 
@@ -95,7 +102,14 @@ export default {
         })
         .catch(err => {
           console.log(err.message);
-          alert("抱歉，您輸入帳密有誤喔!");
+          this.isLoading = "false";
+          if ((this.email === "") & (this.password === "")) {
+            this.inputIsError = true;
+            this.alertDiv.alertText = "抱歉，信箱帳號及密碼必須輸入。";
+          } else {
+            this.alertDiv.alertText =
+              "抱歉，您輸入帳密有誤，請重新確認帳號密碼。";
+          }
         });
     },
 
@@ -120,10 +134,10 @@ export default {
   margin: auto;
   width: 350px;
 }
-
+/* 
 .inputBorder {
   border: 1px #747474 solid;
-}
+} */
 
 .textLetterSpacing {
   letter-spacing: 1px;
@@ -145,5 +159,17 @@ export default {
 
 .btnWidth {
   width: 200px;
+}
+
+.alertDiv {
+  position: relative;
+  font-size: 10px;
+  color: red;
+  font-weight: bold;
+  left: 80px;
+}
+
+.inputError {
+  background-color: #ffc4c4;
 }
 </style>

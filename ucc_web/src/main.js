@@ -6,7 +6,7 @@ import 'bootstrap'; // Import js file
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import css file
 import BootstrapVue from 'bootstrap-vue'
 
-// 為了加入fontawesome icon 所import -- From Eric
+// 為了加入fontawesome icon 所import
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faComment, faUserCircle, faUserFriends, faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -28,4 +28,3 @@ new Vue({
   store,
   render: h => h(App),
 }).$mount('#app');
-
