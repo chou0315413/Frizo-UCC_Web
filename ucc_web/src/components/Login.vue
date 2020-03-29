@@ -134,10 +134,6 @@ export default {
   margin: auto;
   width: 350px;
 }
-/* 
-.inputBorder {
-  border: 1px #747474 solid;
-} */
 
 .textLetterSpacing {
   letter-spacing: 1px;
