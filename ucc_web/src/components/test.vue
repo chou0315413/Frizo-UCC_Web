@@ -1,156 +1,344 @@
 <template>
-  <div>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#Login"
-    >Launch demo modal</button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-hidden="true" ref="modal">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content logInDiv">
-          <div class="modal-body">
-            <h4 class="mt-3">歡迎回到UCC.</h4>
-            <h5>登入帳號開始享受UCC吧</h5>
-            <div class="input-group input-group-sm logInDivPading mb-3 mt-4 inputBorder">
-              <input
-                type="text"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您的 E-mail 信箱"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="email"
-              />
+  <div class="info">
+    <Navbar></Navbar>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 sideBar"></div>
+        <div class="col-lg-9 userinfo">
+          <div class="photoGroup">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="userBackgroundPhoto">
+                  <el-image :src="src" class="PhotoSize"></el-image>
+                </div>
+              </div>
             </div>
-            <div class="input-group input-group-sm logInDivPading mb-3 mt-4 inputBorder">
-              <input
-                type="password"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您的密碼"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="password"
-              />
+            <div class="row marginTop-100px">
+              <div class="col-lg-3 userPhoto">
+                <el-avatar :size="130" :src="circleUrl"></el-avatar>
+              </div>
             </div>
-            <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
-            <h6 class="mb-3 mt-4">其他登入方式</h6>
-            <div class="logInWay">
-              <button type="button" class="btn btn-outline-secondary mb-2 btnWidth">
-                <a
-                  href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
-                >Google登入</a>
-              </button>
-              <br />
-              <button type="button" class="btn btn-outline-secondary mb-3 btnWidth">
-                <a
-                  href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect"
-                >Facebook登入</a>
-              </button>
+            <div class="row photoBtn">
+              <div class="col-lg-4">
+                <el-upload
+                  class="upload-demo"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove"
+                  :before-remove="beforeRemove"
+                  multiple
+                  :limit="1"
+                  :on-exceed="handleExceed"
+                  :file-list="fileList"
+                >
+                  <el-button size="small" type="primary">上傳大頭貼</el-button>
+                </el-upload>
+              </div>
+              <div class="col-lg-8">
+                <el-upload
+                  class="upload-demo mr-1"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :on-preview="handlePreview"
+                  :on-remove="handleRemove"
+                  :before-remove="beforeRemove"
+                  multiple
+                  :limit="1"
+                  :on-exceed="handleExceed"
+                  :file-list="fileList"
+                >
+                  <el-button size="small" type="primary">上傳背景照片</el-button>
+                </el-upload>
+              </div>
             </div>
-            <h6 class="mt-3">
-              沒有帳號嗎?
-              <span>
-                <a href="#">註冊</a>
-              </span>
-            </h6>
+          </div>
+          <div class="row infoBar">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+              <div class="inputGroup">
+                <div class="inputItem">
+                  <div class="row">
+                    <div class="col-lg-9">
+                      <el-input placeholder="請輸入您的暱稱" v-model="userInfoGroup.name">
+                        <template slot="prepend">暱稱</template>
+                      </el-input>
+                    </div>
+                    <div class="col-lg-3">
+                      <el-select v-model="userInfoGroup.sex" placeholder="性別">
+                        <el-option
+                          v-for="item in sexOptions"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                        ></el-option>
+                      </el-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="inputItem">
+                  <el-input placeholder="請輸入您的電子信箱" v-model="userInfoGroup.Email">
+                    <template slot="prepend">信箱</template>
+                  </el-input>
+                </div>
+                <h6 class="textTitle">連絡電話及住址</h6>
+                <div class="inputItem">
+                  <el-input placeholder="請輸入您的連絡電話" v-model="userInfoGroup.phoneNumber">
+                    <template slot="prepend">電話</template>
+                  </el-input>
+                </div>
+                <div class="inputItem">
+                  <el-input placeholder="請輸入您的聯絡地址" v-model="userInfoGroup.address">
+                    <template slot="prepend">地址</template>
+                  </el-input>
+                </div>
+                <h6 class="textTitle">您的大學資訊</h6>
+                <div class="inputItem">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <el-select v-model="userInfoGroup.schoolCounty" placeholder="縣市">
+                        <el-option
+                          v-for="item in countyOptions"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                        ></el-option>
+                      </el-select>
+                    </div>
+                    <div class="col-lg-9">
+                      <el-input placeholder="請輸入您的學校名稱" v-model="userInfoGroup.schoolName">
+                        <template slot="prepend">學校</template>
+                      </el-input>
+                    </div>
+                  </div>
+                </div>
+                <div class="inputItem">
+                  <div class="row">
+                    <div class="col-lg-9">
+                      <el-input placeholder="請輸入您的科系名稱" v-model="userInfoGroup.department">
+                        <template slot="prepend">科系</template>
+                      </el-input>
+                    </div>
+                    <div class="col-lg-3">
+                      <el-select v-model="userInfoGroup.grade" placeholder="年級">
+                        <el-option
+                          v-for="item in gradeOptions"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                        ></el-option>
+                      </el-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <button style="margin-top:50px;" @click="$router.push('/user/info')">個人資料</button>
+    <br />
+    <br />
+    <button>網站設定</button>
+    <br />
+    <br />
+    <button>etc..</button>
+    <br />
+    <br />
+    <button @click.prevent="logout">登出</button>
+    <br />
+    <br />
+    <router-view />
   </div>
 </template>
 
 <script>
-import { signin } from "@/api/auth";
 import { mapActions } from "vuex";
-import jquery from "jquery";
+import { authenticated } from "@/utils/AuthStore";
+import Navbar from "@/components/Navbar";
+
 export default {
+  name: "User",
+
   data() {
     return {
-      dialogVisible: false,
-      onLoading: "true",
-      isLoading: "false",
-      email: "",
-      password: "",
-      token: {
-        tokenType: "",
-        accessToken: ""
-      }
+      src:
+        "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
+
+      circleUrl:
+        "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+
+      userInfoGroup: {
+        name: "",
+        Email: "",
+        phoneNumber: "",
+        address: "",
+        sex: "",
+        schoolCounty: "",
+        schoolName: "",
+        department: "",
+        grade: ""
+      },
+
+      sexOptions: [
+        {
+          value: "選項1",
+          label: "男"
+        },
+        {
+          value: "選項2",
+          label: "女"
+        }
+      ],
+
+      countyOptions: [
+        {
+          value: "選項1",
+          label: "台北市"
+        },
+        {
+          value: "選項2",
+          label: "新北市"
+        },
+        {
+          value: "選項3",
+          label: "基隆市"
+        }
+      ],
+
+      gradeOptions: [
+        {
+          value: "選項1",
+          label: "四技一"
+        },
+        {
+          value: "選項2",
+          label: "四技二"
+        },
+        {
+          value: "選項3",
+          label: "四技三"
+        },
+        {
+          value: "選項4",
+          label: "四技四"
+        },
+        {
+          value: "選項5",
+          label: "二技一"
+        },
+        {
+          value: "選項6",
+          label: "二技二"
+        },
+        {
+          value: "選項7",
+          label: "五專一"
+        },
+        {
+          value: "選項8",
+          label: "五專二"
+        },
+        {
+          value: "選項9",
+          label: "五專三"
+        },
+        {
+          value: "選項10",
+          label: "五專四"
+        },
+        {
+          value: "選項11",
+          label: "五專五"
+        },
+        {
+          value: "選項12",
+          label: "研究一"
+        },
+        {
+          value: "選項13",
+          label: "研究二"
+        }
+      ]
     };
   },
 
+  components: {
+    Navbar
+  },
+
   methods: {
-    closeModal() {
-      jquery("#Login").modal("toggle");
-    },
-
-    login() {
-      this.isLoading = "true";
-      var userInfo = {
-        email: this.email,
-        password: this.password
-      };
-      var jsonData = userInfo;
-      signin(jsonData)
-        .then(resp => {
-          this.token.tokenType = resp.data.tokenType;
-          this.token.accessToken = resp.data.accessToken;
-          const token = this.token;
-          this.storeToken(token);
-          this.closeModal();
-          this.$router.push("/");
-        })
-        .catch(err => {
-          console.log(err.message);
-          alert("抱歉，您輸入帳密有誤喔!");
-        });
-    },
-
     ...mapActions({
-      storeToken: "auth/login"
+      logout: "auth/logout"
     })
   },
 
-  name: "LogIn"
+  beforeRouteEnter(to, from, next) {
+    if (authenticated()) {
+      next();
+    } else {
+      next("/");
+    }
+  }
 };
 </script>
 
 <style scoped>
-.logInDiv {
-  height: 500px;
-  background-image: url(../assets/signInBackground/login.jpg);
-  background-size: cover;
+.info {
+  background-color: #eeeeee;
 }
 
-.logInDivPading {
+.userBackgroundPhoto {
+  height: 200px;
+  margin-top: 15px;
+  margin-left: 0px;
+}
+
+.PhotoSize {
+  height: 100%;
+}
+
+.marginTop-100px {
+  margin-top: -100px;
+}
+
+.photoBtn {
+  text-align: right;
+  margin-top: -70px;
+}
+
+.infoBar {
   position: relative;
-  margin: auto;
-  width: 350px;
+  top: 40px;
+  height: 450px;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 0px 1px #000000;
+  width: 100%;
+  background-color: #ffffff;
 }
 
-.inputBorder {
-  border: 1px #747474 solid;
-}
-
-.textLetterSpacing {
-  letter-spacing: 1px;
-}
-
-.centerPadding {
+.photoGroup {
   position: relative;
-  margin: auto;
-  text-align: center;
-  width: 300px;
+  left: -15px;
 }
 
-.logInWay button {
+.inputGroup {
   position: relative;
-  width: 220px;
-  margin: auto;
-  margin-bottom: 5px;
 }
 
-.btnWidth {
-  width: 200px;
+.inputItem {
+  margin-top: 15px;
+}
+
+.el-select .el-input {
+  width: 130px;
+}
+
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
+
+.textTitle {
+  margin-top: 25px;
+  text-align: left;
 }
 </style>
