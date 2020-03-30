@@ -33,12 +33,9 @@
         </el-menu-item>
       </div>
     </el-menu>
-    <Login></Login>
   </div>
 </template>  
 <script>
-import Login from "@/components/Login";
-
 export default {
   name: "Navbar",
 
@@ -54,10 +51,6 @@ export default {
       activeIndex: "1",
       activeIndex2: "1"
     };
-  },
-
-  components: {
-    Login
   },
 
   methods: {
