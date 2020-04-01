@@ -1,6 +1,7 @@
 <template>
   <div class="HomePage">
     <Navbar></Navbar>
+    <menubar></menubar>
     <nav-header></nav-header>
     <Banner></Banner>
     <ContentList></ContentList>
@@ -14,6 +15,7 @@
 import NavHeader from "@/components/NavHeader";
 import ContentList from "@/components/ContentList";
 import Navbar from "@/components/Navbar";
+import Menubar from "@/components/Menubar";
 import Banner from "@/components/Banner";
 import Login from "@/components/Login";
 import register from "@/components/Register";
@@ -24,6 +26,7 @@ export default {
     NavHeader,
     ContentList,
     Navbar,
+    Menubar,
     Banner,
     Login,
     register
