@@ -1,6 +1,7 @@
 <template>
   <div class="info">
     <Navbar></Navbar>
+    <menubar></menubar>
     <div class="container">
       <div class="row">
         <div class="col-lg-3 sideBar"></div>
@@ -155,6 +156,7 @@
 import { mapActions } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
 import Navbar from "@/components/Navbar";
+import Menubar from "@/components/Menubar";
 
 export default {
   name: "User",
@@ -263,7 +265,8 @@ export default {
   },
 
   components: {
-    Navbar
+    Navbar,
+    Menubar
   },
 
   methods: {
