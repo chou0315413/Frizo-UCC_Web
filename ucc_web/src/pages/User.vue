@@ -16,7 +16,7 @@
             </div>
             <div class="row marginTop-100px">
               <div class="col-lg-3 userPhoto">
-                <el-avatar :size="130" :src="circleUrl"></el-avatar>
+                <el-avatar :size="130" :src="userInfo.imgUrl"></el-avatar>
               </div>
             </div>
             <div class="row photoBtn">
@@ -59,7 +59,7 @@
                 <div class="inputItem">
                   <div class="row">
                     <div class="col-lg-9">
-                      <el-input placeholder="請輸入您的暱稱" v-model="userInfoGroup.name">
+                      <el-input placeholder="請輸入您的暱稱" v-model="userInfo.userName">
                         <template slot="prepend">暱稱</template>
                       </el-input>
                     </div>
@@ -76,7 +76,7 @@
                   </div>
                 </div>
                 <div class="inputItem">
-                  <el-input placeholder="請輸入您的電子信箱" v-model="userInfoGroup.Email">
+                  <el-input placeholder="請輸入您的電子信箱" v-model="userInfo.email">
                     <template slot="prepend">信箱</template>
                   </el-input>
                 </div>
@@ -153,7 +153,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters} from "vuex";
 import { authenticated } from "@/utils/AuthStore";
 import Navbar from "@/components/Navbar";
 import Menubar from "@/components/Menubar";
@@ -272,6 +272,12 @@ export default {
   methods: {
     ...mapActions({
       logout: "auth/logout"
+    })
+  },
+
+  computed: {
+    ...mapGetters({
+      userInfo: "user/userInfo"
     })
   },
 

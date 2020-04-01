@@ -33,6 +33,7 @@ export default new VueRouter({
         {
             path: '/user',
             name: 'user',
+            redirect: '/',
             component: resolve => require(['@/pages/User.vue'], resolve),
             children: [
                 { path: 'info', component: resolve => require(['@/components/user/Info.vue'], resolve) }
