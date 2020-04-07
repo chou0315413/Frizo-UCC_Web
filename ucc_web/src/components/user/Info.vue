@@ -13,8 +13,7 @@
             </div>
             <div class="row marginTop-100px">
               <div class="col-lg-3 userPhoto">
-                <el-avatar :size="130
-                " :src="userInfo.imgUrl"></el-avatar>
+                <el-avatar :size="130" :src="userInfo.imgUrl"></el-avatar>
               </div>
             </div>
             <div class="row photoBtn">

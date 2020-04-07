@@ -64,6 +64,7 @@
 </template>
 
 <script>
+  import {signup} from '@/api/auth'
 export default {
   name: "register",
 
@@ -78,8 +79,24 @@ export default {
   },
 
   methods: {
+    signup,
+
     register() {
       this.isClick = true;
+      let userInfo = {
+        name: this.userName,
+        email: this.userEmail,
+        password: this.userPassword
+      }
+      this.signup(userInfo)
+              .then(resp => {
+                alert("註冊成功!");
+                console.log(resp.data)
+              })
+              .catch(err => {
+                console.log(err)
+              });
+      this.isClick = false;
     }
   }
 };

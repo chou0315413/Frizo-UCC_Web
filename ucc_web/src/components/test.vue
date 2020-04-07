@@ -1,130 +1,34 @@
 <template>
-  <div>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#register"
-    >Launch demo modal</button>
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="register"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-      ref="modal"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content registerDiv">
-          <div class="modal-body">
-            <h4>歡迎註冊UCC帳號</h4>
-            <div class="input-group input-group-sm registerDivPading mt-4 inputBorder">
-              <input
-                type="text"
-                id="userName"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您的稱謂"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="userName"
-              />
-            </div>
-            <div class="input-group input-group-sm registerDivPading mt-4 inputBorder">
-              <input
-                type="text"
-                id="userEmail"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您的 E-mail 信箱"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="userEmail"
-              />
-            </div>
-            <div class="input-group input-group-sm registerDivPading mb-3 mt-5 inputBorder">
-              <input
-                type="password"
-                id="userPassword"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您欲設定的密碼"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="userPassword"
-              />
-            </div>
-            <div class="input-group input-group-sm registerDivPading mb-3 mt-4 inputBorder">
-              <input
-                type="password"
-                id="reUserPassword"
-                class="form-control textLetterSpacing"
-                placeholder="請重複輸入您設定的密碼"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="reUserPassword"
-              />
-            </div>
-            <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
-            <div class="registerBtn">
-              <el-button type="primary" round :loading="isClick===true" @click="register">註冊</el-button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div>
+  <h1>Test Page</h1>
+  <label>驗證碼</label>
+  <input type="text" v-model="verifyCode">
+  <button @click="sendVerifyCodeEmail">寄信</button>
+  <button @click="sendCode">送出</button>
+</div>
 </template>
 
 <script>
+  import {sendVerifyCodeEmail, checkVerifyCodeEmail} from '@/api/user'
 export default {
   data() {
     return {
-      userName: "",
-      userEmail: "",
-      userPassword: "",
-      reUserPassword: "",
-      isClick: false
-    };
-  },
-
-  methods: {
-    register() {
-      this.isClick = true;
+      verifyCode: ''
     }
   },
 
-  name: "register"
-};
+  methods: {
+    sendVerifyCodeEmail,
+    checkVerifyCodeEmail,
+    sendCode () {
+      this.checkVerifyCodeEmail(this.verifyCode)
+              .then(resp => {
+                console.log(resp.data)
+              })
+              .catch(err => {
+                console.log(err)
+              })
+    }
+  }
+}
 </script>
-
-<style scoped>
-.registerDiv {
-  height: 500px;
-  background-image: url(../assets/signInBackground/login.jpg);
-  background-size: cover;
-}
-
-.registerDivPading {
-  position: relative;
-  margin: auto;
-  width: 350px;
-}
-
-.textLetterSpacing {
-  letter-spacing: 1px;
-}
-
-h4 {
-  margin-top: 30px;
-  margin-bottom: 50px;
-}
-
-.inputBorder {
-  border: 1px #747474 solid;
-}
-
-.notice {
-  position: relative;
-  font-size: 10px;
-  left: 80px;
-}
-
-.registerBtn {
-  margin-top: 25px;
-}
-</style>
