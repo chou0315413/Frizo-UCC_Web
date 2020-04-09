@@ -64,7 +64,7 @@
 </template>
 
 <script>
-  import {signup} from '@/api/auth'
+import { signup } from "@/api/auth";
 export default {
   name: "register",
 
@@ -87,15 +87,16 @@ export default {
         name: this.userName,
         email: this.userEmail,
         password: this.userPassword
-      }
+      };
       this.signup(userInfo)
-              .then(resp => {
-                alert("註冊成功!");
-                console.log(resp.data)
-              })
-              .catch(err => {
-                console.log(err)
-              });
+        .then(resp => {
+          alert("註冊成功!");
+          console.log(resp.data);
+          location.reload();
+        })
+        .catch(err => {
+          console.log(err);
+        });
       this.isClick = false;
     }
   }
