@@ -135,7 +135,6 @@ export default {
 <style scoped>
 .logInDiv {
   height: 500px;
-  background-color: #eeeeee;
   background-image: url(../assets/signInBackground/login.jpg);
   background-size: cover;
 }
