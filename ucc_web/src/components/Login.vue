@@ -58,6 +58,7 @@
 
 <script>
 import { signin } from "@/api/auth";
+// import { authenticated } from "@/utils/AuthStore";
 import { mapActions } from "vuex";
 import jquery from "jquery";
 
@@ -99,7 +100,7 @@ export default {
           const token = this.token;
           this.storeToken(token);
           this.closeModal();
-          this.$router.push("/");
+          location.reload();
         })
         .catch(err => {
           console.log(err.message);
@@ -119,6 +120,14 @@ export default {
     })
   },
 
+  // mounted() {
+  //   if (authenticated()) {
+  //     this.loginState = true;
+  //   } else {
+  //     this.loginState = false;
+  //   }
+  // },
+
   name: "LogIn"
 };
 </script>
@@ -126,6 +135,7 @@ export default {
 <style scoped>
 .logInDiv {
   height: 500px;
+  background-color: #eeeeee;
   background-image: url(../assets/signInBackground/login.jpg);
   background-size: cover;
 }
