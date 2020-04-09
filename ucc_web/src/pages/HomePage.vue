@@ -4,7 +4,7 @@
     <menubar></menubar>
     <Banner></Banner>
     <ContentList></ContentList>
-    <router-link to="/store">到 Store 測試頁</router-link>
+    <!-- <router-link to="/store">到 Store 測試頁</router-link> -->
   </div>
 </template>
 

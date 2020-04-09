@@ -8,12 +8,7 @@
         <el-radio-button :label="true" v-show="!isCollapse">收起</el-radio-button>
       </div>
     </el-radio-group>
-
-    <el-menu
-      default-active="1"
-      class="el-menu-vertical-demo"
-      :collapse="isCollapse"
-    >
+    <el-menu default-active="1" class="el-menu-vertical-demo" :collapse="isCollapse">
       <el-menu-item index="1">
         <a href="https://google.com">
           <img
@@ -66,9 +61,9 @@
 export default {
   data() {
     return {
-      isCollapse: true,
+      isCollapse: true
     };
-  },
+  }
 };
 </script>
 
