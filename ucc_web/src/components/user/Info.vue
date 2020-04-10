@@ -127,6 +127,15 @@
                     </div>
                   </div>
                 </div>
+                <div class="inputItem">
+                  <div class="row">
+                    <div class="col-lg"></div>
+                    <div class="col-lg-2">
+                      <el-button type="primary" round>更新</el-button>
+                    </div>
+                    <div class="col-lg"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -267,7 +276,7 @@ export default {
 <style scoped>
 .info {
   background-color: #eeeeee;
-  height: 750px;
+  height: 780px;
 }
 
 .userBackgroundPhoto {
@@ -292,7 +301,7 @@ export default {
 .infoBar {
   position: relative;
   top: 40px;
-  height: 450px;
+  height: 500px;
   border: 1px solid #dddddd;
   box-shadow: 0px 0px 1px #000000;
   width: 100%;
