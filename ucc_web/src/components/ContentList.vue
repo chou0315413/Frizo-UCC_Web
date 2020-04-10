@@ -13,7 +13,19 @@
         </li>
       </ol>
     </nav>-->
-
+    <div class="selectList">
+      <el-radio-group v-model="radio" @change="changeList">
+        <el-radio :label="1">
+          <b>熱門活動</b>
+        </el-radio>
+        <el-radio :label="2">
+          <b>最新活動</b>
+        </el-radio>
+        <el-radio :label="3">
+          <b>追蹤活動</b>
+        </el-radio>
+      </el-radio-group>
+    </div>
     <keep-alive>
       <component :is="listPrint"></component>
     </keep-alive>
@@ -48,22 +60,45 @@
 </template>
 
 <script>
-// import hotList from "@/components/listGroup/hotList";
-// import newList from "@/components/listGroup/newList";
+import hotList from "@/components/listGroup/hotList";
+import newList from "@/components/listGroup/newList";
 import followList from "@/components/listGroup/followList";
 
 export default {
   name: "ContentList",
+
   components: {
-    // hotList,
-    // newList,
+    hotList,
+    newList,
     followList
   },
+
   data() {
     return {
-      listPrint: "followList"
+      listPrint: "hotList",
+      radio: 1
     };
+  },
+
+  methods: {
+    changeList(val) {
+      if (val == 1) {
+        this.listPrint = "hotList";
+      } else if (val == 2) {
+        this.listPrint = "newList";
+      } else if (val == 3) {
+        this.listPrint = "followList";
+      }
+    }
   }
+
+  // mounted() {
+  //   if (this.radio === 1) {
+  //     this.listPrint = hotList;
+  //   } else if (this.radio === 2) {
+  //     this.listPrint = newList;
+  //   }
+  // }
 };
 </script>
 
@@ -74,12 +109,12 @@ export default {
   margin: auto;
   width: 900px;
 }
-/* .titieList {
-  position: absolute;
-  top: -25px;
-  right: 10px;
-} */
-/* .breadcrumb {
+.selectList {
+  text-align: right;
   background-color: #ffffff;
-} */
+  box-shadow: 0px 0px 3px #000000;
+  height: 35px;
+  padding-top: 8px;
+  padding-right: 10px;
+}
 </style>
