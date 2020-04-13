@@ -8,7 +8,10 @@
     >
       <el-menu-item index="1">
         <router-link to="/">
-          <h3 style="margin-top:10px">University Clue Center</h3>
+          <img class="logo" src="@/assets/UCC Classic.jpg" />
+          <span id="fl">
+            <h3>University Club Center</h3>
+          </span>
         </router-link>
       </el-menu-item>
       <el-menu-item>
@@ -18,9 +21,11 @@
       </el-menu-item>
 
       <div class="rightBtnGroup">
-        <el-menu-item index="4" href="#" class="rightBtn">
-          <i class="el-icon-chat-line-square" size="medium"></i>
-        </el-menu-item>
+        <router-link to="/chat">
+          <el-menu-item index="4" href="#" class="rightBtn">
+            <i class="el-icon-chat-line-square" size="medium"></i>
+          </el-menu-item>
+        </router-link>
 
         <el-submenu index="5" href="#" class="rightBtn">
           <template slot="title" class="rightBtn">
@@ -114,7 +119,19 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
+
 .Icon {
   border: 0px;
+}
+
+.logo {
+  height: 40px;
+  width: 70px;
+  margin: 0 13px 5px 0;
+}
+
+#fl {
+  margin-top: 10px;
+  float: right;
 }
 </style>
