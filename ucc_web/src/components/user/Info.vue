@@ -73,9 +73,18 @@
                   </div>
                 </div>
                 <div class="inputItem">
-                  <el-input placeholder="請輸入您的電子信箱" v-model="userInfo.email">
-                    <template slot="prepend">信箱</template>
-                  </el-input>
+                  <div class="row">
+                    <div class="col-lg-10">
+                      <el-input placeholder="請輸入您的電子信箱" :disabled="true" v-model="userInfo.email">
+                        <template slot="prepend">信箱</template>
+                      </el-input>
+                    </div>
+                    <div class="col-lg-2">
+                      <router-link to="/user/emailverify">
+                        <el-button type="primary" round>驗證</el-button>
+                      </router-link>
+                    </div>
+                  </div>
                 </div>
                 <h6 class="textTitle">連絡電話及住址</h6>
                 <div class="inputItem">

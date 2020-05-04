@@ -1,4 +1,4 @@
-import {getRequest, postRequest} from '../../utils/UccSender'
+import { getRequest, postRequest } from '../../utils/UccSender'
 
 export function getUserInfo() {
     return getRequest('/user/me')
