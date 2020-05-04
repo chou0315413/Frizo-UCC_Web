@@ -1,8 +1,8 @@
 import * as types from './mutation-types'
-import {getUserInfo} from "@/api/user";
-import {authenticated, cleanAuthStore} from "@/utils/AuthStore";
+import { getUserInfo } from "@/api/user";
+import { authenticated, cleanAuthStore } from "@/utils/AuthStore";
 
-const setUserInfo = function ({commit}) {
+const setUserInfo = function ({ commit }) {
     if (authenticated()) {
         getUserInfo()
             .then(res => {
@@ -12,6 +12,7 @@ const setUserInfo = function ({commit}) {
                     email: res.data.email,
                     imgUrl: res.data.imageUrl,
                     provider: res.data.provider,
+                    emailVerified: res.data.emailVerified
                 };
                 console.log("user actions: " + userInfo.userName + ": " + userInfo.email);
                 commit(types.SET_USER_INFO, userInfo)
