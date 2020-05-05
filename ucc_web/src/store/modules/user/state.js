@@ -5,7 +5,7 @@ const state = {
         imgUrl: '',
         email: '',
         provider: '',
-        emailVerified: 'false'
+        emailVerified: ''
     },
 };
 

@@ -7,7 +7,8 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="userBackgroundPhoto">
-                  <el-image :src="src" class="PhotoSize"></el-image>
+                  <!-- <el-image :src="src" class="PhotoSize"></el-image> -->
+                  <img :src="src" class="PhotoSize" />
                 </div>
               </div>
             </div>
@@ -80,7 +81,8 @@
                       </el-input>
                     </div>
                     <div class="col-lg-2">
-                      <router-link to="/user/emailverify">
+                      <el-button type="primary" round disabled v-if="userInfo.emailVerified">驗證</el-button>
+                      <router-link to="/user/emailverify" v-else>
                         <el-button type="primary" round>驗證</el-button>
                       </router-link>
                     </div>
@@ -296,6 +298,7 @@ export default {
 
 .PhotoSize {
   height: 100%;
+  width: 100%;
 }
 
 .marginTop-100px {
