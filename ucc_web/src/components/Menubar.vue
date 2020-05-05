@@ -75,6 +75,7 @@ export default {
 }
 .Menubar {
   position: absolute;
+  z-index: 10;
 }
 .menuIcon {
   border-radius: 50%;
