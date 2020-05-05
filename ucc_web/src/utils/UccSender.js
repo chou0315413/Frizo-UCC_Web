@@ -18,9 +18,9 @@ export const uploadFileRequest = (url, params) => {
     const userRequest = axios.create({
         baseURL: baseUrl,
         headers: {
-            'Content-Type': 'multipart/form-data',
             'Authorization': getAuthorization()
         },
+        mimeType: 'multipart/form-data'
     });
     return userRequest.post(url, params)
 };

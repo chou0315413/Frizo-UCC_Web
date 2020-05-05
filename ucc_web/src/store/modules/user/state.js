@@ -3,9 +3,19 @@ const state = {
         userId: '',
         userName: '',
         imgUrl: '',
+        backgroundUrl: '',
+        gender: '',
+        phoneNumber: '',
+        address: '',
+        collageLocation: '',
+        collageName: '',
+        majorSubject: '',
+        grade: '',
         email: '',
         provider: '',
-        emailVerified: 'false'
+        emailVerified: 'false',
+        createdAt: '',
+        updatedAt: ''
     },
 };
 

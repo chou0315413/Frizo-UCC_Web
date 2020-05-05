@@ -48,6 +48,12 @@ export default new VueRouter({
         },
 
         {
+            path: '/file',
+            name: 'file',
+            component: resolve => require(['@/components/TestFile.vue'], resolve),
+        },
+
+        {
             path: '/chat',
             name: 'chat',
             component: resolve => require(['@/pages/Chat.vue'], resolve),

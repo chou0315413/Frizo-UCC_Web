@@ -7,8 +7,18 @@ const setUserInfo = function ({ commit }) {
         getUserInfo()
             .then(res => {
                 let userInfo = {
-                    userName: res.data.name,
                     userId: res.data.id,
+                    userName: res.data.name,
+                    backgroundUrl: res.data.backgroundUrl,
+                    gender: res.data.gender,
+                    phoneNumber: res.data.phoneNumber,
+                    address: res.data.address,
+                    collageLocation: res.data.collageLocation,
+                    collageName: res.data.collageName,
+                    majorSubject: res.data.majorSubject,
+                    grade: res.data.grade,
+                    createdAt: res.data.createdAt,
+                    updatedAt: res.data.updatedAt,
                     email: res.data.email,
                     imgUrl: res.data.imageUrl,
                     provider: res.data.provider,
@@ -26,8 +36,34 @@ const setUserInfo = function ({ commit }) {
     }
 };
 
+const setUserInfoFromObj = function ({ commit }, { id, userName, imageUrl, backgroundUrl, gender, phoneNumber, address,
+    collageLocation, collageName, majorSubject, grade, email, provider, emailVerified, createdAt, updatedAt }) {
+    if (authenticated()) {
+        let userInfo = {
+            userId: id,
+            userName: userName,
+            background: backgroundUrl,
+            gender: gender,
+            phoneNumber: phoneNumber,
+            address: address,
+            collageLocation: collageLocation,
+            collageName: collageName,
+            majorSubject: majorSubject,
+            grade: grade,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            email: email,
+            imgUrl: imageUrl,
+            provider: provider,
+            emailVerified: emailVerified
+        };
+        commit(types.SET_USER_INFO, userInfo)
+    }
+};
+
 const actions = {
     setUserInfo,
+    setUserInfoFromObj,
 };
 
 export default actions
