@@ -13,9 +13,10 @@ const state = {
         grade: '',
         email: '',
         provider: '',
-        emailVerified: 'false',
         createdAt: '',
-        updatedAt: ''
+        updatedAt: '',
+        emailVerified: ''
+
     },
 };
 
