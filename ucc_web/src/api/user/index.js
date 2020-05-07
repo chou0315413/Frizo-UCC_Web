@@ -12,7 +12,7 @@ export const checkVerifyCodeEmail = code => {
 };
 
 
-// 更新 User Profile 的 API。
+// 更新 User Profile 的 API。使用 formData
 export const updateUserInfo = ({address, avatar, background, collageLocation, collageName, gender, grade, majorSubject, name, phoneNumber}) => {
     let actionUrl = "/user/update/userinfo";
     let formData = new FormData();
