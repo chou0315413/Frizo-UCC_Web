@@ -20,10 +20,7 @@
             </el-input>
             <br />
             <el-button type="primary" class="mb-4" @click.native="sendVerifyCodeEmail">寄信</el-button>
-            <!-- <label>驗證碼</label> -->
-            <!-- <input type="text" v-model="verifyCode" /> -->
             <el-button type="primary" class="mt-4" @click.native="sendCode">送出</el-button>
-            <!-- <button @click="sendCode">送出</button> -->
           </div>
         </div>
       </div>
