@@ -14,7 +14,7 @@
             </div>
             <div class="row marginTop-100px">
               <div class="col-lg-3 userPhoto">
-                <el-avatar :size="130" :src="userInfoGroup.avatar"></el-avatar>
+                <el-avatar :size="130" :src="userInfo.imgUrl"></el-avatar>
               </div>
             </div>
             <div class="row photoBtn">
@@ -57,12 +57,12 @@
                 <div class="inputItem">
                   <div class="row">
                     <div class="col-lg-9">
-                      <el-input placeholder="請輸入您的暱稱" v-model="userInfoGroup.name">
+                      <el-input placeholder="請輸入您的暱稱" v-model="userInfo.userName">
                         <template slot="prepend">暱稱</template>
                       </el-input>
                     </div>
                     <div class="col-lg-3">
-                      <el-select v-model="userInfoGroup.gender" placeholder="性別">
+                      <el-select v-model="userInfo.gender" placeholder="性別">
                         <el-option
                           v-for="item in genderOptions"
                           :key="item.value"
@@ -90,12 +90,12 @@
                 </div>
                 <h6 class="textTitle">連絡電話及住址</h6>
                 <div class="inputItem">
-                  <el-input placeholder="請輸入您的連絡電話" v-model="userInfoGroup.phoneNumber">
+                  <el-input placeholder="請輸入您的連絡電話" v-model="userInfo.phoneNumber">
                     <template slot="prepend">電話</template>
                   </el-input>
                 </div>
                 <div class="inputItem">
-                  <el-input placeholder="請輸入您的聯絡地址" v-model="userInfoGroup.address">
+                  <el-input placeholder="請輸入您的聯絡地址" v-model="userInfo.address">
                     <template slot="prepend">地址</template>
                   </el-input>
                 </div>
@@ -103,7 +103,7 @@
                 <div class="inputItem">
                   <div class="row">
                     <div class="col-lg-3">
-                      <el-select v-model="userInfoGroup.collageLocation" placeholder="縣市">
+                      <el-select v-model="userInfo.collageLocation" placeholder="縣市">
                         <el-option
                           v-for="item in countyOptions"
                           :key="item.value"
@@ -113,7 +113,7 @@
                       </el-select>
                     </div>
                     <div class="col-lg-9">
-                      <el-input placeholder="請輸入您的學校名稱" v-model="userInfoGroup.collageName">
+                      <el-input placeholder="請輸入您的學校名稱" v-model="userInfo.collageName">
                         <template slot="prepend">學校</template>
                       </el-input>
                     </div>
@@ -122,12 +122,12 @@
                 <div class="inputItem">
                   <div class="row">
                     <div class="col-lg-9">
-                      <el-input placeholder="請輸入您的科系名稱" v-model="userInfoGroup.majorSubject">
+                      <el-input placeholder="請輸入您的科系名稱" v-model="userInfo.majorSubject">
                         <template slot="prepend">科系</template>
                       </el-input>
                     </div>
                     <div class="col-lg-3">
-                      <el-select v-model="userInfoGroup.grade" placeholder="年級">
+                      <el-select v-model="userInfo.grade" placeholder="年級">
                         <el-option
                           v-for="item in gradeOptions"
                           :key="item.value"
@@ -168,18 +168,18 @@ export default {
       src:
         "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
 
-      userInfoGroup: {
-        name: this.vuexUserInfo.userName,
-        avatar: this.vuexUserInfo.imgUrl,
-        background: this.vuexUserInfo.backgroundUrl,
-        gender: this.vuexUserInfo.gender,
-        phoneNumber: this.vuexUserInfo.phoneNumber,
-        address: this.vuexUserInfo.address,
-        collageLocation: this.vuexUserInfo.collageLocation,
-        collageName: this.vuexUserInfo.collageName,
-        majorSubject: this.vuexUserInfo.majorSubject,
-        grade: this.vuexUserInfo.grade
-      },
+      // userInfoGroup: {
+      //   name: "",
+      //   avatar: null,
+      //   background: null,
+      //   gender: "",
+      //   phoneNumber: "",
+      //   address: "",
+      //   collageLocation: "",
+      //   collageName: "",
+      //   majorSubject: "",
+      //   grade: ""
+      // },
 
       genderOptions: [
         {
@@ -270,15 +270,11 @@ export default {
       updateUserState: "user/setUserInfoFromObj"
     }),
 
-    ...mapGetters({
-      vuexUserInfo: "user/userInfo"
-    }),
-
     sendUserInfo() {
-      updateUserInfo(this.userInfoGroup)
+      updateUserInfo(this.userInfo)
         .then(res => {
           console.log(res.data);
-          let userInfo = {
+          let userInfoUpdata = {
             userId: res.data.id,
             name: res.data.name,
             avatar: res.data.imageUrl,
@@ -296,7 +292,7 @@ export default {
             updatedAt: res.data.updatedAt,
             emailVerified: res.data.emailVerified
           };
-          this.updateUserState(userInfo);
+          this.updateUserState(userInfoUpdata);
         })
         .catch(err => {
           console.log(err);
@@ -313,7 +309,11 @@ export default {
     }
   },
 
-  computed: {}
+  computed: {
+    ...mapGetters({
+      userInfo: "user/userInfo"
+    })
+  }
 };
 </script>
 
