@@ -8,7 +8,7 @@ export const checkVerifyCodeEmail = code => {
     let params = {
         verifyCode: code
     };
-    return postRequest('/user/check/email/verify', params)
+    return getRequest('/user/check/email/verify', params)
 };
 
 

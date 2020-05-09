@@ -54,6 +54,12 @@ export default new VueRouter({
         },
 
         {
+            path: '/cpwd',
+            name: 'cpwd',
+            component: resolve => require(['@/components/TestChangePasswd.vue'], resolve),
+        },
+
+        {
             path: '/chat',
             name: 'chat',
             component: resolve => require(['@/pages/Chat.vue'], resolve),

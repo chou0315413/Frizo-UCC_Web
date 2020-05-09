@@ -46,7 +46,10 @@ export const deleteRequest = (url) => {
     return userRequest.delete(url)
 };
 
-export const getRequest = (url, params) => {
+export const getRequest = (url, data) => {
+    let params = {
+        params: data
+    };
     const userRequest = axios.create({
         baseURL: baseUrl,
         headers: {

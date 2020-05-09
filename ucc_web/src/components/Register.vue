@@ -92,9 +92,11 @@ export default {
       };
       this.signup(userInfo)
         .then(resp => {
-          alert("註冊成功!");
+          alert(resp.data.message);
+          if(resp.data.success){
+            location.reload();
+          }
           console.log(resp.data);
-          location.reload();
         })
         .catch(err => {
           console.log(err);
