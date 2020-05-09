@@ -12,23 +12,55 @@ export const checkVerifyCodeEmail = code => {
 };
 
 
-// 更新 User Profile 的 API。
-export const updateUserInfo = ({ address, avatar, background, collageLocation, collageName, gender, grade, majorSubject, name, phoneNumber }) => {
+// 更新 User Profile 的 API。(不包括 avatar 與 background)
+export const updateUserInfo = ({ address, collageLocation, collageName, gender, grade, majorSubject, userName, phoneNumber }) => {
     let actionUrl = "/user/update/userinfo";
+    let params = {};
+    if (userName != null){
+        params.name = userName;
+    }
+    if (address != null){
+        params.address = address;
+    }
+    if (collageLocation != null){
+        params.collageLocation = collageLocation;
+    }
+    if (collageName != null){
+        params.collageName = collageName;
+    }
+    if (gender != null){
+        params.gender = gender;
+    }
+    if (grade != null){
+        params.grade = grade;
+    }
+    if (majorSubject != null){
+        params.majorSubject = majorSubject;
+    }
+    if (phoneNumber != null){
+        params.phoneNumber = phoneNumber;
+    }
+    return postRequest(actionUrl, params)
+};
+
+// 上傳照片 API
+export const updateUserAvatar = (avatar) => {
+    if (avatar == null) {
+        return;
+    }
+    let actionUrl = "/user/update/avatar";
     let formData = new FormData();
-    formData.append('name', name);
-    if (avatar != null) {
-        formData.append('avatar', avatar);
+    formData.append('avatar', avatar);
+    return uploadFileRequest(actionUrl, formData)
+};
+
+// 上傳 bg API
+export const updateProfileBackground = (background) => {
+    if (background == null) {
+        return;
     }
-    if (background != null) {
-        formData.append('background', background);
-    }
-    formData.append('gender', gender);
-    formData.append('phoneNumber', phoneNumber);
-    formData.append('address', address);
-    formData.append('collageLocation', collageLocation);
-    formData.append('collageName', collageName);
-    formData.append('majorSubject', majorSubject);
-    formData.append('grade', grade);
+    let actionUrl = "/user/update/background";
+    let formData = new FormData();
+    formData.append('background', background);
     return uploadFileRequest(actionUrl, formData)
 };

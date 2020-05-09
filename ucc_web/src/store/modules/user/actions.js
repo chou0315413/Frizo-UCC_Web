@@ -42,7 +42,6 @@ const setUserInfoFromObj = function ({ commit }, { id, userName, imageUrl, backg
         let userInfo = {
             userId: id,
             userName: userName,
-            background: backgroundUrl,
             gender: gender,
             phoneNumber: phoneNumber,
             address: address,
@@ -53,13 +52,16 @@ const setUserInfoFromObj = function ({ commit }, { id, userName, imageUrl, backg
             createdAt: createdAt,
             updatedAt: updatedAt,
             email: email,
-            imgUrl: imageUrl,
             provider: provider,
-            emailVerified: emailVerified
+            emailVerified: emailVerified,
+            imgUrl: imageUrl,
+            backgroundUrl: backgroundUrl,
         };
         commit(types.SET_USER_INFO, userInfo)
     }
 };
+
+
 
 const actions = {
     setUserInfo,

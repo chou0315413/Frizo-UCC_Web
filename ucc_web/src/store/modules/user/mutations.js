@@ -5,22 +5,54 @@ const mutations = {
     [types.SET_USER_INFO](state, { userId, userName, imgUrl, backgroundUrl, gender, phoneNumber, address,
         collageLocation, collageName, majorSubject, grade, email, provider, emailVerified, createdAt, updatedAt }) {
         console.log(`set User Info in mutations`);
-        state.userInfo.userId = userId;
-        state.userInfo.userName = userName;
-        state.userInfo.backgroundUrl = backgroundUrl;
-        state.userInfo.gender = gender;
-        state.userInfo.phoneNumber = phoneNumber;
-        state.userInfo.address = address;
-        state.userInfo.collageLocation = collageLocation;
-        state.userInfo.collageName = collageName;
-        state.userInfo.majorSubject = majorSubject;
-        state.userInfo.grade = grade;
-        state.userInfo.imgUrl = imgUrl;
-        state.userInfo.email = email;
-        state.userInfo.provider = provider;
-        state.userInfo.emailVerified = emailVerified;
-        state.userInfo.createdAt = createdAt;
-        state.userInfo.updatedAt = updatedAt;
+        if (userId != null && userId != ''){
+            state.userInfo.userId = userId;
+        }
+        if (userName != null && userName != ''){
+            state.userInfo.userName = userName;
+        }
+        if (gender != null && gender != ''){
+            state.userInfo.gender = gender;
+        }
+        if (phoneNumber != null && phoneNumber != ''){
+            state.userInfo.phoneNumber = phoneNumber;
+        }
+        if (address != null && address != ''){
+            state.userInfo.address = address;
+        }
+        if (collageLocation != null && collageLocation != ''){
+            state.userInfo.collageLocation = collageLocation;
+        }
+        if (collageName != null && collageName != ''){
+            state.userInfo.collageName = collageName;
+        }
+        if (majorSubject != null && majorSubject != ''){
+            state.userInfo.majorSubject = majorSubject;
+        }
+        if (grade != null && grade != ''){
+            state.userInfo.grade = grade;
+        }
+        if (email != null && email != ''){
+            state.userInfo.email = email;
+        }
+        if (provider != null && provider != ''){
+            state.userInfo.provider = provider;
+        }
+        if (emailVerified != null && emailVerified != ''){
+            state.userInfo.emailVerified = emailVerified;
+        }
+        if (createdAt != null && createdAt != ''){
+            state.userInfo.createdAt = createdAt;
+        }
+        if (updatedAt != null && updatedAt != ''){
+            state.userInfo.updatedAt = updatedAt;
+        }
+        if (imgUrl != null && imgUrl != ''){
+            state.userInfo.imgUrl = imgUrl;
+        }
+        if (backgroundUrl != null && backgroundUrl != ''){
+            state.userInfo.backgroundUrl = backgroundUrl;
+        }
     },
 };
 

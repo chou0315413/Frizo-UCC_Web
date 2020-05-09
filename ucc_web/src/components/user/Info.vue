@@ -28,7 +28,7 @@
                   multiple
                   :limit="1"
                   :on-exceed="handleExceed"
-                  :file-list="fileList"
+                  :file-list="avatar"
                 >
                   <el-button size="small" type="primary">上傳大頭貼</el-button>
                 </el-upload>
@@ -168,18 +168,8 @@ export default {
       src:
         "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
 
-      // userInfoGroup: {
-      //   name: "",
-      //   avatar: null,
-      //   background: null,
-      //   gender: "",
-      //   phoneNumber: "",
-      //   address: "",
-      //   collageLocation: "",
-      //   collageName: "",
-      //   majorSubject: "",
-      //   grade: ""
-      // },
+      avatar: null,
+      background: null,
 
       genderOptions: [
         {
@@ -271,7 +261,11 @@ export default {
     }),
 
     sendUserInfo() {
-      updateUserInfo(this.userInfo)
+      let userInfoBuffer = {
+        name: this.userInfo.userName,
+        address: this.userInfo.address,
+      };
+      updateUserInfo(userInfoBuffer)
         .then(res => {
           console.log(res.data);
           let userInfoUpdata = {
