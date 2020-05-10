@@ -8,7 +8,7 @@ const setUserInfo = function ({ commit }) {
             .then(res => {
                 let userInfo = {
                     userId: res.data.id,
-                    userName: res.data.name,
+                    name: res.data.name,
                     backgroundUrl: res.data.backgroundUrl,
                     gender: res.data.gender,
                     phoneNumber: res.data.phoneNumber,
@@ -24,7 +24,7 @@ const setUserInfo = function ({ commit }) {
                     provider: res.data.provider,
                     emailVerified: res.data.emailVerified
                 };
-                console.log("user actions: " + userInfo.userName + ": " + userInfo.email);
+                console.log("user actions: " + userInfo.name + ": " + userInfo.email);
                 commit(types.SET_USER_INFO, userInfo)
             })
             .catch(error => {
@@ -36,12 +36,12 @@ const setUserInfo = function ({ commit }) {
     }
 };
 
-const setUserInfoFromObj = function ({ commit }, { id, userName, imageUrl, backgroundUrl, gender, phoneNumber, address,
+const setUserInfoFromObj = function ({ commit }, { id, name, imageUrl, backgroundUrl, gender, phoneNumber, address,
     collageLocation, collageName, majorSubject, grade, email, provider, emailVerified, createdAt, updatedAt }) {
     if (authenticated()) {
         let userInfo = {
             userId: id,
-            userName: userName,
+            name: name,
             gender: gender,
             phoneNumber: phoneNumber,
             address: address,

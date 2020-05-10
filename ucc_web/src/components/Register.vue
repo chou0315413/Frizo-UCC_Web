@@ -15,11 +15,11 @@
             <div class="input-group input-group-sm registerDivPading mt-4 inputBorder">
               <input
                 type="text"
-                id="userName"
+                id="name"
                 class="form-control textLetterSpacing"
                 placeholder="輸入您的稱謂"
                 aria-describedby="inputGroup-sizing-sm"
-                v-model="userName"
+                v-model="name"
               />
             </div>
             <div class="input-group input-group-sm registerDivPading mt-4 inputBorder">
@@ -71,7 +71,7 @@ export default {
 
   data() {
     return {
-      userName: "",
+      name: "",
       userEmail: "",
       userPassword: "",
       reUserPassword: "",
@@ -86,14 +86,14 @@ export default {
     correctPassword() {
       this.isClick = true;
       let userInfo = {
-        name: this.userName,
+        name: this.name,
         email: this.userEmail,
         password: this.userPassword
       };
       this.signup(userInfo)
         .then(resp => {
           alert(resp.data.message);
-          if(resp.data.success){
+          if (resp.data.success) {
             location.reload();
           }
           console.log(resp.data);
