@@ -13,31 +13,31 @@ export const checkVerifyCodeEmail = code => {
 
 
 // 更新 User Profile 的 API。(不包括 avatar 與 background)
-export const updateUserInfo = ({ address, collageLocation, collageName, gender, grade, majorSubject, userName, phoneNumber }) => {
+export const updateUserInfo = ({ address, collageLocation, collageName, gender, grade, majorSubject, name, phoneNumber }) => {
     let actionUrl = "/user/update/userinfo";
     let params = {};
-    if (userName != null){
-        params.name = userName;
+    if (name != null) {
+        params.name = name;
     }
-    if (address != null){
+    if (address != null) {
         params.address = address;
     }
-    if (collageLocation != null){
+    if (collageLocation != null) {
         params.collageLocation = collageLocation;
     }
-    if (collageName != null){
+    if (collageName != null) {
         params.collageName = collageName;
     }
-    if (gender != null){
+    if (gender != null) {
         params.gender = gender;
     }
-    if (grade != null){
+    if (grade != null) {
         params.grade = grade;
     }
-    if (majorSubject != null){
+    if (majorSubject != null) {
         params.majorSubject = majorSubject;
     }
-    if (phoneNumber != null){
+    if (phoneNumber != null) {
         params.phoneNumber = phoneNumber;
     }
     return postRequest(actionUrl, params)

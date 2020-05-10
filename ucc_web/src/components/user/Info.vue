@@ -8,7 +8,7 @@
               <div class="col-lg-12">
                 <div class="userBackgroundPhoto">
                   <!-- <el-image :src="src" class="PhotoSize"></el-image> -->
-                  <img :src="src" class="PhotoSize" />
+                  <img :src="userInfo.backgroundUrl" class="PhotoSize" />
                 </div>
               </div>
             </div>
@@ -18,35 +18,29 @@
               </div>
             </div>
             <div class="row photoBtn">
-              <div class="col-lg-4">
-                <el-upload
-                  class="upload-demo"
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  :before-remove="beforeRemove"
-                  multiple
-                  :limit="1"
-                  :on-exceed="handleExceed"
-                  :file-list="avatar"
-                >
-                  <el-button size="small" type="primary">上傳大頭貼</el-button>
-                </el-upload>
+              <div class="col-lg-2"></div>
+              <div class="col-lg-2">
+                <label class="btn btn-warning upDataPic">
+                  <input
+                    id="upload_img"
+                    style="display:none;"
+                    type="file"
+                    v-on:change="onAvatarChange($event)"
+                  />
+                  <i class="fa fa-photo"></i>更新頭貼
+                </label>
               </div>
-              <div class="col-lg-8">
-                <el-upload
-                  class="upload-demo mr-1"
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  :on-preview="handlePreview"
-                  :on-remove="handleRemove"
-                  :before-remove="beforeRemove"
-                  multiple
-                  :limit="1"
-                  :on-exceed="handleExceed"
-                  :file-list="fileList"
-                >
-                  <el-button size="small" type="primary">上傳背景照片</el-button>
-                </el-upload>
+              <div class="col-lg-5"></div>
+              <div class="col-lg-3">
+                <label class="btn btn-warning upDataPic">
+                  <input
+                    id="upload_img"
+                    style="display:none;"
+                    type="file"
+                    v-on:change="onBackgroundChange($event)"
+                  />
+                  <i class="fa fa-photo"></i>更新背景圖
+                </label>
               </div>
             </div>
           </div>
@@ -57,7 +51,7 @@
                 <div class="inputItem">
                   <div class="row">
                     <div class="col-lg-9">
-                      <el-input placeholder="請輸入您的暱稱" v-model="userInfo.userName">
+                      <el-input placeholder="請輸入您的暱稱" v-model="userInfo.name">
                         <template slot="prepend">暱稱</template>
                       </el-input>
                     </div>
@@ -159,95 +153,93 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
-import { updateUserInfo } from "@/api/user";
+import {
+  updateUserInfo,
+  updateUserAvatar,
+  updateProfileBackground
+} from "@/api/user";
 
 export default {
   name: "Info",
   data() {
     return {
-      src:
-        "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
-
-      avatar: null,
-      background: null,
-
       genderOptions: [
         {
-          value: "選項1",
+          value: "男",
           label: "男"
         },
         {
-          value: "選項2",
+          value: "女",
           label: "女"
         }
       ],
 
       countyOptions: [
         {
-          value: "選項1",
+          value: "台北市",
           label: "台北市"
         },
         {
-          value: "選項2",
+          value: "新北市",
           label: "新北市"
         },
         {
-          value: "選項3",
+          value: "基隆市",
           label: "基隆市"
         }
       ],
 
       gradeOptions: [
         {
-          value: "選項1",
+          value: "四技一",
           label: "四技一"
         },
         {
-          value: "選項2",
+          value: "四技二",
           label: "四技二"
         },
         {
-          value: "選項3",
+          value: "四技三",
           label: "四技三"
         },
         {
-          value: "選項4",
+          value: "四技四",
           label: "四技四"
         },
         {
-          value: "選項5",
+          value: "二技一",
           label: "二技一"
         },
         {
-          value: "選項6",
+          value: "二技二",
           label: "二技二"
         },
         {
-          value: "選項7",
+          value: "五專一",
           label: "五專一"
         },
         {
-          value: "選項8",
+          value: "五專二",
           label: "五專二"
         },
         {
-          value: "選項9",
+          value: "五專三",
           label: "五專三"
         },
         {
-          value: "選項10",
+          value: "五專四",
           label: "五專四"
         },
         {
-          value: "選項11",
+          value: "五專五",
           label: "五專五"
         },
         {
-          value: "選項12",
+          value: "研究一",
           label: "研究一"
         },
         {
-          value: "選項13",
+          value: "研究二",
           label: "研究二"
         }
       ]
@@ -260,31 +252,62 @@ export default {
       updateUserState: "user/setUserInfoFromObj"
     }),
 
+    onAvatarChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      alert(files[0].name);
+      var imgBuffer = files[0];
+      updateUserAvatar(imgBuffer)
+        .then(resp => {
+          console.log(resp.data);
+          if (resp.data.success) {
+            let userInfo = {
+              imageUrl: resp.data.message
+            };
+            this.updateUserState(userInfo);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
+    onBackgroundChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      alert(files[0].name);
+      var imgBuffer = files[0];
+      updateProfileBackground(imgBuffer)
+        .then(resp => {
+          console.log(resp.data);
+          if (resp.data.success) {
+            let userInfo = {
+              backgroundUrl: resp.data.message
+            };
+            this.updateUserState(userInfo);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
     sendUserInfo() {
-      let userInfoBuffer = {
-        name: this.userInfo.userName,
-        address: this.userInfo.address,
-      };
-      updateUserInfo(userInfoBuffer)
+      updateUserInfo(this.userInfo)
         .then(res => {
           console.log(res.data);
           let userInfoUpdata = {
             userId: res.data.id,
             name: res.data.name,
-            avatar: res.data.imageUrl,
-            background: res.data.backgroundUrl,
-            gender: res.data.gender,
+            gender: res.data.gendere,
             phoneNumber: res.data.phoneNumber,
-            address: res.data.address,
+            address: res.data.addrss,
             collageLocation: res.data.collageLocation,
             collageName: res.data.collageName,
             majorSubject: res.data.majorSubject,
-            grade: res.data.grade,
-            email: res.data.email,
-            provider: res.data.provider,
-            createdAt: res.data.createdAt,
-            updatedAt: res.data.updatedAt,
-            emailVerified: res.data.emailVerified
+            grade: res.data.grade
+            // imageUrl: res.data.imageUrl,
+            // backgroundUrl: res.data.backgroundUrl
           };
           this.updateUserState(userInfoUpdata);
         })
@@ -316,6 +339,11 @@ export default {
 .info {
   background-color: #eeeeee;
   height: 780px;
+}
+
+.upDataPic {
+  color: #ffffff;
+  background-color: #ffbc04;
 }
 
 .userBackgroundPhoto {

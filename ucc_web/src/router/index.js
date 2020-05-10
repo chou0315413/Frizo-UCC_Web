@@ -48,12 +48,6 @@ export default new VueRouter({
         },
 
         {
-            path: '/file',
-            name: 'file',
-            component: resolve => require(['@/components/TestFile.vue'], resolve),
-        },
-
-        {
             path: '/cpwd',
             name: 'cpwd',
             component: resolve => require(['@/components/TestChangePasswd.vue'], resolve),
