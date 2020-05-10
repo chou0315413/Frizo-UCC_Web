@@ -1,13 +1,14 @@
 <template>
+  <!-- 此頁面分為圖片區及資料區，各佔12等頁面，利用row分開成上下層。 -->
   <div class="info">
     <div class="container userinfo">
       <div class="row">
         <div class="col-lg-12">
+          <!-- 圖片區 -->
           <div class="photoGroup">
             <div class="row">
               <div class="col-lg-12">
                 <div class="userBackgroundPhoto">
-                  <!-- <el-image :src="src" class="PhotoSize"></el-image> -->
                   <img :src="userInfo.backgroundUrl" class="PhotoSize" />
                 </div>
               </div>
@@ -44,102 +45,181 @@
               </div>
             </div>
           </div>
+          <!-- 資料區 -->
           <div class="row infoBar">
-            <div class="col-lg-2"></div>
+            <!-- 左側選單列表 -->
+            <div class="col-lg-2">
+              <!-- 利用bootstarp套件，切換不同物件，需要注意id名稱必須對上。 -->
+              <div class="list-group mt-3" id="list-tab" role="tablist">
+                <a
+                  class="list-group-item list-group-item-action active listCSS"
+                  id="list-userinfo-list"
+                  data-toggle="list"
+                  href="#list-userinfo"
+                  role="tab"
+                  aria-controls="userinfo"
+                >基本資料</a>
+                <a
+                  class="list-group-item list-group-item-action listCSS"
+                  id="list-changePassword-list"
+                  data-toggle="list"
+                  href="#list-changePassword"
+                  role="tab"
+                  aria-controls="changePassword"
+                >修改密碼</a>
+              </div>
+            </div>
+            <!-- 右側畫面顯示區 -->
             <div class="col-lg-8">
-              <div class="inputGroup">
-                <div class="inputItem">
-                  <div class="row">
-                    <div class="col-lg-9">
-                      <el-input placeholder="請輸入您的暱稱" v-model="userInfo.name">
-                        <template slot="prepend">暱稱</template>
+              <div class="tab-content" id="nav-tabContent">
+                <!-- userinfo區 -->
+                <div
+                  class="tab-pane fade show active"
+                  id="list-userinfo"
+                  role="tabpanel"
+                  aria-labelledby="list-userinfo-list"
+                >
+                  <div class="inputGroup">
+                    <div class="inputItem">
+                      <div class="row">
+                        <div class="col-lg-9">
+                          <el-input placeholder="請輸入您的暱稱" v-model="userInfo.name">
+                            <template slot="prepend">暱稱</template>
+                          </el-input>
+                        </div>
+                        <div class="col-lg-3">
+                          <el-select v-model="userInfo.gender" placeholder="性別">
+                            <el-option
+                              v-for="item in genderOptions"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value"
+                            ></el-option>
+                          </el-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="inputItem">
+                      <div class="row">
+                        <div class="col-lg-10">
+                          <el-input
+                            placeholder="請輸入您的電子信箱"
+                            :disabled="true"
+                            v-model="userInfo.email"
+                          >
+                            <template slot="prepend">信箱</template>
+                          </el-input>
+                        </div>
+                        <div class="col-lg-2">
+                          <el-button type="primary" round disabled v-if="userInfo.emailVerified">驗證</el-button>
+                          <router-link to="/user/emailverify" v-else>
+                            <el-button type="primary" round>驗證</el-button>
+                          </router-link>
+                        </div>
+                      </div>
+                    </div>
+                    <h6 class="textTitle">連絡電話及住址</h6>
+                    <div class="inputItem">
+                      <el-input placeholder="請輸入您的連絡電話" v-model="userInfo.phoneNumber">
+                        <template slot="prepend">電話</template>
                       </el-input>
                     </div>
-                    <div class="col-lg-3">
-                      <el-select v-model="userInfo.gender" placeholder="性別">
-                        <el-option
-                          v-for="item in genderOptions"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                        ></el-option>
-                      </el-select>
-                    </div>
-                  </div>
-                </div>
-                <div class="inputItem">
-                  <div class="row">
-                    <div class="col-lg-10">
-                      <el-input placeholder="請輸入您的電子信箱" :disabled="true" v-model="userInfo.email">
-                        <template slot="prepend">信箱</template>
+                    <div class="inputItem">
+                      <el-input placeholder="請輸入您的聯絡地址" v-model="userInfo.address">
+                        <template slot="prepend">地址</template>
                       </el-input>
                     </div>
-                    <div class="col-lg-2">
-                      <el-button type="primary" round disabled v-if="userInfo.emailVerified">驗證</el-button>
-                      <router-link to="/user/emailverify" v-else>
-                        <el-button type="primary" round>驗證</el-button>
-                      </router-link>
+                    <h6 class="textTitle">您的大學資訊</h6>
+                    <div class="inputItem">
+                      <div class="row">
+                        <div class="col-lg-3">
+                          <el-select v-model="userInfo.collageLocation" placeholder="縣市">
+                            <el-option
+                              v-for="item in countyOptions"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value"
+                            ></el-option>
+                          </el-select>
+                        </div>
+                        <div class="col-lg-9">
+                          <el-input placeholder="請輸入您的學校名稱" v-model="userInfo.collageName">
+                            <template slot="prepend">學校</template>
+                          </el-input>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="inputItem">
+                      <div class="row">
+                        <div class="col-lg-9">
+                          <el-input placeholder="請輸入您的科系名稱" v-model="userInfo.majorSubject">
+                            <template slot="prepend">科系</template>
+                          </el-input>
+                        </div>
+                        <div class="col-lg-3">
+                          <el-select v-model="userInfo.grade" placeholder="年級">
+                            <el-option
+                              v-for="item in gradeOptions"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value"
+                            ></el-option>
+                          </el-select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="inputItem">
+                      <div class="row">
+                        <div class="col-lg"></div>
+                        <div class="col-lg-2">
+                          <el-button type="primary" round @click.prevent="sendUserInfo">更新</el-button>
+                        </div>
+                        <div class="col-lg mt-2 respond">{{respond}}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <h6 class="textTitle">連絡電話及住址</h6>
-                <div class="inputItem">
-                  <el-input placeholder="請輸入您的連絡電話" v-model="userInfo.phoneNumber">
-                    <template slot="prepend">電話</template>
-                  </el-input>
-                </div>
-                <div class="inputItem">
-                  <el-input placeholder="請輸入您的聯絡地址" v-model="userInfo.address">
-                    <template slot="prepend">地址</template>
-                  </el-input>
-                </div>
-                <h6 class="textTitle">您的大學資訊</h6>
-                <div class="inputItem">
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <el-select v-model="userInfo.collageLocation" placeholder="縣市">
-                        <el-option
-                          v-for="item in countyOptions"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                        ></el-option>
-                      </el-select>
+                <!-- changePassword區 -->
+                <div
+                  class="tab-pane fade"
+                  id="list-changePassword"
+                  role="tabpanel"
+                  aria-labelledby="list-changePassword-list"
+                >
+                  <!-- test -->
+                  <div>
+                    <h1>測試改密碼(需要先登入) ..</h1>
+
+                    <div>
+                      <form id="cpwd">
+                        舊密碼:
+                        <input v-model="oldPassword" />
+                        新密碼:
+                        <input v-model="newPassword" />
+                        新密碼:
+                        <input v-model="newPasswordConfirm" />
+                        <button @click.prevent="changePwd">改密碼</button>
+                      </form>
                     </div>
-                    <div class="col-lg-9">
-                      <el-input placeholder="請輸入您的學校名稱" v-model="userInfo.collageName">
-                        <template slot="prepend">學校</template>
-                      </el-input>
-                    </div>
-                  </div>
-                </div>
-                <div class="inputItem">
-                  <div class="row">
-                    <div class="col-lg-9">
-                      <el-input placeholder="請輸入您的科系名稱" v-model="userInfo.majorSubject">
-                        <template slot="prepend">科系</template>
-                      </el-input>
-                    </div>
-                    <div class="col-lg-3">
-                      <el-select v-model="userInfo.grade" placeholder="年級">
-                        <el-option
-                          v-for="item in gradeOptions"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                        ></el-option>
-                      </el-select>
+
+                    <hr />
+
+                    <h1>測試忘記密碼(不需要登入) ..</h1>
+
+                    <div>
+                      <form id="fpwd">
+                        Email:
+                        <input v-model="email" />
+                        <button @click.prevent="sendVerifyEmail">寄出驗證確認信</button>
+                        新密碼:
+                        <input v-model="password" />
+                        驗證碼:
+                        <input v-model="verifyCode" />
+                        <button @click.prevent="resetPwd">送出</button>
+                      </form>
                     </div>
                   </div>
-                </div>
-                <div class="inputItem">
-                  <div class="row">
-                    <div class="col-lg"></div>
-                    <div class="col-lg-2">
-                      <el-button type="primary" round @click.prevent="sendUserInfo">更新</el-button>
-                    </div>
-                    <div class="col-lg"></div>
-                  </div>
+                  <!-- test -->
                 </div>
               </div>
             </div>
@@ -163,6 +243,8 @@ export default {
   name: "Info",
   data() {
     return {
+      respond: "",
+
       genderOptions: [
         {
           value: "男",
@@ -306,14 +388,14 @@ export default {
             collageName: res.data.collageName,
             majorSubject: res.data.majorSubject,
             grade: res.data.grade
-            // imageUrl: res.data.imageUrl,
-            // backgroundUrl: res.data.backgroundUrl
           };
           this.updateUserState(userInfoUpdata);
+          this.respond = "修改成功!";
         })
         .catch(err => {
           console.log(err);
           console.log("出錯");
+          this.respond = "修改失敗";
         });
     }
   },
@@ -339,6 +421,13 @@ export default {
 .info {
   background-color: #eeeeee;
   height: 780px;
+}
+
+.listCSS {
+  padding: 0px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
 }
 
 .upDataPic {
@@ -396,6 +485,10 @@ export default {
 .textTitle {
   margin-top: 25px;
   text-align: left;
+}
+
+.respond {
+  color: #ff5404;
 }
 
 .userinfo {

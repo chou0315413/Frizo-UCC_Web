@@ -8,6 +8,8 @@
             <h4 class="mt-3">歡迎回到UCC.</h4>
             <h5>登入帳號開始享受UCC吧</h5>
             <div class="input-group input-group-sm logInDivPading mb-3 mt-4">
+              <!-- inputError部分如果為true則background為紅色 -->
+              <!-- 監聽使用者按下Enter按鍵 -->
               <input
                 type="text"
                 :class="{inputError : inputIsError}"
@@ -15,6 +17,7 @@
                 placeholder="輸入您的 E-mail 信箱"
                 aria-describedby="inputGroup-sizing-sm"
                 v-model="email"
+                v-on:keyup.13="login"
               />
             </div>
             <div class="input-group input-group-sm logInDivPading mt-4">
@@ -25,12 +28,14 @@
                 placeholder="輸入您的密碼"
                 aria-describedby="inputGroup-sizing-sm"
                 v-model="password"
+                v-on:keyup.13="login"
               />
             </div>
             <div class="alertDiv mb-3">{{alertDiv.alertText}}</div>
             <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
             <h6 class="mb-3 mt-4">其他登入方式</h6>
             <div class="logInWay">
+              <!-- 先以a為連結，後續可以更改連結方式 -->
               <a
                 href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
               >
@@ -119,14 +124,6 @@ export default {
       storeToken: "auth/login"
     })
   },
-
-  // mounted() {
-  //   if (authenticated()) {
-  //     this.loginState = true;
-  //   } else {
-  //     this.loginState = false;
-  //   }
-  // },
 
   name: "LogIn"
 };
