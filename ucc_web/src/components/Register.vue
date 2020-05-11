@@ -11,51 +11,85 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content registerDiv">
           <div class="modal-body">
-            <h4>歡迎註冊UCC帳號</h4>
-            <div class="input-group input-group-sm registerDivPading mt-4 inputBorder">
-              <input
-                type="text"
-                id="name"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您的稱謂"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="name"
-              />
-            </div>
-            <div class="input-group input-group-sm registerDivPading mt-4 inputBorder">
-              <input
-                type="text"
-                id="userEmail"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您的 E-mail 信箱"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="userEmail"
-              />
-            </div>
-            <div class="input-group input-group-sm registerDivPading mb-3 mt-5 inputBorder">
-              <input
-                type="password"
-                id="userPassword"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您欲設定的密碼"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="userPassword"
-              />
-            </div>
-            <div class="input-group input-group-sm registerDivPading mb-3 mt-4 inputBorder">
-              <input
-                type="password"
-                id="reUserPassword"
-                class="form-control textLetterSpacing"
-                placeholder="請重複輸入您設定的密碼"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="reUserPassword"
-              />
-            </div>
-            <div class="alertDiv mb-3">{{alertText}}</div>
-            <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
-            <div class="registerBtn">
-              <el-button type="primary" round :loading="isClick===true" @click="register">註冊</el-button>
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h4>歡迎註冊UCC帳號</h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="input-group input-group-sm registerDivPading inputBorder">
+                    <input
+                      type="text"
+                      id="name"
+                      class="form-control textLetterSpacing"
+                      placeholder="輸入您的稱謂"
+                      aria-describedby="inputGroup-sizing-sm"
+                      v-model="name"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="input-group input-group-sm registerDivPading mt-4 inputBorder">
+                    <input
+                      type="text"
+                      id="userEmail"
+                      class="form-control textLetterSpacing"
+                      placeholder="輸入您的 E-mail 信箱"
+                      aria-describedby="inputGroup-sizing-sm"
+                      v-model="userEmail"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="input-group input-group-sm registerDivPading mt-5 inputBorder">
+                    <input
+                      type="password"
+                      id="userPassword"
+                      class="form-control textLetterSpacing"
+                      placeholder="輸入您欲設定的密碼"
+                      aria-describedby="inputGroup-sizing-sm"
+                      v-model="userPassword"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="input-group input-group-sm registerDivPading mb-3 mt-4 inputBorder">
+                    <input
+                      type="password"
+                      id="reUserPassword"
+                      class="form-control textLetterSpacing"
+                      placeholder="請重複輸入您設定的密碼"
+                      aria-describedby="inputGroup-sizing-sm"
+                      v-model="reUserPassword"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="alertDiv mb-3">{{alertText}}</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="registerBtn">
+                    <el-button type="primary" round :loading="isClick===true" @click="register">註冊</el-button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -108,7 +142,12 @@ export default {
       this.alertText = "密碼不一致，請再次確認。";
     },
 
+    // 確認密碼有無一致，若成功則執行correctPassword()，否則執行errPassword()
     register() {
+      if (this.name == "" || this.userEmail == "" || this.userPassword == "") {
+        this.alertText = "資料尚未填寫完畢。";
+        return;
+      }
       if (this.userPassword === this.reUserPassword) {
         this.correctPassword();
       } else {

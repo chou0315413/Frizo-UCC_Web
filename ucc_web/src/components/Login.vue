@@ -5,55 +5,99 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content logInDiv">
           <div class="modal-body">
-            <h4 class="mt-3">歡迎回到UCC.</h4>
-            <h5>登入帳號開始享受UCC吧</h5>
-            <div class="input-group input-group-sm logInDivPading mb-3 mt-4">
-              <!-- inputError部分如果為true則background為紅色 -->
-              <!-- 監聽使用者按下Enter按鍵 -->
-              <input
-                type="text"
-                :class="{inputError : inputIsError}"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您的 E-mail 信箱"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="email"
-                v-on:keyup.13="login"
-              />
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h4 class="mt-3">歡迎回到UCC.</h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <h5>登入帳號開始享受UCC吧</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="input-group input-group-sm logInDivPading mb-3 mt-4">
+                    <!-- inputError部分如果為true則background為紅色 -->
+                    <!-- 監聽使用者按下Enter按鍵 -->
+                    <input
+                      type="text"
+                      :class="{inputError : inputIsError}"
+                      class="form-control textLetterSpacing"
+                      placeholder="輸入您的 E-mail 信箱"
+                      aria-describedby="inputGroup-sizing-sm"
+                      v-model="email"
+                      v-on:keyup.13="login"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="input-group input-group-sm logInDivPading mt-4">
+                    <input
+                      type="password"
+                      :class="{inputError : inputIsError}"
+                      class="form-control textLetterSpacing"
+                      placeholder="輸入您的密碼"
+                      aria-describedby="inputGroup-sizing-sm"
+                      v-model="password"
+                      v-on:keyup.13="login"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4 forgetPasswdBtn">
+                  <a href="#" data-toggle="modal" data-target="#forgetPasswd">忘記密碼</a>
+                </div>
+                <div class="col-lg-8">
+                  <div class="alertDiv">{{alertDiv.alertText}}</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <h6 class="mb-3 mt-4">其他登入方式</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="logInWay">
+                    <!-- 先以a為連結，後續可以更改連結方式 -->
+                    <a
+                      href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
+                    >
+                      <button type="button" class="btn btn-outline-secondary mb-2 btnWidth">Google登入</button>
+                    </a>
+                    <br />
+                    <a
+                      href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary mb-3 btnWidth"
+                      >Facebook登入</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <h6 class="mt-3">
+                    沒有帳號嗎?
+                    <span>
+                      <a href="#" data-toggle="modal" data-target="#register">註冊</a>
+                    </span>
+                  </h6>
+                </div>
+              </div>
             </div>
-            <div class="input-group input-group-sm logInDivPading mt-4">
-              <input
-                type="password"
-                :class="{inputError : inputIsError}"
-                class="form-control textLetterSpacing"
-                placeholder="輸入您的密碼"
-                aria-describedby="inputGroup-sizing-sm"
-                v-model="password"
-                v-on:keyup.13="login"
-              />
-            </div>
-            <div class="alertDiv mb-3">{{alertDiv.alertText}}</div>
-            <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
-            <h6 class="mb-3 mt-4">其他登入方式</h6>
-            <div class="logInWay">
-              <!-- 先以a為連結，後續可以更改連結方式 -->
-              <a
-                href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
-              >
-                <button type="button" class="btn btn-outline-secondary mb-2 btnWidth">Google登入</button>
-              </a>
-              <br />
-              <a
-                href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect"
-              >
-                <button type="button" class="btn btn-outline-secondary mb-3 btnWidth">Facebook登入</button>
-              </a>
-            </div>
-            <h6 class="mt-3">
-              沒有帳號嗎?
-              <span>
-                <a href="#" data-toggle="modal" data-target="#register">註冊</a>
-              </span>
-            </h6>
           </div>
         </div>
       </div>
@@ -140,6 +184,10 @@ export default {
   position: relative;
   margin: auto;
   width: 350px;
+}
+
+.forgetPasswdBtn {
+  text-align: right;
 }
 
 .textLetterSpacing {
