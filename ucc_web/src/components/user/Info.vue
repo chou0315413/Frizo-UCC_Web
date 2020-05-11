@@ -489,11 +489,13 @@ export default {
             tokenType: resp.data.tokenType,
             accessToken: resp.data.accessToken
           };
-          if (resp.data.success) {
-            this.setToken(token);
+          if (resp.data.success == false) {
+            console.log("舊密碼輸入錯誤");
+            this.changePassword.changePasswordRespond = "舊密碼輸入錯誤";
           } else {
-            console.log("修改失敗");
-            this.changePassword.changePasswordRespond = "修改失敗";
+            this.setToken(token);
+            console.log("修改成功");
+            this.changePassword.changePasswordRespond = "修改成功";
           }
         })
         .catch(err => {
