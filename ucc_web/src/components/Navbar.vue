@@ -73,8 +73,12 @@
     <label for="check">
       <font-awesome-icon class="checkBtn" icon="bars" size="lg" style="color:#A9A9A9" />
     </label>
+    <!-- 登入component -->
     <Login></Login>
+    <!-- 註冊component -->
     <register></register>
+    <!-- 忘記密碼component -->
+    <forgetPasswd></forgetPasswd>
   </div>
 </template>  
 <script>
@@ -82,6 +86,7 @@ import { mapActions } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
 import Login from "@/components/Login";
 import register from "@/components/Register";
+import forgetPasswd from "@/components/forgetPasswd";
 
 export default {
   name: "Navbar",
@@ -103,7 +108,8 @@ export default {
 
   components: {
     Login,
-    register
+    register,
+    forgetPasswd
   },
 
   methods: {
