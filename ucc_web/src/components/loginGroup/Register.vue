@@ -162,7 +162,7 @@ export default {
 <style scoped>
 .registerDiv {
   height: 500px;
-  background-image: url(../assets/signInBackground/login.jpg);
+  background-image: url(../../assets/signInBackground/login.jpg);
   background-size: cover;
 }
 
@@ -182,8 +182,6 @@ h4 {
   height: 460px;
   box-shadow: 0 0 10px #000000;
   padding-top: 60px;
-  background-image: url(../assets/signInBackground/login.jpg);
-  background-size: cover;
 }
 
 .inputBorder {

@@ -84,9 +84,9 @@
 <script>
 import { mapActions } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
-import Login from "@/components/Login";
-import register from "@/components/Register";
-import forgetPasswd from "@/components/forgetPasswd";
+import Login from "@/components/loginGroup/Login";
+import register from "@/components/loginGroup/Register";
+import forgetPasswd from "@/components/loginGroup/forgetPasswd";
 
 export default {
   name: "Navbar",

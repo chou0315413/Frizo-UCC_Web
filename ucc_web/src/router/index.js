@@ -27,7 +27,7 @@ export default new VueRouter({
         {
             path: '/login',
             name: 'login',
-            component: resolve => require(['@/components/Login.vue'], resolve)
+            component: resolve => require(['@/components/loginGroup/Login.vue'], resolve)
         },
 
         {
