@@ -24,6 +24,9 @@ const setUserInfo = function ({ commit }) {
                     provider: res.data.provider,
                     emailVerified: res.data.emailVerified
                 };
+                if (userInfo.phoneNumber != '') {
+                    userInfo.phoneNumber = '0' + userInfo.phoneNumber
+                }
                 console.log("user actions: " + userInfo.name + ": " + userInfo.email);
                 commit(types.SET_USER_INFO, userInfo)
             })

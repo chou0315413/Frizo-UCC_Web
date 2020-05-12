@@ -295,6 +295,7 @@ export default {
   data() {
     return {
       respond: "",
+      phoneNumber: "",
 
       // 修改密碼區使用之資料
       changePassword: {
@@ -443,7 +444,7 @@ export default {
             userId: res.data.id,
             name: res.data.name,
             gender: res.data.gendere,
-            phoneNumber: res.data.phoneNumber,
+            phoneNumber: "0" + res.data.phoneNumber,
             address: res.data.addrss,
             collageLocation: res.data.collageLocation,
             collageName: res.data.collageName,
