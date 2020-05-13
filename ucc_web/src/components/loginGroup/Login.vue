@@ -144,23 +144,25 @@ export default {
       var jsonData = userInfo;
       signin(jsonData)
         .then(resp => {
-          this.token.tokenType = resp.data.tokenType;
-          this.token.accessToken = resp.data.accessToken;
-          const token = this.token;
-          this.storeToken(token);
-          this.closeModal();
-          location.reload();
+          if (resp.data.success){
+            this.token.tokenType = resp.data.result.tokenType;
+            this.token.accessToken = resp.data.result.accessToken;
+            const token = this.token;
+            this.storeToken(token);
+            this.closeModal();
+            location.reload();
+          } else {
+            this.isLoading = "false";
+            this.inputIsError = true;
+            this.alertDiv.alertText = resp.data.message
+          }
+
         })
         .catch(err => {
-          console.log(err.message);
+          console.log(err.response);
           this.isLoading = "false";
-          if ((this.email === "") & (this.password === "")) {
-            this.inputIsError = true;
-            this.alertDiv.alertText = "抱歉，信箱帳號及密碼必須輸入。";
-          } else {
-            this.alertDiv.alertText =
-              "抱歉，您輸入帳密有誤，請重新確認帳號密碼。";
-          }
+          this.inputIsError = true;
+          this.alertDiv.alertText = err.response.data.message;
         });
     },
 
