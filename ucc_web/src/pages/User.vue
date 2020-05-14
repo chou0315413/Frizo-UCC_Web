@@ -8,8 +8,8 @@
 
 <script>
 import { authenticated } from "@/utils/AuthStore";
-import Navbar from "@/components/Navbar";
-import Menubar from "@/components/Menubar";
+import Navbar from "@/components/base/Navbar";
+import Menubar from "@/components/base/Menubar";
 
 export default {
   name: "User",

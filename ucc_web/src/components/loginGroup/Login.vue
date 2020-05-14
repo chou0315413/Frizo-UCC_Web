@@ -144,7 +144,7 @@ export default {
       var jsonData = userInfo;
       signin(jsonData)
         .then(resp => {
-          if (resp.data.success){
+          if (resp.data.success) {
             this.token.tokenType = resp.data.result.tokenType;
             this.token.accessToken = resp.data.result.accessToken;
             const token = this.token;
@@ -154,9 +154,8 @@ export default {
           } else {
             this.isLoading = "false";
             this.inputIsError = true;
-            this.alertDiv.alertText = resp.data.message
+            this.alertDiv.alertText = resp.data.message;
           }
-
         })
         .catch(err => {
           console.log(err.response);

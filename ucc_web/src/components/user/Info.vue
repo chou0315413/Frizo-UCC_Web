@@ -406,7 +406,7 @@ export default {
           console.log(resp.data);
           if (resp.data.success) {
             let userInfo = {
-              imageUrl: resp.data.message
+              imageUrl: resp.data.result
             };
             this.updateUserState(userInfo);
           }
@@ -426,7 +426,7 @@ export default {
           console.log(resp.data);
           if (resp.data.success) {
             let userInfo = {
-              backgroundUrl: resp.data.message
+              backgroundUrl: resp.data.result.message
             };
             this.updateUserState(userInfo);
           }
@@ -441,20 +441,21 @@ export default {
         .then(res => {
           console.log(res.data);
           let userInfoUpdata = {
-            userId: res.data.id,
-            name: res.data.name,
-            gender: res.data.gendere,
-            phoneNumber: "0" + res.data.phoneNumber,
-            address: res.data.addrss,
-            collageLocation: res.data.collageLocation,
-            collageName: res.data.collageName,
-            majorSubject: res.data.majorSubject,
-            grade: res.data.grade
+            userId: res.data.result.id,
+            name: res.data.result.name,
+            gender: res.data.result.gendere,
+            phoneNumber: "0" + res.data.result.phoneNumber,
+            address: res.data.result.addrss,
+            collageLocation: res.data.result.collageLocation,
+            collageName: res.data.result.collageName,
+            majorSubject: res.data.result.majorSubject,
+            grade: res.data.result.grade
           };
           this.updateUserState(userInfoUpdata);
           this.respond = "修改成功!";
         })
         .catch(err => {
+          err.resopnse.data.message;
           console.log(err);
           console.log("出錯");
           this.respond = "修改失敗";
@@ -487,8 +488,8 @@ export default {
         .then(resp => {
           console.log(resp.data);
           let token = {
-            tokenType: resp.data.tokenType,
-            accessToken: resp.data.accessToken
+            tokenType: resp.data.result.tokenType,
+            accessToken: resp.data.result.accessToken
           };
           if (resp.data.success == false) {
             console.log("舊密碼輸入錯誤");
