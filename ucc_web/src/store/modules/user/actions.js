@@ -6,10 +6,10 @@ const setUserInfo = function ({ commit }) {
     if (authenticated()) {
         getUserInfo()
             .then(res => {
-                if (res.data.success){
+                if (res.data.success) {
                     let userInfo = {
                         userId: res.data.result.id,
-                        name: res.data.name,
+                        name: res.data.result.name,
                         backgroundUrl: res.data.result.backgroundUrl,
                         gender: res.data.result.gender,
                         phoneNumber: res.data.result.phoneNumber,

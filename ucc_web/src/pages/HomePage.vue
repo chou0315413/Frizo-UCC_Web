@@ -10,8 +10,8 @@
 
 <script>
 import ContentList from "@/components/ContentList";
-import Navbar from "@/components/Navbar";
-import Menubar from "@/components/Menubar";
+import Navbar from "@/components/base/Navbar";
+import Menubar from "@/components/base/Menubar";
 import Banner from "@/components/Banner";
 
 export default {
