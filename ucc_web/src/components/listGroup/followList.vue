@@ -1,36 +1,17 @@
 <template>
   <div class="followList">
-    <!-- <div class="list-group">
-      <div v-for="index in followList" :key="index">
-        <router-link :to="index.link">
-          <a class="list-group-item list-group-item-action">
-            <div class="row">
-              <div class="col-lg-1">
-                <img class="smallPicture" src="@/assets/userPhoto/user.png" alt="userPhoto" />
-              </div>
-              <div class="col-lg-3 text-left">{{index.title}}</div>
-              <div class="col-lg-8 text-left">{{index.message}}</div>
-            </div>
-          </a>
-        </router-link>
-      </div>
-    </div>-->
     <div class="item" v-for="index in followList" :key="index">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 imgBox">
-            <img :src="index.img" class="itemImg" />
-          </div>
-          <div class="col-lg-9 itemContent">
-            <h3 class="itemTitle mb-3">{{index.title}}</h3>
-            <div class="itemIntroduction mb-4">
-              <h6>{{index.message}}</h6>
-            </div>
-            <div class="itemAttention">
-              關注度：12
-              <br />留言數：23
-            </div>
-          </div>
+      <div class="imgBox">
+        <img :src="index.img" class="itemImg" />
+      </div>
+      <div class="itemContent">
+        <div class="itemTitle">{{index.title}}</div>
+        <div class="itemIntroduction mb-4">
+          <div>{{index.message}}</div>
+        </div>
+        <div class="itemAttention">
+          關注度：12
+          <br />留言數：23
         </div>
       </div>
     </div>
@@ -90,41 +71,61 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* .list-group-item {
-  height: 55px;
-  border-left: none;
-  border-right: none;
-  border-radius: 0px;
-}
-.smallPicture {
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-  border: 1px solid #acacac;
-} */
 .item {
   position: relative;
-  height: 160px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  height: 170px;
   width: 100%;
   box-shadow: 0 0 3px #2e2e2e;
   background-color: #ffffff;
   margin: 20px 0px;
 }
+
 .itemImg {
   height: 160px;
   width: 100%;
 }
+
 .imgBox {
   padding: 0px;
+  grid-column: 1/2;
+  grid-row: 1/4;
 }
+
+.itemContent {
+  grid-column: 2/5;
+  grid-row: 1/4;
+  padding: 0px 15px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
 .itemTitle {
   text-align: left;
+  font-size: 28px;
+  grid-column: 1/4;
+  grid-row: 1/2;
 }
+
 .itemIntroduction {
   text-align: left;
   height: 35px;
+  grid-column: 1/4;
+  grid-row: 2/3;
 }
+
 .itemAttention {
   text-align: right;
+  grid-column: 3/4;
+  grid-row: 3/4;
+}
+
+@media (max-width: 650px) {
+  .itemTitle {
+    font-size: 22px;
+  }
 }
 </style>
