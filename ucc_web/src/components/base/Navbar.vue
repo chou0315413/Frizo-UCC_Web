@@ -7,7 +7,8 @@
       @select="handleSelect"
     >
       <input type="checkbox" id="check" />
-      <el-menu-item index="1">
+      <el-menu-item index="1" class="uccItem">
+        <Menubar class="menubar"></Menubar>
         <router-link to="/">
           <img class="logo" src="@/assets/UCC Classic.jpg" />
           <span id="fl">
@@ -22,6 +23,26 @@
       </el-menu-item>
 
       <div class="rightBtnGroup">
+        <router-link to="/chat" style="text-decoration:none;">
+          <el-menu-item index="4" class="rightBtn">
+            <i class="el-icon-chat-line-square" size="medium"></i>
+            <span class="navFont">Chat</span>
+          </el-menu-item>
+        </router-link>
+
+        <el-submenu index="5" href="#" class="rightBtn" id="followersBtn">
+          <template slot="title">
+            <font-awesome-icon
+              icon="user-friends"
+              size="lg"
+              style="color:#A9A9A9;margin-right:8px;"
+            />
+            <span id="followers" style="font-size:16px;">Followers</span>
+          </template>
+          <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
+          <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
+        </el-submenu>
+
         <!-- 登入狀態改變時會有不同的項目出現 -->
         <!-- 未登入 -->
         <el-menu-item
@@ -35,29 +56,8 @@
           <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
           <span class="navFont">Login</span>
         </el-menu-item>
-      </div>
-      <!-- 已登入 -->
-      <div class="rightBtnGroup" v-if="loginState === true">
-        <router-link to="/chat" style="text-decoration:none;">
-          <el-menu-item index="4" class="rightBtn">
-            <i class="el-icon-chat-line-square" size="medium"></i>
-            <span class="navFont">Chat</span>
-          </el-menu-item>
-        </router-link>
-
-        <el-submenu index="5" href="#" class="rightBtn" id="followersBtn">
-          <template slot="title" class="rightBtn">
-            <font-awesome-icon
-              icon="user-friends"
-              size="lg"
-              style="color:#A9A9A9;margin-right:8px;"
-            />
-            <span id="followers" style="font-size:16px;">Followers</span>
-          </template>
-          <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
-          <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
-        </el-submenu>
-        <el-submenu index="6" href="#" class="rightBtn">
+        <!-- 已登入 -->
+        <el-submenu index="6" href="#" class="rightBtn" v-if="loginState === true">
           <template slot="title" class="rightBtn">
             <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
             <span class="navFont">User</span>
@@ -70,15 +70,15 @@
         </el-submenu>
       </div>
     </el-menu>
-    <label for="check">
-      <font-awesome-icon class="checkBtn" icon="bars" size="lg" style="color:#A9A9A9" />
+    <label for="check" @click="animation">
+      <div :class="toggleIsFalse ? 'toggle' : 'burger'">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
     </label>
-    <!-- 登入component -->
     <Login></Login>
-    <!-- 註冊component -->
     <register></register>
-    <!-- 忘記密碼component -->
-    <forgetPasswd></forgetPasswd>
   </div>
 </template>  
 <script>
@@ -86,13 +86,14 @@ import { mapActions } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
 import Login from "@/components/loginGroup/Login";
 import register from "@/components/loginGroup/Register";
-import forgetPasswd from "@/components/loginGroup/forgetPasswd";
+import Menubar from "@/components/base/Menubar";
 
 export default {
   name: "Navbar",
 
   data() {
     return {
+      toggleIsFalse: false,
       email: "",
       password: "",
       search: "搜尋社團/活動",
@@ -109,7 +110,7 @@ export default {
   components: {
     Login,
     register,
-    forgetPasswd
+    Menubar
   },
 
   methods: {
@@ -125,6 +126,13 @@ export default {
     searchOnblur() {
       if (this.search === "") {
         this.search = "搜尋社團/活動";
+      }
+    },
+    animation() {
+      if (this.toggleIsFalse === false) {
+        this.toggleIsFalse = true;
+      } else {
+        this.toggleIsFalse = false;
       }
     },
 
@@ -155,7 +163,10 @@ export default {
 .logo {
   height: 40px;
   width: 70px;
-  margin: 0 13px 5px 0;
+  margin: 0 13px 5px 70px;
+}
+.menubar {
+  width: 50px;
 }
 #fl {
   margin-top: 10px;
@@ -171,24 +182,56 @@ export default {
 #check {
   display: none;
 }
-.checkBtn {
+.burger {
   display: none;
   cursor: pointer;
   position: fixed;
-  top: 20px;
-  right: 30px;
+  top: 15px;
+  right: 20px;
+}
+.toggle {
+  display: none;
+  cursor: pointer;
+  position: fixed;
+  top: 15px;
+  right: 20px;
 }
 .navFont {
   display: none;
-  color: #ffffff;
-}
-.rightBtn:hover span {
-  color: #000000;
 }
 #dropDownBtn:hover {
   background-color: #fff5e4;
 }
-@media screen and (max-width: 910px) {
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: orange;
+  margin: 5px;
+  transition: all 0.2s ease-in;
+}
+.toggle div {
+  transition: all 0.2s ease-in;
+}
+
+.toggle .line1 {
+  transform: rotate(-45deg) translate(-5px, 6px);
+  width: 25px;
+  height: 3px;
+  background-color: orange;
+  margin: 5px;
+}
+.toggle .line2 {
+  opacity: 0;
+}
+.toggle .line3 {
+  transform: rotate(45deg) translate(0px, 0px);
+  width: 25px;
+  height: 3px;
+  background-color: orange;
+  margin: 5px;
+}
+@media screen and (max-width: 980px) {
   .rightBtnGroup {
     position: fixed;
     width: 200px;
@@ -206,10 +249,13 @@ export default {
     color: white;
     text-decoration: none;
   }
-  /* .rightBtn:hover {
+  .rightBtn:hover {
     color: black;
-  } */
-  .checkBtn {
+  }
+  .burger {
+    display: block;
+  }
+  .toggle {
     display: block;
   }
   .navFont {
@@ -231,7 +277,7 @@ export default {
     color: white;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 837px) {
   #inputArea {
     position: fixed;
     top: 60px;
@@ -239,8 +285,13 @@ export default {
     width: 250px;
   }
 }
-@media screen and (max-width: 485px) {
-  .checkBtn {
+@media screen and (max-width: 555px) {
+  .burger {
+    position: fixed;
+    top: 80px;
+    right: 10px;
+  }
+  .toggle {
     position: fixed;
     top: 80px;
     right: 10px;
@@ -248,9 +299,10 @@ export default {
   .rightBtnGroup {
     top: 120px;
     width: 180px;
+    z-index: 2;
   }
 }
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 480px) {
   #fl h3 {
     font-size: 1.5rem;
     margin-top: 5px;
@@ -258,6 +310,10 @@ export default {
   .logo {
     height: 30px;
     width: 55px;
+    margin-left: 50px;
+  }
+  .uccItem {
+    padding: 0;
   }
 }
 </style>
