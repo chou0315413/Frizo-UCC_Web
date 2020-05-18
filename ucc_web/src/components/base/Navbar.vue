@@ -186,7 +186,7 @@ export default {
 .burger {
   display: none;
   cursor: pointer;
-  position: fixed;
+  position: absolute;
   top: 15px;
   right: 20px;
 }
@@ -234,15 +234,17 @@ export default {
 }
 @media screen and (max-width: 980px) {
   .rightBtnGroup {
-    position: fixed;
+    position: absolute;
     width: 200px;
     height: 168px;
-    top: 60px;
+    top: -200px;
+    right: 0;
     flex-direction: column;
     text-align: center;
     background-color: rgb(255, 180, 94);
-    right: -200px;
+    opacity: 0;
     transition: all 0.3s ease;
+    z-index: 5;
   }
   .rightBtn {
     display: block;
@@ -264,6 +266,8 @@ export default {
   }
   #check:checked ~ .rightBtnGroup {
     right: 0;
+    top: 60px;
+    opacity: 1;
   }
   #followers:hover {
     color: #000;
@@ -280,15 +284,16 @@ export default {
 }
 @media screen and (max-width: 837px) {
   #inputArea {
-    position: fixed;
+    position: absolute;
     top: 60px;
-    left: 0;
+    left: 50%;
+    margin-left: -125px;
     width: 250px;
   }
 }
 @media screen and (max-width: 555px) {
   .burger {
-    position: fixed;
+    position: absolute;
     top: 80px;
     right: 10px;
   }
@@ -298,9 +303,15 @@ export default {
     right: 10px;
   }
   .rightBtnGroup {
-    top: 120px;
+    top: -200px;
+    right: 0;
     width: 180px;
-    z-index: 2;
+    z-index: 5;
+  }
+  #check:checked ~ .rightBtnGroup {
+    right: 0;
+    top: 120px;
+    opacity: 1;
   }
 }
 @media screen and (max-width: 480px) {
