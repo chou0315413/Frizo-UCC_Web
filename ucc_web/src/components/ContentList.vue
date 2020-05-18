@@ -16,13 +16,13 @@
     <div class="selectList">
       <el-radio-group v-model="radio" @change="changeList">
         <el-radio :label="1">
-          <b>熱門活動</b>
+          <b>熱門</b>
         </el-radio>
         <el-radio :label="2">
-          <b>最新活動</b>
+          <b>最新</b>
         </el-radio>
         <el-radio :label="3">
-          <b>追蹤活動</b>
+          <b>追蹤</b>
         </el-radio>
       </el-radio-group>
     </div>
@@ -116,5 +116,29 @@ export default {
   height: 35px;
   padding-top: 8px;
   padding-right: 10px;
+}
+
+@media (max-width: 995px) {
+  .ContentList {
+    width: 750px;
+  }
+}
+
+@media (max-width: 800px) {
+  .ContentList {
+    width: 600px;
+  }
+}
+
+@media (max-width: 650px) {
+  .ContentList {
+    width: 450px;
+  }
+}
+
+@media (max-width: 450px) {
+  .ContentList {
+    width: 300px;
+  }
 }
 </style>
