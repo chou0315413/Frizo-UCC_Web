@@ -108,6 +108,7 @@ export default {
   position: relative;
   margin: auto;
   width: 900px;
+  box-sizing: border-box;
 }
 .selectList {
   text-align: right;
@@ -124,13 +125,13 @@ export default {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 837px) {
   .ContentList {
-    width: 600px;
+    width: 100%;
   }
 }
 
-@media (max-width: 650px) {
+/* @media (max-width: 650px) {
   .ContentList {
     width: 450px;
   }
@@ -140,5 +141,5 @@ export default {
   .ContentList {
     width: 300px;
   }
-}
+} */
 </style>

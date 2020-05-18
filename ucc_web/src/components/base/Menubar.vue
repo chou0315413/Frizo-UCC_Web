@@ -124,15 +124,17 @@ ul li span {
   align-items: center;
 }
 label {
-  height: 25px;
+  height: 35px;
+  margin-top: 8px;
 }
 .menu {
   list-style: none;
-  position: fixed;
+  position: absolute;
   top: 70px;
-  left: 20px;
+  left: 0px;
   margin: 0;
   padding: 0;
+  z-index: 5;
 }
 .menuItem {
   background-color: white;
@@ -185,31 +187,45 @@ label {
     left: -100vw;
     z-index: 3;
     opacity: 0;
+    overflow-y: hidden;
   }
   .menuItem {
     width: 100vw;
-    height: 100vh;
+    height: 60px;
     background-color: orange;
   }
   #checkForMenu:checked ~ .menu {
     background-color: orange;
     opacity: 0.8;
-    left: 0;
+    left: -20px;
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    overflow-y: scroll;
   }
   #checkForMenu:checked ~ ul li {
     background-color: orange;
     width: 100%;
     justify-content: center;
+    height: 60px;
   }
   #checkForMenu:checked ~ ul li:hover {
     background-color: rgb(252, 175, 87);
     color: white;
   }
+  #checkForMenu:checked ~ .menu {
+    overflow-y: scroll;
+  }
+}
+@media screen and (max-width: 480px) {
+  #checkForMenu:checked ~ .menu {
+    left: 0;
+  }
+}
+::-webkit-scrollbar {
+  display: none;
 }
 </style>
