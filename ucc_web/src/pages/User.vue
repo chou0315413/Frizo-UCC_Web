@@ -1,7 +1,6 @@
 <template>
   <div class="user">
     <Navbar></Navbar>
-    <menubar></menubar>
     <router-view />
   </div>
 </template>
@@ -9,7 +8,6 @@
 <script>
 import { authenticated } from "@/utils/AuthStore";
 import Navbar from "@/components/base/Navbar";
-import Menubar from "@/components/base/Menubar";
 
 export default {
   name: "User",
@@ -19,8 +17,7 @@ export default {
   },
 
   components: {
-    Navbar,
-    Menubar
+    Navbar
   },
 
   beforeRouteEnter(to, from, next) {
