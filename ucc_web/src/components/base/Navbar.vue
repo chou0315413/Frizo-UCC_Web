@@ -23,26 +23,6 @@
       </el-menu-item>
 
       <div class="rightBtnGroup">
-        <router-link to="/chat" style="text-decoration:none;">
-          <el-menu-item index="4" class="rightBtn">
-            <i class="el-icon-chat-line-square" size="medium"></i>
-            <span class="navFont">Chat</span>
-          </el-menu-item>
-        </router-link>
-
-        <el-submenu index="5" href="#" class="rightBtn" id="followersBtn">
-          <template slot="title">
-            <font-awesome-icon
-              icon="user-friends"
-              size="lg"
-              style="color:#A9A9A9;margin-right:8px;"
-            />
-            <span id="followers" style="font-size:16px;">Followers</span>
-          </template>
-          <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
-          <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
-        </el-submenu>
-
         <!-- 登入狀態改變時會有不同的項目出現 -->
         <!-- 未登入 -->
         <el-menu-item
@@ -56,8 +36,29 @@
           <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
           <span class="navFont">Login</span>
         </el-menu-item>
-        <!-- 已登入 -->
-        <el-submenu index="6" href="#" class="rightBtn" v-if="loginState === true">
+      </div>
+      <!-- 已登入 -->
+      <div class="rightBtnGroup" v-if="loginState === true">
+        <router-link to="/chat" style="text-decoration:none;">
+          <el-menu-item index="4" class="rightBtn">
+            <i class="el-icon-chat-line-square" size="medium"></i>
+            <span class="navFont">Chat</span>
+          </el-menu-item>
+        </router-link>
+
+        <el-submenu index="5" href="#" class="rightBtn" id="followersBtn">
+          <template slot="title" class="rightBtn">
+            <font-awesome-icon
+              icon="user-friends"
+              size="lg"
+              style="color:#A9A9A9;margin-right:8px;"
+            />
+            <span id="followers" style="font-size:16px;">Followers</span>
+          </template>
+          <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
+          <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
+        </el-submenu>
+        <el-submenu index="6" href="#" class="rightBtn">
           <template slot="title" class="rightBtn">
             <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
             <span class="navFont">User</span>
