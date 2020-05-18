@@ -1,7 +1,6 @@
 <template>
   <div class="Chat">
     <Navbar></Navbar>
-    <Menubar></Menubar>
     <div class="container">
       <div class="msg-header">
         <div class="msg-header-container">
@@ -101,7 +100,6 @@
 </template>
 
 <script>
-import Menubar from "@/components/base/Menubar";
 import Navbar from "@/components/base/Navbar";
 export default {
   data() {
@@ -112,8 +110,7 @@ export default {
   },
   name: "Chat",
   components: {
-    Navbar,
-    Menubar
+    Navbar
   }
 };
 </script>
