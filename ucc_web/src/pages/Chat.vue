@@ -117,12 +117,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.Chat {
+  height: 100vh;
+}
 .container {
   max-width: 800px;
-  max-height: 100vh;
+  /* height: 100%; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 10vh);
   margin-top: 20px;
   margin-left: 20%;
   box-sizing: border-box;
@@ -250,7 +253,12 @@ export default {
   border-radius: 4px;
   background: #bbb;
 }
-/* ::-webkit-scrollbar:hover {
-  display: contents;
-} */
+@media screen and (max-width: 837px) {
+  .container {
+    margin: 40px auto 0 auto;
+  }
+  .Chat {
+    height: 100vh;
+  }
+}
 </style>
