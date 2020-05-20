@@ -42,6 +42,12 @@ export default new VueRouter({
         },
 
         {
+            path: '/newActivity',
+            name: 'newActivity',
+            component: resolve => require(['@/components/PostActivity.vue'], resolve)
+        },
+
+        {
             path: '/test',
             name: 'test',
             component: resolve => require(['@/components/test.vue'], resolve),

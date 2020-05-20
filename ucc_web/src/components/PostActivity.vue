@@ -1,8 +1,9 @@
 <template>
   <div class="postActivityAndMessage">
     <!-- 本頁使用原生CSS-grid，未來有較好的寫法再另外更新。 -->
+    <!-- 未來得移植進user裡，程式碼需改版 -->
     <Navbar></Navbar>
-    <div class="container">
+    <div class="container activity">
       <div class="topTitle">
         <h4>發起活動</h4>
       </div>
@@ -165,6 +166,10 @@ export default {
     };
   },
 
+  components: {
+    Navbar
+  },
+
   methods: {
     // 刪除標籤方法
     handleClose(tag) {
@@ -190,10 +195,6 @@ export default {
       this.inputVisible = false;
       this.inputValue = "";
     }
-  },
-
-  components: {
-    Navbar
   }
 };
 </script>
@@ -201,9 +202,10 @@ export default {
 <style>
 .postActivityAndMessage {
   height: 1600px;
+  background-color: #eeeeee;
 }
 
-.container {
+.activity {
   height: 1500px;
   width: 800px;
   display: grid;
