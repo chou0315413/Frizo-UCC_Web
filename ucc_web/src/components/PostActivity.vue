@@ -1,9 +1,12 @@
 <template>
+  <!-- 動態轉換CSS -->
   <div :class="contentCssIsActivity?'postActivity':'postMessage'">
     <!-- 本頁使用原生CSS-grid，未來有較好的寫法再另外更新。 -->
     <!-- 未來得移植進user裡，程式碼需改版 -->
+    <!-- 動態轉換CSS -->
     <div class="container" :class="contentCssIsActivity ? 'activityMode' : 'messageMode' ">
       <div class="topTitle">
+        <!-- 未來可以增加transition變化 -->
         <h4>{{title}}</h4>
       </div>
 
@@ -196,7 +199,6 @@ export default {
         this.contentCssIsActivity = true;
       }
     },
-
     messageChangeMode() {
       this.title = "發佈消息";
       if (this.contentCssIsActivity == true) {
@@ -233,16 +235,17 @@ export default {
 </script>
 
 <style>
+/* 最外圍大框使用二擇一CSS */
 .postActivity {
   height: 1600px;
   background-color: #eeeeee;
 }
-
 .postMessage {
   height: 800px;
   background-color: #eeeeee;
 }
 
+/* container使用二擇一CSS */
 .activityMode {
   height: 1500px;
   width: 800px;
@@ -253,7 +256,6 @@ export default {
   box-shadow: 0px 0px 1px #000000;
   background-color: #ffffff;
 }
-
 .messageMode {
   height: 700px;
   width: 800px;
@@ -265,6 +267,7 @@ export default {
   background-color: #ffffff;
 }
 
+/* activityMode裡元件使用之CSS */
 .topTitle {
   grid-column: 5/7;
   grid-row: 1/2;
@@ -308,15 +311,16 @@ h4 {
   grid-row: 3/4;
 }
 
+/* 內容定位 */
 .activity {
   grid-column: 3/9;
   grid-row: 3/4;
 }
-
 .message {
   grid-column: 3/9;
   grid-row: 3/4;
 }
+/* 內容定位 */
 
 .step {
   font-size: 20px;
