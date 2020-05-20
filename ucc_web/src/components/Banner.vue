@@ -38,6 +38,10 @@ export default {
   margin: 0;
 }
 
+.el-carousel__container {
+  height: 260px;
+}
+
 /* .el-carousel__item:nth-child(2n) {
   background-color: #99a9bf;
 }
