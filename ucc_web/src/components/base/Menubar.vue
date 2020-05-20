@@ -137,7 +137,7 @@ label {
   z-index: 5;
 }
 .menuItem {
-  background-color: white;
+  background-color: #eeeeee;
   width: 60px;
   height: 70px;
   display: flex;

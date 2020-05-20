@@ -22,64 +22,70 @@
               src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
               alt="avatar"
             />
-            <div class="conversation-name">Roger Wu</div>
-            <small class="conversation-content">對話內容，對話過長會出事</small>
+            <div class="conversation-text">
+              <div class="conversation-name">Roger Wu</div>
+              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
+            </div>
           </div>
           <div class="conversation">
             <img
               src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
               alt="avatar"
             />
-            <div class="conversation-name">Roger Wu</div>
-            <small class="conversation-content">I Love U js</small>
+            <div class="conversation-text">
+              <div class="conversation-name">Roger Wu</div>
+              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
+            </div>
           </div>
           <div class="conversation">
             <img
               src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
               alt="avatar"
             />
-            <div class="conversation-name">Roger Wu</div>
-            <small class="conversation-content">I Love U js</small>
+            <div class="conversation-text">
+              <div class="conversation-name">Roger Wu</div>
+              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
+            </div>
           </div>
           <div class="conversation">
             <img
               src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
               alt="avatar"
             />
-            <div class="conversation-name">Roger Wu</div>
-            <small class="conversation-content">I Love U js</small>
+            <div class="conversation-text">
+              <div class="conversation-name">Roger Wu</div>
+              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
+            </div>
           </div>
           <div class="conversation">
             <img
               src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
               alt="avatar"
             />
-            <div class="conversation-name">Roger Wu</div>
-            <small class="conversation-content">I Love U js</small>
+            <div class="conversation-text">
+              <div class="conversation-name">Roger Wu</div>
+              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
+            </div>
           </div>
           <div class="conversation">
             <img
               src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
               alt="avatar"
             />
-            <div class="conversation-name">Roger Wu</div>
-            <small class="conversation-content">I Love U js</small>
+            <div class="conversation-text">
+              <div class="conversation-name">Roger Wu</div>
+              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
+            </div>
           </div>
           <div class="conversation">
             <img
               src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
               alt="avatar"
             />
-            <div class="conversation-name">Roger Wu</div>
-            <small class="conversation-content">I Love U js</small>
-          </div>
-          <div class="conversation">
-            <img
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
-              alt="avatar"
-            />
-            <div class="conversation-name">Roger Wu</div>
-            <small class="conversation-content">I Love U js</small>
+            <div class="conversation-text">
+              <div class="conversation-name">Roger Wu</div>
+              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
+            </div>
           </div>
         </div>
       </div>
@@ -117,12 +123,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.Chat {
+  height: 100vh;
+}
 .container {
   max-width: 800px;
-  max-height: 100vh;
+  /* height: 100%; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 10vh);
   margin-top: 20px;
   margin-left: 20%;
   box-sizing: border-box;
@@ -138,7 +147,7 @@ export default {
   border-bottom: white 1px solid;
 }
 .chatArea {
-  background-color: #fec163;
+  background-color: white;
   grid-column: 1/3;
   grid-row: 2/8;
 }
@@ -151,7 +160,7 @@ export default {
   overflow-y: scroll;
 }
 .inputArea {
-  background-image: linear-gradient(180deg, #fec163 10%, #e77a58 100%);
+  background-image: linear-gradient(180deg, #fec163 10%, #e78c58 100%);
   grid-row: 8/9;
   grid-column: 1/3;
   border-bottom-left-radius: 10px;
@@ -159,7 +168,7 @@ export default {
   border-top: white 1px solid;
 }
 .searchFriend {
-  background-image: linear-gradient(180deg, #fec163 10%, #e77a58 100%);
+  background-image: linear-gradient(180deg, #fec163 10%, #e78c58 100%);
   grid-row: 8/9;
   padding: 0 1rem 0 1rem;
   display: grid;
@@ -207,8 +216,7 @@ export default {
 }
 .conversation {
   padding: 10px;
-  background-color: #ff6348;
-  /* background-image: linear-gradient(135deg, #ff9d6c 10%, #bb4e75 100%); */
+  background-color: rgb(255, 150, 80);
   height: 80px;
   display: flex;
   justify-content: flex-start;
@@ -224,18 +232,26 @@ export default {
   height: 45px;
   width: 45px;
   border-radius: 50%;
+  margin-right: 8px;
+}
+.conversation-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80px;
+  width: 80%;
+  overflow-x: hidden;
 }
 .conversation-name {
-  align-self: flex-start;
-  margin: 5px 0 0 5px;
+  text-align: left;
   font-weight: bold;
 }
 .conversation-content {
-  margin: 10px 0 0 -73px;
+  color: #ddd;
   overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #ddd;
+  width: inherit;
 }
 ::-webkit-scrollbar {
   width: 7px;
@@ -250,7 +266,12 @@ export default {
   border-radius: 4px;
   background: #bbb;
 }
-/* ::-webkit-scrollbar:hover {
-  display: contents;
-} */
+@media screen and (max-width: 837px) {
+  .container {
+    margin: 40px auto 0 auto;
+  }
+  .Chat {
+    height: 100vh;
+  }
+}
 </style>
