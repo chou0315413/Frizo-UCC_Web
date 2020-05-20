@@ -1,114 +1,13 @@
 <template>
-<<<<<<< HEAD
-  <div class="Chat">
-    <Navbar></Navbar>
-    <div class="container">
-      <div class="msg-header">
-        <div class="msg-header-container">
-          <a href="https://google.com">
-            <img
-              id="avatar"
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
-              alt="Avatar"
-            />
-            <label for="avatar">Johnny Wang</label>
-          </a>
-        </div>
-      </div>
-      <div class="chatArea">chatArea</div>
-      <div class="friendList">
-        <div class="conversationList">
-          <div class="conversation">
-            <img
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
-              alt="avatar"
-            />
-            <div class="conversation-text">
-              <div class="conversation-name">Roger Wu</div>
-              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
-            </div>
-          </div>
-          <div class="conversation">
-            <img
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
-              alt="avatar"
-            />
-            <div class="conversation-text">
-              <div class="conversation-name">Roger Wu</div>
-              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
-            </div>
-          </div>
-          <div class="conversation">
-            <img
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
-              alt="avatar"
-            />
-            <div class="conversation-text">
-              <div class="conversation-name">Roger Wu</div>
-              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
-            </div>
-          </div>
-          <div class="conversation">
-            <img
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
-              alt="avatar"
-            />
-            <div class="conversation-text">
-              <div class="conversation-name">Roger Wu</div>
-              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
-            </div>
-          </div>
-          <div class="conversation">
-            <img
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
-              alt="avatar"
-            />
-            <div class="conversation-text">
-              <div class="conversation-name">Roger Wu</div>
-              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
-            </div>
-          </div>
-          <div class="conversation">
-            <img
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
-              alt="avatar"
-            />
-            <div class="conversation-text">
-              <div class="conversation-name">Roger Wu</div>
-              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
-            </div>
-          </div>
-          <div class="conversation">
-            <img
-              src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646027"
-              alt="avatar"
-            />
-            <div class="conversation-text">
-              <div class="conversation-name">Roger Wu</div>
-              <small class="conversation-content">對話內容，對話過長會出事對話內容</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="inputArea">
-        <div class="inputArea-container">
-          <label style="margin-bottom:-3px;margin-right:1rem;">
-            <input type="file" style="display:none;" />
-            <font-awesome-icon icon="paperclip" size="lg" style="color:#fff;" />
-          </label>
-          <el-input v-model="input2" placeholder="请输入内容"></el-input>
-        </div>
-      </div>
-      <div class="searchFriend">
-        <el-input placeholder="搜尋朋友" prefix-icon="el-icon-search" v-model="input1" clearable></el-input>
-      </div>
-=======
-  <div class="postActivityAndMessage">
+  <!-- 動態轉換CSS -->
+  <div :class="contentCssIsActivity?'postActivity':'postMessage'">
     <!-- 本頁使用原生CSS-grid，未來有較好的寫法再另外更新。 -->
-    <Navbar></Navbar>
-    <div class="container">
+    <!-- 未來得移植進user裡，程式碼需改版 -->
+    <!-- 動態轉換CSS -->
+    <div class="container" :class="contentCssIsActivity ? 'activityMode' : 'messageMode' ">
       <div class="topTitle">
-        <h4>發起活動</h4>
+        <!-- 未來可以增加transition變化 -->
+        <h4>{{title}}</h4>
       </div>
 
       <!-- divider邊線 -->
@@ -119,19 +18,21 @@
         <div class="list-group mt-3" id="list-tab" role="tablist">
           <a
             class="list-group-item list-group-item-action active listCSS"
-            id="list-postActivity-list"
+            id="list-activity-list"
             data-toggle="list"
-            href="#list-postActivity"
+            href="#list-activity"
             role="tab"
-            aria-controls="postActivity"
+            aria-controls="activity"
+            @click="activityChangeMode"
           >發佈活動</a>
           <a
             class="list-group-item list-group-item-action listCSS"
-            id="list-postMessage-list"
+            id="list-message-list"
             data-toggle="list"
-            href="#list-postMessage"
+            href="#list-message"
             role="tab"
-            aria-controls="postMessage"
+            aria-controls="message"
+            @click="messageChangeMode"
           >發佈消息</a>
         </div>
       </div>
@@ -140,10 +41,10 @@
         <div class="tab-content" id="nav-tabContent">
           <!-- 發佈活動 -->
           <div
-            class="tab-pane fade show active postActivity"
-            id="list-postActivity"
+            class="tab-pane fade show active activity"
+            id="list-activity"
             role="tabpanel"
-            aria-labelledby="list-postActivity-list"
+            aria-labelledby="list-activity-list"
           >
             <div class="step">第一步 上傳活動宣傳照</div>
             <div class="dm">
@@ -227,42 +128,50 @@
                 :disabled="tagsNumber == 5"
               >新的標籤</el-button>
             </div>
-            <div class="step">第五步 檢查活動內容並發起活動</div>
-            <div class="push">
-              <el-button type="primary" round class="ml-3">發起活動</el-button>
+            <div class="step">第五步 檢查活動內容並發佈活動</div>
+            <div class="activityPush">
+              <el-button type="primary" round class="ml-3">發佈活動</el-button>
             </div>
           </div>
           <!-- 發佈消息 -->
           <div
-            class="tab-pane fade show postMessage"
-            id="list-postMessage"
+            class="tab-pane fade show message"
+            id="list-message"
             role="tabpanel"
-            aria-labelledby="list-postMessage-list"
-          ></div>
+            aria-labelledby="list-message-list"
+          >
+            <div class="step">請輸入新消息的主題</div>
+            <div class="messageTitle">
+              <el-input placeholder="請輸入主題" v-model="messageTitle" clearable></el-input>
+            </div>
+            <div class="messageDescription mt-3">
+              <el-input
+                type="textarea"
+                placeholder="請輸入新消息內容"
+                v-model="messageDescription"
+                rows="20"
+                resize="none"
+              ></el-input>
+            </div>
+            <div class="messagePush mt-3">
+              <el-button type="primary" round class="ml-3">發佈消息</el-button>
+            </div>
+          </div>
         </div>
       </div>
->>>>>>> roger
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from "@/components/base/Navbar";
-<<<<<<< HEAD
-export default {
-  data() {
-    return {
-      input1: "",
-      input2: ""
-    };
-  },
-  name: "Chat",
-=======
-
 export default {
   name: "postActivityAndMessage",
   data() {
     return {
+      contentCssIsActivity: true,
+      // title文字會隨著sidebar更動
+      title: "發佈活動",
+      // 活動資料
       dm:
         "data:image/jpeg;base64,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",
       activityName: "",
@@ -271,16 +180,32 @@ export default {
       cost: 0,
       deadline: "",
       place: "",
+      // 訊息資料
+      messageTitle: "",
+      messageDescription: "",
       // 標籤資料
       dynamicTags: [],
       tagsNumber: 0,
       inputVisible: false,
       inputValue: ""
-      // 標籤資料
     };
   },
 
   methods: {
+    // sidebar使用之methods
+    activityChangeMode() {
+      this.title = "發佈活動";
+      if (this.contentCssIsActivity !== true) {
+        this.contentCssIsActivity = true;
+      }
+    },
+    messageChangeMode() {
+      this.title = "發佈消息";
+      if (this.contentCssIsActivity == true) {
+        this.contentCssIsActivity = false;
+      }
+    },
+
     // 刪除標籤方法
     handleClose(tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
@@ -305,177 +230,23 @@ export default {
       this.inputVisible = false;
       this.inputValue = "";
     }
-  },
-
->>>>>>> roger
-  components: {
-    Navbar
   }
 };
 </script>
 
-<<<<<<< HEAD
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.Chat {
-  height: 100vh;
-}
-.container {
-  max-width: 800px;
-  /* height: 100%; */
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(8, 10vh);
-  margin-top: 20px;
-  margin-left: 20%;
-  box-sizing: border-box;
-  padding: 0;
-}
-.msg-header {
-  background-image: linear-gradient(135deg, #f57852 0%, rgb(255, 150, 80) 100%);
-  grid-column: 1/4;
-  height: 10vh;
-  grid-row: 1/2;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  border-bottom: white 1px solid;
-}
-.chatArea {
-  background-color: white;
-  grid-column: 1/3;
-  grid-row: 2/8;
-}
-.friendList {
-  grid-row: 2/8;
-  overflow-y: hidden;
-  max-height: 60vh;
-}
-.friendList:hover {
-  overflow-y: scroll;
-}
-.inputArea {
-  background-image: linear-gradient(180deg, #fec163 10%, #e78c58 100%);
-  grid-row: 8/9;
-  grid-column: 1/3;
-  border-bottom-left-radius: 10px;
-  border-right: #fff 1px solid;
-  border-top: white 1px solid;
-}
-.searchFriend {
-  background-image: linear-gradient(180deg, #fec163 10%, #e78c58 100%);
-  grid-row: 8/9;
-  padding: 0 1rem 0 1rem;
-  display: grid;
-  align-items: center;
-  border-bottom-right-radius: 10px;
-}
-.searchFriend el-input {
-  border-radius: 30px;
-}
-.msg-header-container img {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  margin: -10px 20px 0 20px;
-  cursor: pointer;
-}
-.msg-header-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  line-height: 10vh;
-}
-.msg-header-container label {
-  color: white;
-  font-weight: bold;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-.msg-header-container label:hover {
-  text-decoration: underline;
-}
-.inputArea-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
-  padding: 0 1rem 0 1rem;
-}
-.inputArea-container label {
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-.inputArea-container label:hover {
-  transform: scale(1.3, 1.3);
-}
-.conversation {
-  padding: 10px;
-  background-color: rgb(255, 150, 80);
-  height: 80px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  border-bottom: white 1px solid;
-  color: white;
-  transition: all 0.3s ease;
-}
-.conversation:hover {
-  background: rgb(245, 168, 116);
-}
-.conversation img {
-  height: 45px;
-  width: 45px;
-  border-radius: 50%;
-  margin-right: 8px;
-}
-.conversation-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 80px;
-  width: 80%;
-  overflow-x: hidden;
-}
-.conversation-name {
-  text-align: left;
-  font-weight: bold;
-}
-.conversation-content {
-  color: #ddd;
-  overflow-x: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  width: inherit;
-}
-::-webkit-scrollbar {
-  width: 7px;
-}
-::-webkit-scrollbar-track {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background-color: #f5f5f5;
-}
-::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  background: #bbb;
-}
-@media screen and (max-width: 837px) {
-  .container {
-    margin: 40px auto 0 auto;
-  }
-  .Chat {
-    height: 100vh;
-  }
-}
-</style>
-=======
 <style>
-.postActivityAndMessage {
+/* 最外圍大框使用二擇一CSS */
+.postActivity {
   height: 1600px;
+  background-color: #eeeeee;
+}
+.postMessage {
+  height: 800px;
+  background-color: #eeeeee;
 }
 
-.container {
+/* container使用二擇一CSS */
+.activityMode {
   height: 1500px;
   width: 800px;
   display: grid;
@@ -485,7 +256,18 @@ export default {
   box-shadow: 0px 0px 1px #000000;
   background-color: #ffffff;
 }
+.messageMode {
+  height: 700px;
+  width: 800px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 50px 5px 1fr;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 0px 1px #000000;
+  background-color: #ffffff;
+}
 
+/* activityMode裡元件使用之CSS */
 .topTitle {
   grid-column: 5/7;
   grid-row: 1/2;
@@ -529,15 +311,16 @@ h4 {
   grid-row: 3/4;
 }
 
-.postActivity {
+/* 內容定位 */
+.activity {
   grid-column: 3/9;
   grid-row: 3/4;
 }
-
-.postMessage {
+.message {
   grid-column: 3/9;
   grid-row: 3/4;
 }
+/* 內容定位 */
 
 .step {
   font-size: 20px;
@@ -606,4 +389,3 @@ h4 {
 }
 /* 標籤CSS */
 </style>
->>>>>>> roger

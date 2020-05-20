@@ -66,7 +66,7 @@
           <router-link to="/user/info" style="text-decoration:none;">
             <el-menu-item class="rightBtn" index="6-1" href="#">個人資料</el-menu-item>
           </router-link>
-          <router-link to="/newActivity" style="text-decoration:none;">
+          <router-link to="/user/newActivity" style="text-decoration:none;">
             <el-menu-item class="rightBtn" index="6-2" href="#" id="dropDownBtn">發佈新活動、訊息</el-menu-item>
           </router-link>
           <el-menu-item class="rightBtn" index="6-3" @click.native="logout" id="dropDownBtn">登出</el-menu-item>
