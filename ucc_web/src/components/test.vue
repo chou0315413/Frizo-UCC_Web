@@ -86,7 +86,7 @@
 </template>  
 <script>
 import { mapActions } from "vuex";
-// import { authenticated } from "@/utils/AuthStore";
+import { authenticated } from "@/utils/AuthStore";
 import Login from "@/components/loginGroup/Login";
 import register from "@/components/loginGroup/Register";
 import Menubar from "@/components/base/Menubar";
@@ -106,7 +106,7 @@ export default {
       },
       activeIndex: "1",
       activeIndex2: "1",
-      loginState: false
+      loginState: ""
     };
   },
 
@@ -142,15 +142,15 @@ export default {
     ...mapActions({
       logout: "auth/logout"
     })
-  }
+  },
 
-  // mounted() {
-  //   if (authenticated()) {
-  //     this.loginState = true;
-  //   } else {
-  //     this.loginState = false;
-  //   }
-  // }
+  mounted() {
+    if (authenticated()) {
+      this.loginState = true;
+    } else {
+      this.loginState = false;
+    }
+  }
 };
 </script>
 
