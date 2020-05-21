@@ -18,7 +18,7 @@
               </div>
               <div class="row">
                 <div class="col-lg-12">
-                  <div class="input-group input-group-sm logInDivPading mb-3 mt-4">
+                  <div class="input-group input-group-sm logInDivPading mt-4">
                     <!-- inputError部分如果為true則background為紅色 -->
                     <!-- 監聽使用者按下Enter按鍵 -->
                     <input
@@ -31,6 +31,12 @@
                       v-on:keyup.13="login"
                     />
                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-8">
+                  <div class="alertDiv">{{alertDiv.emailAlertText}}</div>
                 </div>
               </div>
               <div class="row">
@@ -53,7 +59,7 @@
                   <a href="#" data-toggle="modal" data-target="#forgetPasswd">忘記密碼</a>
                 </div>
                 <div class="col-lg-8">
-                  <div class="alertDiv">{{alertDiv.alertText}}</div>
+                  <div class="alertDiv">{{alertDiv.passwoedAlertText}}</div>
                 </div>
               </div>
               <div class="row">
@@ -124,7 +130,8 @@ export default {
         accessToken: ""
       },
       alertDiv: {
-        alertText: ""
+        emailAlertText: "",
+        passwoedAlertText: ""
       },
       inputIsError: false
     };
@@ -161,7 +168,17 @@ export default {
           console.log(err.response);
           this.isLoading = "false";
           this.inputIsError = true;
-          this.alertDiv.alertText = err.response.data.message;
+          if (err.response.data.message == "帳號不存在") {
+            this.alertDiv.emailAlertText = err.response.data.message;
+            this.alertDiv.passwoedAlertText = "";
+            return;
+          }
+          if (err.response.data.message == "密碼輸入錯誤。") {
+            this.alertDiv.emailAlertText = "";
+            this.alertDiv.passwoedAlertText = "密碼輸入錯誤";
+          }
+          this.alertDiv.emailAlertText = err.response.data.result.email;
+          this.alertDiv.passwoedAlertText = err.response.data.result.password;
         });
     },
 
@@ -177,7 +194,7 @@ export default {
 <style scoped>
 .logInDiv {
   height: 500px;
-  background-image: url(../../assets/signInBackground/login.jpg);
+  background-image: url(../assets/signInBackground/login.jpg);
   background-size: cover;
 }
 

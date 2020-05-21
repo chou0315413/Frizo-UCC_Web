@@ -6,7 +6,6 @@
       data-toggle="modal"
       data-target="#Login"
     >Launch demo modal</button>
-
     <!-- Modal -->
     <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-hidden="true" ref="modal">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -41,7 +40,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-8">
                   <div class="alertDiv">{{alertDiv.emailAlertText}}</div>
                 </div>
               </div>
@@ -65,7 +65,7 @@
                   <a href="#" data-toggle="modal" data-target="#forgetPasswd">忘記密碼</a>
                 </div>
                 <div class="col-lg-8">
-                  <div class="alertDiv">{{alertDiv.passwordAlertText}}</div>
+                  <div class="alertDiv">{{alertDiv.passwoedAlertText}}</div>
                 </div>
               </div>
               <div class="row">
@@ -113,11 +113,10 @@
           </div>
         </div>
       </div>
-    </label>
-    <Login></Login>
-    <register></register>
+    </div>
   </div>
-</template>  
+</template>
+
 <script>
 import { signin } from "@/api/auth";
 // import { authenticated } from "@/utils/AuthStore";
@@ -138,17 +137,11 @@ export default {
       },
       alertDiv: {
         emailAlertText: "",
-        passwordAlertText: ""
+        passwoedAlertText: ""
       },
       inputIsError: false
     };
   },
-
-  // components: {
-  //   Login,
-  //   register,
-  //   Menubar
-  // },
 
   methods: {
     closeModal() {
@@ -181,8 +174,17 @@ export default {
           console.log(err.response);
           this.isLoading = "false";
           this.inputIsError = true;
+          if (err.response.data.message == "帳號不存在") {
+            this.alertDiv.emailAlertText = err.response.data.message;
+            this.alertDiv.passwoedAlertText = "";
+            return;
+          }
+          if (err.response.data.message == "密碼輸入錯誤。") {
+            this.alertDiv.emailAlertText = "";
+            this.alertDiv.passwoedAlertText = "密碼輸入錯誤";
+          }
           this.alertDiv.emailAlertText = err.response.data.result.email;
-          this.alertDiv.passwordAlertText = err.response.data.result.password;
+          this.alertDiv.passwoedAlertText = err.response.data.result.password;
         });
     },
 
