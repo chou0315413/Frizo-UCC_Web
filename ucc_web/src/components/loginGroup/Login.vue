@@ -194,7 +194,8 @@ export default {
 <style scoped>
 .logInDiv {
   height: 500px;
-  background-image: url(../assets/signInBackground/login.jpg);
+  /* 未來可以把圖片移進檔案伺服器，以免路徑產生未來維護問題 */
+  background-image: url(../../assets/signInBackground/login.jpg);
   background-size: cover;
 }
 
