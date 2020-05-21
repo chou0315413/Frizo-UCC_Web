@@ -149,12 +149,21 @@
                 type="textarea"
                 placeholder="請輸入新消息內容"
                 v-model="messageDescription"
-                rows="20"
+                rows="10"
                 resize="none"
               ></el-input>
             </div>
             <div class="messagePush mt-3">
-              <el-button type="primary" round class="ml-3">發佈消息</el-button>
+              <div class="messagePushBtn">
+                <el-button type="primary" round class="ml-3">發佈消息</el-button>
+              </div>
+              <div class="messagePushPhoto">
+                <label>
+                  <input type="file" style="display:none;" />
+                  <font-awesome-icon icon="image" size="lg" class="imageIcon" />
+                  <span>上傳照片</span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -168,6 +177,7 @@ export default {
   name: "postActivityAndMessage",
   data() {
     return {
+      // 判斷目前content是發佈活動或是發佈消息
       contentCssIsActivity: true,
       // title文字會隨著sidebar更動
       title: "發佈活動",
@@ -237,11 +247,11 @@ export default {
 <style>
 /* 最外圍大框使用二擇一CSS */
 .postActivity {
-  height: 1600px;
+  height: 1550px;
   background-color: #eeeeee;
 }
 .postMessage {
-  height: 800px;
+  height: 550px;
   background-color: #eeeeee;
 }
 
@@ -257,7 +267,7 @@ export default {
   background-color: #ffffff;
 }
 .messageMode {
-  height: 700px;
+  height: 500px;
   width: 800px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -367,6 +377,42 @@ h4 {
 .time {
   grid-column: 1/4;
   grid-row: 4/5;
+}
+
+.messagePush {
+  display: grid;
+  grid-template-columns: 0.65fr 0.35fr;
+  grid-template-rows: repeat(1, 1fr);
+}
+
+.messagePushBtn {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.messagePushPhoto {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageIcon {
+  margin-right: 5px;
+}
+
+.messagePushPhoto label {
+  margin-bottom: -3px;
+  margin-right: 1rem;
+  cursor: pointer;
+  color: #000;
+}
+
+.messagePushPhoto label:hover {
+  color: rgb(51, 51, 51);
+  transform: scale(1.2, 1.2);
+  transition: 0.5s;
 }
 
 /* 標籤CSS */
