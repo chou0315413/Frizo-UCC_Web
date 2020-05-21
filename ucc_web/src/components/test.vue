@@ -113,10 +113,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </label>
+    <Login></Login>
+    <register></register>
   </div>
-</template>
-
+</template>  
 <script>
 import { signin } from "@/api/auth";
 // import { authenticated } from "@/utils/AuthStore";
@@ -142,6 +143,12 @@ export default {
       inputIsError: false
     };
   },
+
+  // components: {
+  //   Login,
+  //   register,
+  //   Menubar
+  // },
 
   methods: {
     closeModal() {

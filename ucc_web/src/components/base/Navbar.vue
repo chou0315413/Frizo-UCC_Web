@@ -22,19 +22,19 @@
         </el-input>
       </el-menu-item>
 
-      <div class="rightBtnGroup">
+      <div class="loginArea">
         <!-- 登入狀態改變時會有不同的項目出現 -->
         <!-- 未登入 -->
         <el-menu-item
           index="6"
           href="#"
-          class="rightBtn"
+          class="login"
           data-toggle="modal"
           data-target="#Login"
           v-if="loginState === false"
         >
           <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
-          <span class="navFont">Login</span>
+          <span class="loginFont">Login</span>
         </el-menu-item>
       </div>
       <!-- 已登入 -->
@@ -74,7 +74,7 @@
       </div>
     </el-menu>
     <label for="check" @click="animation">
-      <div :class="toggleIsFalse ? 'toggle' : 'burger'">
+      <div :class="loginState ?  (toggleIsFalse ? 'toggle' : 'burger') : 'nothing'">
         <div class="line1"></div>
         <div class="line2"></div>
         <div class="line3"></div>
@@ -160,6 +160,14 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
+.loginArea {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.login {
+  width: 100px;
+}
 .Icon {
   border: 0px;
 }
@@ -185,6 +193,7 @@ export default {
 #check {
   display: none;
 }
+
 .burger {
   display: none;
   cursor: pointer;
@@ -284,6 +293,11 @@ export default {
     color: white;
   }
 }
+@media screen and (max-width: 870px) {
+  .loginFont {
+    display: none;
+  }
+}
 @media screen and (max-width: 837px) {
   #inputArea {
     position: absolute;
@@ -300,8 +314,13 @@ export default {
     right: 10px;
   }
   .toggle {
-    position: fixed;
+    position: absolute;
     top: 80px;
+    right: 10px;
+  }
+  .loginArea {
+    position: absolute;
+    top: 60px;
     right: 10px;
   }
   .rightBtnGroup {
