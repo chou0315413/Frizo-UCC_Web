@@ -174,7 +174,7 @@ export default {
 .logo {
   height: 40px;
   width: 70px;
-  margin: 0 13px 5px 70px;
+  margin: 0 13px 12px 70px;
 }
 .menubar {
   width: 50px;

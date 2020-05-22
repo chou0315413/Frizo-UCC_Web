@@ -2,7 +2,6 @@
   <!-- 動態轉換CSS -->
   <div :class="contentCssIsActivity?'postActivity':'postMessage'">
     <!-- 本頁使用原生CSS-grid，未來有較好的寫法再另外更新。 -->
-    <!-- 未來得移植進user裡，程式碼需改版 -->
     <!-- 動態轉換CSS -->
     <div class="container" :class="contentCssIsActivity ? 'activityMode' : 'messageMode' ">
       <div class="topTitle">
@@ -140,9 +139,18 @@
             role="tabpanel"
             aria-labelledby="list-message-list"
           >
-            <div class="step">請輸入新消息的主題</div>
-            <div class="messageTitle">
-              <el-input placeholder="請輸入主題" v-model="messageTitle" clearable></el-input>
+            <!-- <div class="step">請輸入新消息的主題</div> -->
+            <div class="msgTop">
+              <div class="msgTopTitle">
+                <el-input placeholder="請輸入主題" v-model="messageTitle" clearable></el-input>
+              </div>
+              <div class="msgTopPhoto">
+                <label>
+                  <input type="file" style="display:none;" />
+                  <font-awesome-icon icon="image" size="lg" class="imageIcon" />
+                  <span>上傳照片</span>
+                </label>
+              </div>
             </div>
             <div class="messageDescription mt-3">
               <el-input
@@ -156,13 +164,6 @@
             <div class="messagePush mt-3">
               <div class="messagePushBtn">
                 <el-button type="primary" round class="ml-3">發佈消息</el-button>
-              </div>
-              <div class="messagePushPhoto">
-                <label>
-                  <input type="file" style="display:none;" />
-                  <font-awesome-icon icon="image" size="lg" class="imageIcon" />
-                  <span>上傳照片</span>
-                </label>
               </div>
             </div>
           </div>
@@ -204,13 +205,13 @@ export default {
   methods: {
     // sidebar使用之methods
     activityChangeMode() {
-      this.title = "發佈活動";
+      // this.title = "發佈活動";
       if (this.contentCssIsActivity !== true) {
         this.contentCssIsActivity = true;
       }
     },
     messageChangeMode() {
-      this.title = "發佈消息";
+      // this.title = "發佈消息";
       if (this.contentCssIsActivity == true) {
         this.contentCssIsActivity = false;
       }
@@ -251,7 +252,7 @@ export default {
   background-color: #eeeeee;
 }
 .postMessage {
-  height: 550px;
+  height: 100vh;
   background-color: #eeeeee;
 }
 
@@ -261,7 +262,7 @@ export default {
   width: 800px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 50px 5px 1fr;
+  grid-template-rows: 70px 5px 1fr;
   border: 1px solid #dddddd;
   box-shadow: 0px 0px 1px #000000;
   background-color: #ffffff;
@@ -271,7 +272,7 @@ export default {
   width: 800px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 50px 5px 1fr;
+  grid-template-rows: 70px 5px 1fr;
   border: 1px solid #dddddd;
   box-shadow: 0px 0px 1px #000000;
   background-color: #ffffff;
@@ -279,30 +280,29 @@ export default {
 
 /* activityMode裡元件使用之CSS */
 .topTitle {
-  grid-column: 5/7;
+  grid-column: 1/11;
   grid-row: 1/2;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .sidebar {
-  position: relative;
-  grid-column: 1/2;
-  grid-row: 3/4;
-  top: 10px;
-  left: 10px;
-  padding: 0px 15px;
-  height: 250px;
-  width: 150px;
-  border-right: 1px #a5a5a5 solid;
+  grid-column: 1/11;
+  grid-row: 1/2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+.list-group {
+  flex-direction: row;
+}
 .listCSS {
   padding: 0px;
   height: 50px;
   line-height: 50px;
   text-align: center;
+  width: 150px;
+  border-radius: 0.25rem;
 }
 
 h4 {
@@ -378,7 +378,23 @@ h4 {
   grid-column: 1/4;
   grid-row: 4/5;
 }
-
+.msgTop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  margin-top: 20px;
+}
+.msgTopTitle {
+  display: flex;
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+.msgTopPhoto {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: orange;
+}
 .messagePush {
   display: grid;
   grid-template-columns: 0.65fr 0.35fr;
@@ -386,31 +402,21 @@ h4 {
 }
 
 .messagePushBtn {
-  grid-column: 1/2;
+  grid-column: 1/3;
   grid-row: 1/2;
-}
-
-.messagePushPhoto {
-  grid-column: 2/3;
-  grid-row: 1/2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .imageIcon {
   margin-right: 5px;
 }
 
-.messagePushPhoto label {
+.msgTopPhoto label {
   margin-bottom: -3px;
   margin-right: 1rem;
   cursor: pointer;
-  color: #000;
 }
 
-.messagePushPhoto label:hover {
-  color: rgb(51, 51, 51);
+.msgTopPhoto label:hover {
   transform: scale(1.2, 1.2);
   transition: 0.5s;
 }
