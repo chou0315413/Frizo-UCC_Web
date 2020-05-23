@@ -2,7 +2,10 @@
   <div class="userPage">
     <!-- useCenter為固定水平置中，merge進user群組時，可調整刪除 -->
     <div class="useCenter">
-      <div class="userHome"></div>
+      <div class="userHome">
+        <div class="userBackgroundPhoto"></div>
+        <div class="user"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -38,5 +41,11 @@ export default {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
+}
+
+.userBackgroundPhoto {
+  grid-column: 1/9;
+  grid-row: 1/4;
+  background-color: aqua;
 }
 </style>
