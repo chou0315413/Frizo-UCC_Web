@@ -4,7 +4,9 @@
     <div class="useCenter">
       <div class="userHome">
         <div class="userBackgroundPhoto"></div>
-        <div class="user"></div>
+        <div class="userAvatar">
+          <el-avatar :size="170" :src="circleUrl"></el-avatar>
+        </div>
       </div>
     </div>
   </div>
@@ -47,5 +49,13 @@ export default {
   grid-column: 1/9;
   grid-row: 1/4;
   background-color: aqua;
+}
+
+.userAvatar {
+  grid-column: 1/9;
+  grid-row: 3/5;
+  height: 100%;
+  width: 200px;
+  margin: auto;
 }
 </style>

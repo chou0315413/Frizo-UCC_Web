@@ -82,6 +82,7 @@
     </label>
     <Login></Login>
     <register></register>
+    <forgetPasswd></forgetPasswd>
   </div>
 </template>  
 <script>
@@ -89,6 +90,7 @@ import { mapActions } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
 import Login from "@/components/loginGroup/Login";
 import register from "@/components/loginGroup/Register";
+import forgetPasswd from "@/components/loginGroup/forgetPasswd";
 import Menubar from "@/components/base/Menubar";
 
 export default {
@@ -113,7 +115,8 @@ export default {
   components: {
     Login,
     register,
-    Menubar
+    Menubar,
+    forgetPasswd
   },
 
   methods: {
