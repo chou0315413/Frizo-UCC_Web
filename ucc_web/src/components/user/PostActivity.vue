@@ -45,12 +45,22 @@
             role="tabpanel"
             aria-labelledby="list-activity-list"
           >
-            <div class="step">第一步 上傳活動宣傳照</div>
+            <div class="step">STEP.1 上傳活動宣傳照</div>
+
+            <!-- <img :src="dm" class="dmImg" /> -->
             <div class="dm">
-              <img :src="dm" class="dmImg" />
-              <el-button type="primary" round class="ml-3">上傳</el-button>
+              <label :class="isAddPic ? 'havePic' : 'noPic' ">
+                <input type="file" style="display:none;" />
+                <font-awesome-icon icon="plus-square" size="lg" class="imageIcon" />
+                <span>上傳照片</span>
+              </label>
+              <img
+                src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646034"
+                :class="isAddPic ? 'noPic' : 'havePic' "
+              />
             </div>
-            <div class="step">第二步 輸入活動名稱、活動內容介紹</div>
+
+            <div class="step">STEP.2 輸入活動名稱、活動內容介紹</div>
             <div class="title">
               <el-input placeholder="請輸入活動名稱" v-model="activityName" maxlength="20" show-word-limit>
                 <template slot="prepend">活動名稱</template>
@@ -65,7 +75,7 @@
                 resize="none"
               ></el-input>
             </div>
-            <div class="step">第三步 輸入活動其他相關資訊</div>
+            <div class="step">STEP.3 輸入活動其他相關資訊</div>
             <div class="otherInformation">
               <div class="peopleLimit">
                 <el-input v-model="peopleLimit" type="number" min="0">
@@ -101,7 +111,7 @@
               </div>
               <div class="tag"></div>
             </div>
-            <div class="step">第四步 輸入活動標籤類別</div>
+            <div class="step">STEP.4 輸入活動標籤類別</div>
             <div>
               <el-tag
                 :key="tag"
@@ -127,7 +137,7 @@
                 :disabled="tagsNumber == 5"
               >新的標籤</el-button>
             </div>
-            <div class="step">第五步 檢查活動內容並發佈活動</div>
+            <div class="step">STEP.5 檢查活動內容並發佈活動</div>
             <div class="activityPush">
               <el-button type="primary" round class="ml-3">發佈活動</el-button>
             </div>
@@ -145,11 +155,13 @@
                 <el-input placeholder="請輸入主題" v-model="messageTitle" clearable></el-input>
               </div>
               <div class="msgTopPhoto">
-                <label>
-                  <input type="file" style="display:none;" />
-                  <font-awesome-icon icon="image" size="lg" class="imageIcon" />
-                  <span>上傳照片</span>
-                </label>
+                <div class="msgTopPhotoBorder">
+                  <label>
+                    <input type="file" style="display:none;" />
+                    <font-awesome-icon icon="image" size="lg" class="imageIcon" />
+                    <span>上傳照片</span>
+                  </label>
+                </div>
               </div>
             </div>
             <div class="messageDescription mt-3">
@@ -198,7 +210,9 @@ export default {
       dynamicTags: [],
       tagsNumber: 0,
       inputVisible: false,
-      inputValue: ""
+      inputValue: "",
+      // 將來接上後端時需標註引號
+      isAddPic: false
     };
   },
 
@@ -258,11 +272,11 @@ export default {
 
 /* container使用二擇一CSS */
 .activityMode {
-  height: 1500px;
+  height: 1300px;
   width: 800px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 70px 5px 1fr;
+  grid-template-rows: 10vh 5px 1fr;
   border: 1px solid #dddddd;
   box-shadow: 0px 0px 1px #000000;
   background-color: #ffffff;
@@ -272,7 +286,7 @@ export default {
   width: 800px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 70px 5px 1fr;
+  grid-template-rows: 10vh 5px 1fr;
   border: 1px solid #dddddd;
   box-shadow: 0px 0px 1px #000000;
   background-color: #ffffff;
@@ -304,7 +318,41 @@ export default {
   width: 150px;
   border-radius: 0.25rem;
 }
-
+.list-group-item.active {
+  background-color: orange;
+  color: white;
+  border: orange;
+  margin-top: 0;
+}
+.list-group-item {
+  border: 1px orange solid;
+  color: orange;
+}
+.list-group-item:hover {
+  background-color: rgb(245, 187, 111);
+  color: white;
+  border: none;
+}
+.list-group-item + .list-group-item.active {
+  margin-top: 0;
+}
+.list-group-item + .list-group-item {
+  border-top-width: 1px;
+}
+.el-input-group__append,
+.el-input-group__prepend,
+.el-input .el-input__count {
+  color: orange;
+}
+.el-input .el-input__count {
+  color: orange;
+}
+.el-date-editor .el-range-separator {
+  padding: 0;
+}
+.el-textarea__inner {
+  height: 30vh;
+}
 h4 {
   margin: 0;
   padding: 0;
@@ -336,11 +384,43 @@ h4 {
   font-size: 20px;
   margin-top: 15px;
   margin-bottom: 15px;
+  padding-left: 6px;
+  height: 5vh;
+  line-height: 5vh;
+  text-align: start;
+  background-image: linear-gradient(90deg, #ff9100 0%, rgb(255, 197, 131) 100%);
+  border-radius: 0.5rem;
+  color: white;
+}
+.noPic {
+  display: block;
+}
+.havePic {
+  display: none;
 }
 
-.dmImg {
-  height: 150px;
+.dm {
+  color: orange;
+  grid-column: 3/9;
+  height: 20vh;
+  border-radius: 3rem;
+  border: 2px orange dashed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dm span {
+  display: none;
+  font-size: 20px;
+}
+.dm:hover span {
+  display: inline-block;
+}
+.dm label {
+  height: 30px;
   width: 150px;
+  font-size: 25px;
+  cursor: pointer;
 }
 
 .otherInformation {
@@ -391,7 +471,7 @@ h4 {
 }
 .msgTopPhoto {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   color: orange;
 }
@@ -411,15 +491,25 @@ h4 {
 }
 
 .msgTopPhoto label {
-  margin-bottom: -3px;
-  margin-right: 1rem;
+  margin: 0;
   cursor: pointer;
 }
+.msgTopPhotoBorder {
+  cursor: pointer;
+  margin: 0;
+  border: 1px orange solid;
+  border-radius: 1rem;
+  width: 9vw;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-.msgTopPhoto label:hover {
+/* .msgTopPhoto label:hover {
   transform: scale(1.2, 1.2);
   transition: 0.5s;
-}
+} */
 
 /* 標籤CSS */
 .el-tag + .el-tag {
