@@ -1,38 +1,25 @@
 <template>
   <div class="followList">
-    <div class="activity" v-for="index in followList" :key="index">
-      <div v-for="index in followList" :key="index">
-        <div v-if="index.index%2 == 1" class="item">
-          <div class="imgBox">
-            <img :src="index.img" class="itemImg" />
+    <div class="activity">
+      <div class="item" v-for="index in followList" :key="index">
+        <div class="imgBox">
+          <img :src="index.img" class="itemImg" />
+        </div>
+        <div class="itemContent">
+          <div class="itemTitle">
+            <b>{{index.title}}</b>
           </div>
-          <div class="itemContent">
-            <div class="itemTitle">{{index.title}}</div>
-            <div class="itemIntroduction mb-4">
-              <div>{{index.message}}</div>
-            </div>
-            <div class="deadline">活動截止日期：{{index.deadline}}</div>
-            <div class="joinPeople">目前參加人數：{{index.joinPeople}}人</div>
-            <div class="tag"></div>
+          <div class="itemIntroduction mb-4">
+            <div>{{index.message}}</div>
           </div>
+          <div class="deadline">活動截止日期：{{index.deadline}}</div>
+          <div class="joinPeople mt-2">目前參加人數：{{index.joinPeople}}人</div>
+          <div class="tag"></div>
         </div>
       </div>
-      <div v-for="index in followList" :key="index">
-        <div v-if="index.index%2 == 0" class="item">
-          <div class="imgBox">
-            <img :src="index.img" class="itemImg" />
-          </div>
-          <div class="itemContent">
-            <div class="itemTitle">{{index.title}}</div>
-            <div class="itemIntroduction mb-4">
-              <div>{{index.message}}</div>
-            </div>
-            <div class="deadline">活動截止日期：{{index.deadline}}</div>
-            <div class="joinPeople">目前參加人數：{{index.joinPeople}}人</div>
-            <div class="tag"></div>
-          </div>
-        </div>
-      </div>
+    </div>
+    <div>
+      <button class="mb-3">更多</button>
     </div>
   </div>
 </template>
@@ -58,7 +45,7 @@ export default {
           index: 2,
           title: "「舜間發現愛，興善攝光彩」廟會創意攝影與創",
           message:
-            "木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人!",
+            "木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人!",
           deadline: "8月8號",
           joinPeople: "12",
           tag: "",
@@ -80,7 +67,7 @@ export default {
           index: 4,
           title: "藝術智能之「我眼中的抗疫英雄」創作繪畫比賽",
           message:
-            "隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的",
+            "隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的隨機的",
           deadline: "8月8號",
           joinPeople: "12",
           tag: "",
@@ -115,45 +102,39 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .activity {
-  height: 450px;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(1, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }
 
-.item {
+/* .odd {
   position: relative;
-  display: grid;
   grid-column: 1/2;
   grid-row: 1/2;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  height: 400px;
-  width: 430px;
-  box-shadow: 0 0 3px #2e2e2e;
-  background-color: #ffffff;
-  margin: 20px 0px;
 }
 
-.item2 {
+.even {
   position: relative;
-  display: grid;
   grid-column: 2/3;
   grid-row: 1/2;
+} */
+
+.item {
+  display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
-  height: 400px;
+  height: 450px;
   width: 430px;
   box-shadow: 0 0 3px #2e2e2e;
   background-color: #ffffff;
-  margin: 20px 0px;
+  margin: 10px auto;
 }
 
 .imgBox {
   padding: 5px;
   grid-column: 1/9;
-  grid-row: 1/4;
+  grid-row: 1/5;
 }
 
 .itemImg {
@@ -163,7 +144,7 @@ export default {
 
 .itemContent {
   grid-column: 1/9;
-  grid-row: 4/9;
+  grid-row: 5/9;
   padding: 0px 15px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -171,7 +152,7 @@ export default {
 }
 
 .itemTitle {
-  font-size: 28px;
+  font-size: 22px;
   grid-column: 1/5;
   grid-row: 1/2;
   text-align: left;
