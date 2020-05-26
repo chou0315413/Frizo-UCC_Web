@@ -9,7 +9,9 @@
       >
         <input type="checkbox" id="check" />
         <el-menu-item index="1" class="uccItem">
+          <!-- Menu -->
           <Menubar class="menubar"></Menubar>
+          <!-- Menu -->
           <router-link to="/">
             <img class="logo" src="@/assets/UCC Classic.jpg" />
             <span id="fl">
@@ -151,7 +153,10 @@ export default {
       var scrollTop = window.pageYOffset;
       var scroll = scrollTop - this.i;
       this.i = scrollTop;
-      if (scroll < 0) {
+
+      if (window.location.pathname === "/chat") {
+        window.removeEventListener("scroll", this.handleScroll, true);
+      } else if (scroll < 0) {
         this.scrollUpOrDown = true;
       } else {
         this.scrollUpOrDown = false;
@@ -170,7 +175,7 @@ export default {
     } else {
       this.loginState = false;
     }
-
+    //偵測卷軸滾動
     window.addEventListener("scroll", this.handleScroll, true);
   }
 };
@@ -180,29 +185,26 @@ export default {
 <style scoped>
 .navbar {
   z-index: 6;
-  transition: all 5s;
 }
 .nav-show,
-.el-menu.el-menu--horizontal {
-  height: 62px;
+.nav-show .el-menu.el-menu--horizontal {
+  height: 61px;
   padding: 0px;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  transition: top 0.3s ease;
 }
-.nav-hide {
-  height: 62px;
+.nav-hide,
+.nav-hide .el-menu.el-menu--horizontal {
+  height: 61px;
   padding: 0px;
   width: 100%;
   position: fixed;
   top: -61px;
   left: 0;
-  display: none;
-}
-.navbar .nav-show,
-.nav-hide {
-  transition: all 0.8s ease;
+  transition: top 0.3s ease;
 }
 
 .rightBtnGroup {

@@ -9,7 +9,7 @@
         <div class="line3"></div>
       </div>
     </label>
-    <ul class="menu">
+    <ul :class="scrollUpOrDown?'menu-show':'menu-hide'">
       <li class="menuItem">
         <a href="https://google.com">
           <img
@@ -66,7 +66,9 @@
 export default {
   data() {
     return {
-      toggleIsFalse: false
+      toggleIsFalse: false,
+      i: "0",
+      scrollUpOrDown: true
     };
   },
   methods: {
@@ -76,7 +78,25 @@ export default {
       } else {
         this.toggleIsFalse = false;
       }
+    },
+    //滾動隱藏、顯示Menu
+    handleScroll() {
+      // 頁面滾動距頂部距離
+      var scrollTop = window.pageYOffset;
+      var scroll = scrollTop - this.i;
+      this.i = scrollTop;
+      if (window.location.pathname === "/chat") {
+        window.removeEventListener("scroll", this.handleScroll, true);
+      } else if (scroll < 0) {
+        this.scrollUpOrDown = true;
+      } else {
+        this.scrollUpOrDown = false;
+      }
     }
+  },
+  mounted() {
+    //偵測卷軸滾動
+    window.addEventListener("scroll", this.handleScroll, true);
   }
 };
 </script>
@@ -127,7 +147,7 @@ label {
   height: 35px;
   margin-top: 8px;
 }
-.menu {
+.menu-show {
   list-style: none;
   position: absolute;
   top: 70px;
@@ -135,6 +155,17 @@ label {
   margin: 0;
   padding: 0;
   z-index: 5;
+  transition: left 0.3s ease;
+}
+.menu-hide {
+  list-style: none;
+  position: absolute;
+  top: 70px;
+  left: -80px;
+  margin: 0;
+  padding: 0;
+  z-index: 5;
+  transition: left 0.3s ease;
 }
 .menuItem {
   background-color: #eeeeee;

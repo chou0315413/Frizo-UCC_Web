@@ -111,8 +111,18 @@ export default {
   data() {
     return {
       input1: "",
-      input2: ""
+      input2: "",
+      i: "1"
     };
+  },
+  methods: {
+    preventHandleScroll() {
+      window.removeEventListener("scroll", this.handleScroll, true);
+    }
+  },
+  mounted() {
+    //偵測卷軸滾動
+    window.addEventListener("scroll", this.preventHandleScroll, true);
   },
   name: "Chat",
   components: {
@@ -126,13 +136,14 @@ export default {
 .Chat {
   height: 100vh;
 }
+
 .container {
   max-width: 800px;
   /* height: 100%; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(8, 10vh);
-  margin-top: 20px;
+  margin-top: 75px;
   margin-left: 20%;
   box-sizing: border-box;
   padding: 0;
@@ -253,6 +264,7 @@ export default {
   text-overflow: ellipsis;
   width: inherit;
 }
+/* scrollbar 樣式 */
 ::-webkit-scrollbar {
   width: 7px;
 }
