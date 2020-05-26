@@ -25,6 +25,7 @@
               </el-radio>
             </el-radio-group>
           </div>
+          <div class="activityContent"></div>
         </div>
       </div>
     </div>
