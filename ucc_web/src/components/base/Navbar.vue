@@ -1,88 +1,90 @@
 <template>
-  <div class="Menubar-new">
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-    >
-      <input type="checkbox" id="check" />
-      <el-menu-item index="1" class="uccItem">
-        <Menubar class="menubar"></Menubar>
-        <router-link to="/">
-          <img class="logo" src="@/assets/UCC Classic.jpg" />
-          <span id="fl">
-            <h3>University Club Center</h3>
-          </span>
-        </router-link>
-      </el-menu-item>
-      <el-menu-item id="inputArea">
-        <el-input v-model="search" @focus="searchOnfocus" @blur="searchOnblur" clearable>
-          <el-button slot="append" icon="el-icon-search"></el-button>
-        </el-input>
-      </el-menu-item>
-
-      <div class="loginArea">
-        <!-- 登入狀態改變時會有不同的項目出現 -->
-        <!-- 未登入 -->
-        <el-menu-item
-          index="6"
-          href="#"
-          class="login"
-          data-toggle="modal"
-          data-target="#Login"
-          v-if="loginState === false"
-        >
-          <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
-          <span class="loginFont">Login</span>
+  <div class="navbar">
+    <div :class="scrollUpOrDown?'nav-show':'nav-hide'">
+      <el-menu
+        :default-active="activeIndex"
+        class="el-menu-demo"
+        mode="horizontal"
+        @select="handleSelect"
+      >
+        <input type="checkbox" id="check" />
+        <el-menu-item index="1" class="uccItem">
+          <Menubar class="menubar"></Menubar>
+          <router-link to="/">
+            <img class="logo" src="@/assets/UCC Classic.jpg" />
+            <span id="fl">
+              <h3>University Club Center</h3>
+            </span>
+          </router-link>
         </el-menu-item>
-      </div>
-      <!-- 已登入 -->
-      <div class="rightBtnGroup" v-if="loginState === true">
-        <router-link to="/chat" style="text-decoration:none;">
-          <el-menu-item index="4" class="rightBtn">
-            <i class="el-icon-chat-line-square" size="medium"></i>
-            <span class="navFont">Chat</span>
-          </el-menu-item>
-        </router-link>
+        <el-menu-item id="inputArea">
+          <el-input v-model="search" @focus="searchOnfocus" @blur="searchOnblur" clearable>
+            <el-button slot="append" icon="el-icon-search"></el-button>
+          </el-input>
+        </el-menu-item>
 
-        <el-submenu index="5" href="#" class="rightBtn" id="followersBtn">
-          <template slot="title" class="rightBtn">
-            <font-awesome-icon
-              icon="user-friends"
-              size="lg"
-              style="color:#A9A9A9;margin-right:8px;"
-            />
-            <span id="followers" style="font-size:16px;">Followers</span>
-          </template>
-          <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
-          <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
-        </el-submenu>
-        <el-submenu index="6" href="#" class="rightBtn">
-          <template slot="title" class="rightBtn">
+        <div class="loginArea">
+          <!-- 登入狀態改變時會有不同的項目出現 -->
+          <!-- 未登入 -->
+          <el-menu-item
+            index="6"
+            href="#"
+            class="login"
+            data-toggle="modal"
+            data-target="#Login"
+            v-if="loginState === false"
+          >
             <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
-            <span class="navFont">User</span>
-          </template>
-          <router-link to="/user/info" style="text-decoration:none;">
-            <el-menu-item class="rightBtn" index="6-1" href="#">個人資料</el-menu-item>
+            <span class="loginFont">Login</span>
+          </el-menu-item>
+        </div>
+        <!-- 已登入 -->
+        <div class="rightBtnGroup" v-if="loginState === true">
+          <router-link to="/chat" style="text-decoration:none;">
+            <el-menu-item index="4" class="rightBtn">
+              <i class="el-icon-chat-line-square" size="medium"></i>
+              <span class="navFont">Chat</span>
+            </el-menu-item>
           </router-link>
-          <router-link to="/user/newActivity" style="text-decoration:none;">
-            <el-menu-item class="rightBtn" index="6-2" href="#" id="dropDownBtn">發佈新活動、訊息</el-menu-item>
-          </router-link>
-          <el-menu-item class="rightBtn" index="6-3" @click.native="logout" id="dropDownBtn">登出</el-menu-item>
-        </el-submenu>
-      </div>
-    </el-menu>
-    <label for="check" @click="animation">
-      <div :class="loginState ?  (toggleIsFalse ? 'toggle' : 'burger') : 'nothing'">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
-    </label>
-    <Login></Login>
-    <register></register>
-    <forgetPasswd></forgetPasswd>
+
+          <el-submenu index="5" href="#" class="rightBtn" id="followersBtn">
+            <template slot="title" class="rightBtn">
+              <font-awesome-icon
+                icon="user-friends"
+                size="lg"
+                style="color:#A9A9A9;margin-right:8px;"
+              />
+              <span id="followers" style="font-size:16px;">Followers</span>
+            </template>
+            <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
+            <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
+          </el-submenu>
+          <el-submenu index="6" href="#" class="rightBtn">
+            <template slot="title" class="rightBtn">
+              <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
+              <span class="navFont">User</span>
+            </template>
+            <router-link to="/user/info" style="text-decoration:none;">
+              <el-menu-item class="rightBtn" index="6-1" href="#">個人資料</el-menu-item>
+            </router-link>
+            <router-link to="/user/newActivity" style="text-decoration:none;">
+              <el-menu-item class="rightBtn" index="6-2" href="#" id="dropDownBtn">發佈新活動、訊息</el-menu-item>
+            </router-link>
+            <el-menu-item class="rightBtn" index="6-3" @click.native="logout" id="dropDownBtn">登出</el-menu-item>
+          </el-submenu>
+        </div>
+      </el-menu>
+      <label for="check" @click="animation">
+        <div :class="loginState ?  (toggleIsFalse ? 'toggle' : 'burger') : 'nothing'">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+      </label>
+      <Login></Login>
+      <register></register>
+      <forgetPasswd></forgetPasswd>
+    </div>
   </div>
 </template>  
 <script>
@@ -108,7 +110,9 @@ export default {
       },
       activeIndex: "1",
       activeIndex2: "1",
-      loginState: ""
+      loginState: "",
+      i: "0",
+      scrollUpOrDown: true
     };
   },
 
@@ -141,6 +145,18 @@ export default {
         this.toggleIsFalse = false;
       }
     },
+    //滾動隱藏、顯示Navbar
+    handleScroll() {
+      // 頁面滾動距頂部距離
+      var scrollTop = window.pageYOffset;
+      var scroll = scrollTop - this.i;
+      this.i = scrollTop;
+      if (scroll < 0) {
+        this.scrollUpOrDown = true;
+      } else {
+        this.scrollUpOrDown = false;
+      }
+    },
 
     ...mapActions({
       logout: "auth/logout"
@@ -148,17 +164,47 @@ export default {
   },
 
   mounted() {
+    // 登入狀態偵測
     if (authenticated()) {
       this.loginState = true;
     } else {
       this.loginState = false;
     }
+
+    window.addEventListener("scroll", this.handleScroll, true);
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.navbar {
+  z-index: 6;
+  transition: all 5s;
+}
+.nav-show,
+.el-menu.el-menu--horizontal {
+  height: 62px;
+  padding: 0px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.nav-hide {
+  height: 62px;
+  padding: 0px;
+  width: 100%;
+  position: fixed;
+  top: -61px;
+  left: 0;
+  display: none;
+}
+.navbar .nav-show,
+.nav-hide {
+  transition: all 0.8s ease;
+}
+
 .rightBtnGroup {
   display: flex;
   justify-content: flex-end;
