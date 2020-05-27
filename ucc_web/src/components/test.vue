@@ -1,403 +1,355 @@
 <template>
-  <div class="navbar">
-    <div :class="scrollUpOrDown?'nav-show':'nav-hide'">
-      <el-menu
-        :default-active="activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-      >
-        <input type="checkbox" id="check" />
-        <el-menu-item index="1" class="uccItem">
-          <!-- Menu -->
-          <Menubar class="menubar"></Menubar>
-          <!-- Menu -->
-          <router-link to="/">
-            <img class="logo" src="@/assets/UCC Classic.jpg" />
-            <span id="fl">
-              <h3>University Club Center</h3>
-            </span>
-          </router-link>
-        </el-menu-item>
-        <el-menu-item id="inputArea">
-          <el-input v-model="search" @focus="searchOnfocus" @blur="searchOnblur" clearable>
-            <el-button slot="append" icon="el-icon-search"></el-button>
-          </el-input>
-        </el-menu-item>
+  <!-- 未來class可改成modal -->
+  <div class="login">
+    <!-- <div class="background" @click="noGoToLogin"></div> -->
+    <!-- <div class="loginDivCenter"> -->
+    <div :class="onLogin?'loginDiv':'unLogin'">
+      <div class="UCCTitle mt-3">
+        <h4 class="mt-3">歡迎回到UCC.</h4>
+        <h5>登入帳號開始享受UCC吧</h5>
+      </div>
+      <div class="email">
+        <!-- inputError部分如果為true則background為紅色 -->
+        <!-- 監聽使用者按下Enter按鍵 -->
+        <input
+          type="text"
+          :class="{inputError : inputIsError}"
+          class="form-control textLetterSpacing"
+          placeholder="輸入您的 E-mail 信箱"
+          aria-describedby="inputGroup-sizing-sm"
+          v-model="email"
+          v-on:keyup.13="login"
+        />
+      </div>
+      <div class="emailAlertText alertText">{{alertDiv.emailAlertText}}</div>
+      <div class="passwd">
+        <input
+          type="password"
+          :class="{inputError : inputIsError}"
+          class="form-control textLetterSpacing"
+          placeholder="輸入您的密碼"
+          aria-describedby="inputGroup-sizing-sm"
+          v-model="password"
+          v-on:keyup.13="login"
+        />
+      </div>
+      <div class="forgetPasswd">
+        <a href="#" data-toggle="modal" data-target="#forgetPasswd">忘記密碼</a>
+      </div>
+      <div class="passwdAlertText alertText">{{alertDiv.passwdAlertText}}</div>
+      <div class="loginBtn">
+        <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
+      </div>
+      <div class="otherLoginWay">
+        <h6 class="mt-2">其他登入方式</h6>
+      </div>
 
-        <div class="loginArea">
-          <!-- 登入狀態改變時會有不同的項目出現 -->
-          <!-- 未登入 -->
-          <el-menu-item
-            index="6"
-            href="#"
-            class="login"
-            data-toggle="modal"
-            data-target="#Login"
-            v-if="loginState === false"
-          >
-            <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
-            <span class="loginFont">Login</span>
-          </el-menu-item>
-        </div>
-        <!-- 已登入 -->
-        <div class="rightBtnGroup" v-if="loginState === true">
-          <router-link to="/chat" style="text-decoration:none;">
-            <el-menu-item index="4" class="rightBtn">
-              <i class="el-icon-chat-line-square" size="medium"></i>
-              <span class="navFont">Chat</span>
-            </el-menu-item>
-          </router-link>
-
-          <el-submenu index="5" href="#" class="rightBtn" id="followersBtn">
-            <template slot="title" class="rightBtn">
-              <font-awesome-icon
-                icon="user-friends"
-                size="lg"
-                style="color:#A9A9A9;margin-right:8px;"
-              />
-              <span id="followers" style="font-size:16px;">Followers</span>
-            </template>
-            <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
-            <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
-          </el-submenu>
-          <el-submenu index="6" href="#" class="rightBtn">
-            <template slot="title" class="rightBtn">
-              <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
-              <span class="navFont">User</span>
-            </template>
-            <router-link to="/user/info" style="text-decoration:none;">
-              <el-menu-item class="rightBtn" index="6-1" href="#">個人資料</el-menu-item>
-            </router-link>
-            <router-link to="/user/newActivity" style="text-decoration:none;">
-              <el-menu-item class="rightBtn" index="6-2" href="#" id="dropDownBtn">發佈新活動、訊息</el-menu-item>
-            </router-link>
-            <el-menu-item class="rightBtn" index="6-3" @click.native="logout" id="dropDownBtn">登出</el-menu-item>
-          </el-submenu>
-        </div>
-      </el-menu>
-      <label for="check" @click="animation">
-        <div :class="loginState ?  (toggleIsFalse ? 'toggle' : 'burger') : 'nothing'">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="line3"></div>
-        </div>
-      </label>
-      <Login></Login>
-      <register></register>
-      <forgetPasswd></forgetPasswd>
+      <div class="googleLogin">
+        <!-- 先以a為連結，後續可以更改連結方式 -->
+        <a
+          href="http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect"
+        >
+          <button type="button" class="btn btn-outline-secondary mb-2 otherLoginBtn">Google登入</button>
+        </a>
+      </div>
+      <div class="facebookLogin">
+        <a
+          href="http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost:3000/oauth2/redirect"
+        >
+          <button type="button" class="btn btn-outline-secondary mb-3 otherLoginBtn">Facebook登入</button>
+        </a>
+      </div>
+      <div class="getUCCAccount">
+        <h6 class="mt-3">
+          沒有帳號嗎?
+          <span>
+            <a href="#" data-toggle="modal" data-target="#register" @click="goToRegister">註冊</a>
+          </span>
+        </h6>
+      </div>
     </div>
-    <keep-alive>
-      <component :is="listPrint">123</component>
-    </keep-alive>
+    <!-- 註冊 -->
+    <div :class="onRegister?'registerDiv':'unRegister'">
+      <register></register>
+    </div>
+    <!-- 註冊 -->
+    <!-- </div> -->
   </div>
-</template>  
+</template>
+
 <script>
+import { signin } from "@/api/auth";
+// import { authenticated } from "@/utils/AuthStore";
 import { mapActions } from "vuex";
-import { authenticated } from "@/utils/AuthStore";
-import Login from "@/components/loginGroup/Login";
+import jquery from "jquery";
 import register from "@/components/loginGroup/Register";
-import forgetPasswd from "@/components/loginGroup/forgetPasswd";
-import Menubar from "@/components/base/Menubar";
 
 export default {
-  name: "Navbar",
-
   data() {
     return {
-      toggleIsFalse: false,
+      dialogVisible: false,
+      onLoading: "true",
+      isLoading: "false",
       email: "",
       password: "",
-      search: "搜尋社團/活動",
       token: {
         tokenType: "",
         accessToken: ""
       },
-      activeIndex: "1",
-      activeIndex2: "1",
-      loginState: "",
-      i: "0",
-      scrollUpOrDown: true
+      alertDiv: {
+        emailAlertText: "",
+        passwdAlertText: ""
+      },
+      inputIsError: false,
+      loginBtnIsClick: false,
+
+      // 判斷目前在哪個頁面上
+      onLogin: true,
+      onRegister: false,
+      onForgetPasswd: false
     };
   },
 
   components: {
-    Login,
-    register,
-    Menubar,
-    forgetPasswd
+    register
   },
 
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+    closeModal() {
+      jquery("#Login").modal("toggle");
     },
-    // search的使用者友善
-    searchOnfocus() {
-      if (this.search === "搜尋社團/活動") {
-        this.search = "";
-      }
+
+    goToRegister() {
+      this.onRegister = true;
+      this.onLogin = false;
+      this.onForgetPasswd = false;
     },
-    searchOnblur() {
-      if (this.search === "") {
-        this.search = "搜尋社團/活動";
-      }
-    },
-    animation() {
-      if (this.toggleIsFalse === false) {
-        this.toggleIsFalse = true;
-      } else {
-        this.toggleIsFalse = false;
-      }
-    },
-    //滾動隱藏、顯示Navbar
-    handleScroll() {
-      // 頁面滾動距頂部距離
-      var scrollTop = window.pageYOffset;
-      var scroll = scrollTop - this.i;
-      this.i = scrollTop;
-      if (scroll < 0) {
-        this.scrollUpOrDown = true;
-      } else {
-        this.scrollUpOrDown = false;
-      }
+
+    // noGoToLogin() {
+    //   this.loginBtnIsClick = false;
+    // },
+
+    // goToLogin() {
+    //   this.loginBtnIsClick = true;
+    // },
+
+    login() {
+      this.isLoading = "true";
+      var userInfo = {
+        email: this.email,
+        password: this.password
+      };
+      var jsonData = userInfo;
+      signin(jsonData)
+        .then(resp => {
+          if (resp.data.success) {
+            this.token.tokenType = resp.data.result.tokenType;
+            this.token.accessToken = resp.data.result.accessToken;
+            const token = this.token;
+            this.storeToken(token);
+            this.closeModal();
+            location.reload();
+          } else {
+            this.isLoading = "false";
+            this.inputIsError = true;
+            this.alertDiv.alertText = resp.data.message;
+          }
+        })
+        .catch(err => {
+          console.log(err.response);
+          this.isLoading = "false";
+          this.inputIsError = true;
+          if (err.response.data.message == "帳號不存在") {
+            this.alertDiv.emailAlertText = err.response.data.message;
+            this.alertDiv.passwdAlertText = "";
+            return;
+          }
+          if (err.response.data.message == "密碼輸入錯誤。") {
+            this.alertDiv.emailAlertText = "";
+            this.alertDiv.passwdAlertText = "密碼輸入錯誤";
+          }
+          this.alertDiv.emailAlertText = err.response.data.result.email;
+          this.alertDiv.passwdAlertText = err.response.data.result.password;
+        });
     },
 
     ...mapActions({
-      logout: "auth/logout"
+      storeToken: "auth/login"
     })
   },
 
-  mounted() {
-    // 登入狀態偵測
-    if (authenticated()) {
-      this.loginState = true;
-    } else {
-      this.loginState = false;
-    }
-    //偵測卷軸滾動
-    window.addEventListener("scroll", this.handleScroll, true);
-  }
+  name: "LogIn"
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.navbar {
-  z-index: 6;
-}
-.nav-show,
-.nav-show .el-menu.el-menu--horizontal {
-  height: 61px;
-  padding: 0px;
-  width: 100%;
+/* .login {
   position: fixed;
-  top: 0;
-  left: 0;
-  transition: top 0.3s ease;
-}
-.nav-hide,
-.nav-hide .el-menu.el-menu--horizontal {
-  height: 61px;
-  padding: 0px;
-  width: 100%;
-  position: fixed;
-  top: -61px;
-  left: 0;
-  transition: top 0.3s ease;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  z-index: 7;
+  display: none;
+} */
+
+/* .noLogin {
+  display: none;
+} */
+
+/* .background {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: -5;
+  background-color: #000000;
+  opacity: 0.5;
+  grid-column: 1/2;
+  grid-row: 1/2;
+} */
+
+/* .loginDivCenter {
+  position: relative;
+  height: 500px;
+  width: 470px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  grid-column: 1/2;
+  grid-row: 1/2;
+} */
+
+/* 註冊用 */
+.registerDiv {
+  height: 500px;
+  width: 470px;
+  background-image: url(../assets/signInBackground/login.jpg);
+  background-size: cover;
 }
 
-.rightBtnGroup {
-  display: flex;
-  justify-content: flex-end;
+.unRegister {
+  display: none;
 }
-.loginArea {
+/* 註冊用 */
+
+/* 登入用 */
+.unLogin {
+  display: none;
+}
+
+.loginDiv {
+  height: 500px;
+  width: 470px;
+  background-color: #ffffff;
+  background-image: url(../assets/signInBackground/login.jpg);
+  background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+
+.UCCTitle {
+  grid-column: 1/9;
+  grid-row: 1/2;
+}
+
+.email {
+  grid-column: 2/8;
+  grid-row: 2/3;
+  margin-top: 5px;
+  /* 解決區域重疊覆蓋問題 */
+  z-index: 1;
+}
+
+.passwd {
+  grid-column: 2/8;
+  grid-row: 3/4;
+  margin-top: 10px;
+  /* 解決區域重疊覆蓋問題 */
+  z-index: 1;
+}
+
+.alertText {
+  font-size: 10px;
+  color: red;
+  font-weight: bold;
+}
+
+.emailAlertText {
+  grid-column: 5/9;
+  grid-row: 2/3;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.passwdAlertText {
+  position: relative;
+  top: -10px;
+  text-align: center;
+  grid-column: 5/9;
+  grid-row: 4/5;
+}
+
+.forgetPasswd {
+  position: relative;
+  top: -10px;
+  text-align: left;
+  grid-column: 2/4;
+  grid-row: 4/5;
+}
+
+.loginBtn {
+  grid-column: 1/9;
+  grid-row: 4/5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* 解決區域重疊覆蓋問題 */
+  z-index: 1;
+}
+
+.otherLoginWay {
+  grid-column: 1/9;
+  grid-row: 5/6;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
-.login {
-  width: 100px;
-}
-.Icon {
-  border: 0px;
-}
-.logo {
-  height: 40px;
-  width: 70px;
-  margin: 0 13px 12px 70px;
-}
-.menubar {
-  width: 50px;
-}
-#fl {
-  margin-top: 10px;
-  float: right;
-}
-#followersBtn {
-  width: 80px;
-}
-#followers {
-  color: white;
-  display: none;
-}
-#check {
-  display: none;
+
+.googleLogin {
+  grid-column: 1/9;
+  grid-row: 6/7;
 }
 
-.burger {
-  display: none;
-  cursor: pointer;
-  position: absolute;
-  top: 15px;
-  right: 20px;
-}
-.toggle {
-  display: none;
-  cursor: pointer;
-  position: fixed;
-  top: 15px;
-  right: 20px;
-}
-.navFont {
-  display: none;
-}
-#dropDownBtn:hover {
-  background-color: #fff5e4;
+.facebookLogin {
+  position: relative;
+  grid-column: 1/9;
+  grid-row: 7/8;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-.burger div {
-  width: 25px;
-  height: 3px;
-  background-color: orange;
-  margin: 5px;
-  transition: all 0.2s ease-in;
-}
-.toggle div {
-  transition: all 0.2s ease-in;
+.otherLoginBtn {
+  width: 220px;
 }
 
-.toggle .line1 {
-  transform: rotate(-45deg) translate(-5px, 6px);
-  width: 25px;
-  height: 3px;
-  background-color: orange;
-  margin: 5px;
+.getUCCAccount {
+  position: relative;
+  top: -5px;
+  grid-column: 1/9;
+  grid-row: 8/9;
 }
-.toggle .line2 {
-  opacity: 0;
+
+.inputError {
+  background-color: #ffc4c4;
 }
-.toggle .line3 {
-  transform: rotate(45deg) translate(0px, 0px);
-  width: 25px;
-  height: 3px;
-  background-color: orange;
-  margin: 5px;
-}
-@media screen and (max-width: 980px) {
-  .rightBtnGroup {
-    position: absolute;
-    width: 200px;
-    height: 168px;
-    top: -200px;
-    right: 0;
-    flex-direction: column;
-    text-align: center;
-    background-color: rgb(255, 180, 94);
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 5;
-  }
-  .rightBtn {
-    display: block;
-    font-size: 16px;
-    color: white;
-    text-decoration: none;
-  }
-  .rightBtn:hover {
-    color: black;
-  }
-  .burger {
-    display: block;
-  }
-  .toggle {
-    display: block;
-  }
-  .navFont {
-    display: inline;
-  }
-  #check:checked ~ .rightBtnGroup {
-    right: 0;
-    top: 60px;
-    opacity: 1;
-  }
-  #followers:hover {
-    color: #000;
-  }
-  #followers {
-    display: inline;
-  }
-  #followersBtn {
-    width: 100%;
-  }
-  font-awesome-icon {
-    color: white;
-  }
-}
-@media screen and (max-width: 870px) {
-  .loginFont {
-    display: none;
-  }
-}
-@media screen and (max-width: 837px) {
-  #inputArea {
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    margin-left: -125px;
-    width: 250px;
-  }
-}
-@media screen and (max-width: 555px) {
-  .burger {
-    position: absolute;
-    top: 80px;
-    right: 10px;
-  }
-  .toggle {
-    position: absolute;
-    top: 80px;
-    right: 10px;
-  }
-  .loginArea {
-    position: absolute;
-    top: 60px;
-    right: 10px;
-  }
-  .rightBtnGroup {
-    top: -200px;
-    right: 0;
-    width: 180px;
-    z-index: 5;
-  }
-  #check:checked ~ .rightBtnGroup {
-    right: 0;
-    top: 120px;
-    opacity: 1;
-  }
-}
-@media screen and (max-width: 480px) {
-  #fl h3 {
-    font-size: 1.5rem;
-    margin-top: 5px;
-  }
-  .logo {
-    height: 30px;
-    width: 55px;
-    margin-left: 50px;
-  }
-  .uccItem {
-    padding: 0;
-  }
+
+.textLetterSpacing {
+  letter-spacing: 1px;
 }
 </style>
