@@ -56,7 +56,7 @@ export default {
 }
 
 .banner {
-  margin: 10px auto;
+  margin: 60px auto 10px auto;
   width: 900px;
 }
 @media (max-width: 995px) {
