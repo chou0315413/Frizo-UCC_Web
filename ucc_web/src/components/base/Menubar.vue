@@ -1,4 +1,5 @@
 <template>
+  <!-- 尚未加入在正常頁面滾動menubar時，鎖定主畫面 -->
   <div class="Menubar">
     <input type="checkbox" id="checkForMenu" />
 
@@ -10,6 +11,90 @@
       </div>
     </label>
     <ul :class="scrollUpOrDown?'menu-show':'menu-hide'">
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
       <li class="menuItem">
         <a href="https://google.com">
           <img
@@ -75,8 +160,16 @@ export default {
     animation() {
       if (this.toggleIsFalse === false) {
         this.toggleIsFalse = true;
+        //偵測在小於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
+        if (document.body.offsetWidth < "837") {
+          window.removeEventListener("scroll", this.handleScroll, true);
+        }
       } else {
         this.toggleIsFalse = false;
+        //偵測在大於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
+        if (document.body.offsetWidth > "837") {
+          window.addEventListener("scroll", this.handleScroll, true);
+        }
       }
     },
     //滾動隱藏、顯示Menu
@@ -93,10 +186,13 @@ export default {
         this.scrollUpOrDown = false;
       }
     }
+    // fixedPage() {}
   },
   mounted() {
     //偵測卷軸滾動
     window.addEventListener("scroll", this.handleScroll, true);
+    // //偵測Menubar捲動
+    // Menubar.addEventListener("scroll", this.fixedPage, true);
   }
 };
 </script>
@@ -154,6 +250,7 @@ label {
   left: 0px;
   margin: 0;
   padding: 0;
+  overflow: scroll;
   z-index: 5;
   transition: left 0.3s ease;
 }
@@ -161,7 +258,7 @@ label {
   list-style: none;
   position: absolute;
   top: 70px;
-  left: -80px;
+  left: -110vw;
   margin: 0;
   padding: 0;
   z-index: 5;
@@ -247,7 +344,7 @@ label {
     background-color: rgb(252, 175, 87);
     color: white;
   }
-  #checkForMenu:checked ~ .menu {
+  #checkForMenu:checked ~ .menu-show {
     overflow-y: scroll;
   }
 }
