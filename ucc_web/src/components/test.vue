@@ -153,7 +153,10 @@ export default {
       var scrollTop = window.pageYOffset;
       var scroll = scrollTop - this.i;
       this.i = scrollTop;
-      if (scroll < 0) {
+
+      if (window.location.pathname === "/chat") {
+        window.removeEventListener("scroll", this.handleScroll, true);
+      } else if (scroll < 0) {
         this.scrollUpOrDown = true;
       } else {
         this.scrollUpOrDown = false;

@@ -210,7 +210,7 @@ label {
   margin: 5px;
 }
 @media screen and (max-width: 837px) {
-  .menu {
+  .menu-show {
     transition: all 0.5s ease;
     width: 100vw;
     height: 100vh;
@@ -225,7 +225,7 @@ label {
     height: 60px;
     background-color: orange;
   }
-  #checkForMenu:checked ~ .menu {
+  #checkForMenu:checked ~ .menu-show {
     background-color: orange;
     opacity: 0.8;
     left: -20px;
@@ -252,7 +252,7 @@ label {
   }
 }
 @media screen and (max-width: 480px) {
-  #checkForMenu:checked ~ .menu {
+  #checkForMenu:checked ~ .menu-show {
     left: 0;
   }
 }
