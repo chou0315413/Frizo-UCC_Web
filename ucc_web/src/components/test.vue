@@ -20,16 +20,8 @@
 </template>
 
 <script>
-import hotListTEST from "@/components/test/hotListTEST";
-import followListTEST from "@/components/test/followListTEST";
-
 export default {
   name: "ContentList",
-
-  components: {
-    hotListTEST,
-    followListTEST
-  },
 
   data() {
     return {
