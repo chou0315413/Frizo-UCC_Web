@@ -121,6 +121,7 @@ export default {
 }
 
 .item {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
@@ -129,6 +130,13 @@ export default {
   box-shadow: 0 0 3px #2e2e2e;
   background-color: #ffffff;
   margin: 10px auto;
+  box-sizing: content-box;
+}
+
+.item:hover {
+  /* border: 1px #acacac solid; */
+  box-shadow: 0 0 15px #2e2e2e;
+  transition: all 0.5s ease-in;
 }
 
 .imgBox {
@@ -156,6 +164,10 @@ export default {
   grid-column: 1/5;
   grid-row: 1/2;
   text-align: left;
+}
+
+.itemTitle b:hover {
+  text-decoration: underline;
 }
 
 .itemIntroduction {
