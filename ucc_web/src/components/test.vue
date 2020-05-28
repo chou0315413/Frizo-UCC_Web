@@ -172,6 +172,9 @@ export default {
           this.alertDiv.passwdAlertText = err.response.data.result.password;
         });
     },
+    // handleResize() {
+    //   this.window.width = window.innerWidth;
+    // },
 
     ...mapActions({
       storeToken: "auth/login"

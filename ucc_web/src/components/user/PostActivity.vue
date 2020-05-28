@@ -415,6 +415,18 @@ h4 {
 }
 .dm:hover span {
   display: inline-block;
+  animation: fadein 0.1s ease-in;
+}
+/* 上傳圖片文字出現的動畫 */
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
 .dm label {
   height: 30px;
