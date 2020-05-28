@@ -371,7 +371,8 @@ export default {
   align-items: center;
 }
 .login {
-  width: 100px;
+  width: 80px;
+  padding: 0;
 }
 .Icon {
   border: 0px;
@@ -502,30 +503,36 @@ export default {
   .loginFont {
     display: none;
   }
+  .login {
+    width: 60px;
+  }
 }
 @media screen and (max-width: 837px) {
-  #inputArea {
+  /* #inputArea {
     position: absolute;
     top: 60px;
     left: 50%;
     margin-left: -125px;
     width: 250px;
+  } */
+  #fl {
+    display: none;
   }
 }
 @media screen and (max-width: 555px) {
   .burger {
     position: absolute;
-    top: 80px;
+    top: 0px;
     right: 10px;
   }
   .toggle {
     position: absolute;
-    top: 80px;
+    top: 0px;
     right: 10px;
   }
   .loginArea {
     position: absolute;
-    top: 60px;
+    top: 0px;
     right: 10px;
   }
   .rightBtnGroup {
@@ -536,8 +543,24 @@ export default {
   }
   #check:checked ~ .rightBtnGroup {
     right: 0;
-    top: 120px;
+    top: 62px;
     opacity: 1;
+  }
+  .el-menu-item:nth-child(3) {
+    width: 200px;
+    padding: 0px;
+  }
+  .el-menu-item:nth-child(4) {
+    padding: 0;
+  }
+  .el-input-group__append button.el-button,
+  .el-input-group__append div.el-select .el-input__inner,
+  .el-input-group__append div.el-select:hover .el-input__inner,
+  .el-input-group__prepend button.el-button,
+  .el-input-group__prepend div.el-select .el-input__inner,
+  .el-input-group__prepend div.el-select:hover .el-input__inner {
+    width: 50px;
+    padding: 0 0 6px 3px;
   }
 }
 @media screen and (max-width: 480px) {
@@ -552,6 +575,9 @@ export default {
   }
   .uccItem {
     padding: 0;
+  }
+  .el-menu-item:nth-child(3) {
+    width: 150px;
   }
 }
 </style>
