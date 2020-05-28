@@ -449,6 +449,7 @@ export default {
   background-color: orange;
   margin: 5px;
 }
+
 @media screen and (max-width: 980px) {
   .rightBtnGroup {
     position: absolute;
@@ -480,17 +481,23 @@ export default {
   }
   .navFont {
     display: inline;
+    color: white;
+  }
+  .el-submenu__title,
+  .rightBtn:hover .navFont {
+    color: black;
+  }
+  .el-submenu__title:hover #followers {
+    color: black;
   }
   #check:checked ~ .rightBtnGroup {
     right: 0;
     top: 60px;
     opacity: 1;
   }
-  #followers:hover {
-    color: #000;
-  }
   #followers {
     display: inline;
+    color: white;
   }
   #followersBtn {
     width: 100%;
@@ -508,13 +515,6 @@ export default {
   }
 }
 @media screen and (max-width: 837px) {
-  /* #inputArea {
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    margin-left: -125px;
-    width: 250px;
-  } */
   #fl {
     display: none;
   }
@@ -522,12 +522,12 @@ export default {
 @media screen and (max-width: 555px) {
   .burger {
     position: absolute;
-    top: 0px;
+    top: 18px;
     right: 10px;
   }
   .toggle {
     position: absolute;
-    top: 0px;
+    top: 18px;
     right: 10px;
   }
   .loginArea {
