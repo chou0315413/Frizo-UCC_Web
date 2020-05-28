@@ -1,116 +1,113 @@
 <template>
-  <div class="forgetPasswd">
-    <div
+  <!-- <div class="forgetPasswd"> -->
+  <!-- <div
       class="modal fade"
       id="forgetPasswd"
       tabindex="-1"
       role="dialog"
       aria-hidden="true"
       ref="modal"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content forgetPasswdDiv">
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-lg-12">
-                <h4>忘記密碼</h4>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="input-group input-group-sm forgetPasswdDivPading inputBorder">
-                  <input
-                    type="text"
-                    id="email"
-                    class="form-control textLetterSpacing"
-                    placeholder="請輸入您的 E-mail 信箱"
-                    aria-describedby="inputGroup-sizing-sm"
-                    v-model="email"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12 mb-3">
-                <div class="forgetPasswdBtn">
-                  <el-button
-                    type="primary"
-                    round
-                    :loading="sendEmailIsClick===true"
-                    @click="sendVerifyEmail"
-                  >送出</el-button>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="input-group input-group-sm forgetPasswdDivPading inputBorder">
-                  <input
-                    type="text"
-                    id="verifyCode"
-                    class="form-control textLetterSpacing"
-                    placeholder="請輸入驗證碼"
-                    aria-describedby="inputGroup-sizing-sm"
-                    v-model="verifyCode"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="input-group input-group-sm forgetPasswdDivPading mt-4 inputBorder">
-                  <input
-                    type="password"
-                    id="userPassword"
-                    class="form-control textLetterSpacing"
-                    placeholder="請輸入您欲設定的密碼"
-                    aria-describedby="inputGroup-sizing-sm"
-                    v-model="password"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="input-group input-group-sm forgetPasswdDivPading mt-4 inputBorder">
-                  <input
-                    type="password"
-                    id="reUserPassword"
-                    class="form-control textLetterSpacing"
-                    placeholder="請重複輸入您設定的密碼"
-                    aria-describedby="inputGroup-sizing-sm"
-                    v-model="rePassword"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="alertDiv">{{alertText}}</div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="forgetPasswdBtn">
-                  <el-button
-                    type="primary"
-                    round
-                    :loading="resetIsClick===true"
-                    @click="resetPwd"
-                  >確認</el-button>
-                </div>
-              </div>
-            </div>
+  >-->
+  <!-- <div class="modal-dialog modal-dialog-centered" role="document"> -->
+  <div class="forgetPasswdDiv">
+    <!-- <div class="modal-body"> -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4>忘記密碼</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="input-group input-group-sm forgetPasswdDivPading inputBorder">
+            <input
+              type="text"
+              id="email"
+              class="form-control textLetterSpacing"
+              placeholder="請輸入您的 E-mail 信箱"
+              aria-describedby="inputGroup-sizing-sm"
+              v-model="email"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 mb-3">
+          <div class="forgetPasswdBtn">
+            <el-button
+              type="primary"
+              round
+              :loading="sendEmailIsClick===true"
+              @click="sendVerifyEmail"
+            >送出</el-button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="input-group input-group-sm forgetPasswdDivPading inputBorder">
+            <input
+              type="text"
+              id="verifyCode"
+              class="form-control textLetterSpacing"
+              placeholder="請輸入驗證碼"
+              aria-describedby="inputGroup-sizing-sm"
+              v-model="verifyCode"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="input-group input-group-sm forgetPasswdDivPading mt-4 inputBorder">
+            <input
+              type="password"
+              id="userPassword"
+              class="form-control textLetterSpacing"
+              placeholder="請輸入您欲設定的密碼"
+              aria-describedby="inputGroup-sizing-sm"
+              v-model="password"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="input-group input-group-sm forgetPasswdDivPading mt-4 inputBorder">
+            <input
+              type="password"
+              id="reUserPassword"
+              class="form-control textLetterSpacing"
+              placeholder="請重複輸入您設定的密碼"
+              aria-describedby="inputGroup-sizing-sm"
+              v-model="rePassword"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="alertDiv">{{alertText}}</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="forgetPasswdBtn">
+            <el-button type="primary" round :loading="resetIsClick===true" @click="resetPwd">確認</el-button>
           </div>
         </div>
       </div>
     </div>
+    <!-- </div> -->
   </div>
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- </div> -->
 </template>
 
 <script>
@@ -206,6 +203,7 @@ export default {
 <style scoped>
 .forgetPasswdDiv {
   height: 500px;
+  width: 470px;
   background-image: url(../../assets/signInBackground/login.jpg);
   background-size: cover;
 }

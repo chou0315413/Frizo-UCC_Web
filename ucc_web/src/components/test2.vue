@@ -89,7 +89,7 @@
         <!-- modalSideBar -->
         <div class="modalLoginSideBtn" @click="goToLogin"></div>
         <div class="modalRegisterSideBtn" @click="goToRegister"></div>
-        <div class="modalForgetPasswdSideBtn"></div>
+        <div class="modalForgetPasswdSideBtn" @click="goToforgerPasswd"></div>
         <!-- modalSideBar -->
         <div class="loginDivCenter">
           <div :class="onLogin?'goLogin':'notGoToLogin'">
@@ -98,13 +98,15 @@
           <div :class="onRegister?'goRegister':'notGoToRegister'">
             <register></register>
           </div>
+          <div :class="onForgetPasswd?'goRegister':'notGoToRegister'">
+            <forgetPasswd></forgetPasswd>
+          </div>
         </div>
       </div>
       <div style="display:none;">
         <register></register>
+        <forgetPasswd></forgetPasswd>
       </div>
-
-      <forgetPasswd></forgetPasswd>
     </div>
   </div>
 </template>  
@@ -152,6 +154,12 @@ export default {
   },
 
   methods: {
+    goToforgerPasswd() {
+      this.onRegister = false;
+      this.onLogin = false;
+      this.onForgetPasswd = true;
+    },
+
     goToRegister() {
       this.onRegister = true;
       this.onLogin = false;
@@ -231,6 +239,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 /* modal 使用的CSS 類別 */
+
 /* 登入用 */
 .goLogin {
   display: unset;
@@ -239,6 +248,7 @@ export default {
   display: none;
 }
 /* 登入用 */
+
 /* 註冊用 */
 .goRegister {
   display: unset;
@@ -247,6 +257,16 @@ export default {
   display: none;
 }
 /* 註冊用 */
+
+/* 忘記密碼用 */
+.goForgetPasswd {
+  display: unset;
+}
+.notGoToForgetPasswd {
+  display: none;
+}
+/* 忘記密碼用 */
+
 .modalDivShow {
   position: fixed;
   height: 110vh;

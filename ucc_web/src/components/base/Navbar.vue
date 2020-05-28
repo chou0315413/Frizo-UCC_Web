@@ -35,7 +35,7 @@
             data-toggle="modal"
             data-target="#Login"
             v-if="loginState === false"
-            @click="goToLogin"
+            @click="openModal"
           >
             <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
             <span class="loginFont">Login</span>
@@ -85,16 +85,28 @@
         </div>
       </label>
       <div :class="isGoToLogin?'modalDivShow':'modalDivNotShow'">
-        <div class="background" @click="noGoToLogin"></div>
+        <div class="background" @click="closeModal"></div>
+        <!-- modalSideBar -->
+        <div class="modalLoginSideBtn" @click="goToLogin"></div>
+        <div class="modalRegisterSideBtn" @click="goToRegister"></div>
+        <div class="modalForgetPasswdSideBtn" @click="goToforgerPasswd"></div>
+        <!-- modalSideBar -->
         <div class="loginDivCenter">
-          <Login></Login>
+          <div :class="onLogin?'goLogin':'notGoToLogin'">
+            <Login></Login>
+          </div>
+          <div :class="onRegister?'goRegister':'notGoToRegister'">
+            <register></register>
+          </div>
+          <div :class="onForgetPasswd?'goRegister':'notGoToRegister'">
+            <forgetPasswd></forgetPasswd>
+          </div>
         </div>
       </div>
       <div style="display:none;">
         <register></register>
+        <forgetPasswd></forgetPasswd>
       </div>
-
-      <forgetPasswd></forgetPasswd>
     </div>
   </div>
 </template>  
@@ -125,7 +137,12 @@ export default {
       i: "0",
       scrollUpOrDown: true,
       // 確認有無點擊登入按鈕
-      isGoToLogin: false
+      isGoToLogin: false,
+
+      // 判斷目前在哪個頁面上
+      onLogin: true,
+      onRegister: false,
+      onForgetPasswd: false
     };
   },
 
@@ -137,11 +154,29 @@ export default {
   },
 
   methods: {
-    // 判斷使用者是否點擊登入按鈕
+    goToforgerPasswd() {
+      this.onRegister = false;
+      this.onLogin = false;
+      this.onForgetPasswd = true;
+    },
+
+    goToRegister() {
+      this.onRegister = true;
+      this.onLogin = false;
+      this.onForgetPasswd = false;
+    },
+
     goToLogin() {
+      this.onRegister = false;
+      this.onLogin = true;
+      this.onForgetPasswd = false;
+    },
+
+    // 判斷使用者是否點擊登入按鈕
+    openModal() {
       this.isGoToLogin = true;
     },
-    noGoToLogin() {
+    closeModal() {
       this.isGoToLogin = false;
     },
     // 判斷使用者是否點擊登入按鈕
@@ -204,14 +239,42 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 /* modal 使用的CSS 類別 */
+
+/* 登入用 */
+.goLogin {
+  display: unset;
+}
+.notGoToLogin {
+  display: none;
+}
+/* 登入用 */
+
+/* 註冊用 */
+.goRegister {
+  display: unset;
+}
+.notGoToRegister {
+  display: none;
+}
+/* 註冊用 */
+
+/* 忘記密碼用 */
+.goForgetPasswd {
+  display: unset;
+}
+.notGoToForgetPasswd {
+  display: none;
+}
+/* 忘記密碼用 */
+
 .modalDivShow {
   position: fixed;
   height: 110vh;
   width: 100vw;
   top: -5vh;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(1, 1fr);
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
   z-index: 7;
 }
 
@@ -226,8 +289,8 @@ export default {
   z-index: -5;
   background-color: #000000;
   opacity: 0.5;
-  grid-column: 1/2;
-  grid-row: 1/2;
+  grid-column: 1/9;
+  grid-row: 1/9;
 }
 
 .loginDivCenter {
@@ -236,8 +299,26 @@ export default {
   width: 470px;
   margin: auto;
   z-index: 5;
-  grid-column: 1/2;
-  grid-row: 1/2;
+  grid-column: 1/9;
+  grid-row: 1/9;
+}
+
+.modalLoginSideBtn {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  background-color: violet;
+}
+
+.modalRegisterSideBtn {
+  grid-column: 2/3;
+  grid-row: 3/4;
+  background-color: red;
+}
+
+.modalForgetPasswdSideBtn {
+  grid-column: 2/3;
+  grid-row: 4/5;
+  background-color: rgb(170, 169, 169);
 }
 /* modal 使用的CSS 類別 */
 
