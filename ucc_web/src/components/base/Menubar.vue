@@ -157,22 +157,29 @@ export default {
     };
   },
   methods: {
+    // animation() {
+    //   if (this.toggleIsFalse === false) {
+    //     this.toggleIsFalse = true;
+    //     //偵測在小於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
+    //     if (document.body.offsetWidth < "837") {
+    //       window.removeEventListener("scroll", this.handleScroll, true);
+    //     }
+    //   } else {
+    //     this.toggleIsFalse = false;
+    //     //偵測在大於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
+    //     if (document.body.offsetWidth > "837") {
+    //       window.addEventListener("scroll", this.handleScroll, true);
+    //     }
+    //   }
+    // },
     animation() {
       if (this.toggleIsFalse === false) {
         this.toggleIsFalse = true;
-        //偵測在小於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
-        if (document.body.offsetWidth < "837") {
-          window.removeEventListener("scroll", this.handleScroll, true);
-        }
       } else {
         this.toggleIsFalse = false;
-        //偵測在大於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
-        if (document.body.offsetWidth > "837") {
-          window.addEventListener("scroll", this.handleScroll, true);
-        }
       }
     },
-    //滾動隱藏、顯示Menu
+    //滾動隱藏、顯示Menu，由於Bug太多，暫時不使用
     handleScroll() {
       // 頁面滾動距頂部距離
       var scrollTop = window.pageYOffset;
@@ -186,14 +193,14 @@ export default {
         this.scrollUpOrDown = false;
       }
     }
-    // fixedPage() {}
-  },
-  mounted() {
-    //偵測卷軸滾動
-    window.addEventListener("scroll", this.handleScroll, true);
-    // //偵測Menubar捲動
-    // Menubar.addEventListener("scroll", this.fixedPage, true);
   }
+  // mounted() {
+  //   if (document.body.offsetWidth > "837") {
+  //     window.addEventListener("scroll", this.handleScroll, true);
+  //   } else {
+  //     window.removeEventListener("scroll", this.handleScroll, true);
+  //   }
+  // }
 };
 </script>
 
@@ -213,6 +220,10 @@ export default {
 .menuItem:hover {
   background-color: rgb(255, 166, 82);
   color: white;
+}
+ul {
+  height: 100vh;
+  overflow: auto;
 }
 ul li span {
   display: none;
