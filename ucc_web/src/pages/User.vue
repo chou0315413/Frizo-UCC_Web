@@ -32,6 +32,8 @@ export default {
 
 <style scoped>
 .user {
+  position: relative;
+  top: 50px;
   background-color: #eeeeee;
   height: 100vh;
 }

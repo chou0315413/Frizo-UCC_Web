@@ -35,6 +35,7 @@
             data-toggle="modal"
             data-target="#Login"
             v-if="loginState === false"
+            @click="openModal"
           >
             <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
             <span class="loginFont">Login</span>
@@ -83,9 +84,29 @@
           <div class="line3"></div>
         </div>
       </label>
-      <Login></Login>
-      <register></register>
-      <forgetPasswd></forgetPasswd>
+      <div :class="isGoToLogin?'modalDivShow':'modalDivNotShow'">
+        <div class="background" @click="closeModal"></div>
+        <!-- modalSideBar -->
+        <div class="modalLoginSideBtn" @click="goToLogin"></div>
+        <div class="modalRegisterSideBtn" @click="goToRegister"></div>
+        <div class="modalForgetPasswdSideBtn" @click="goToforgerPasswd"></div>
+        <!-- modalSideBar -->
+        <div class="loginDivCenter">
+          <div :class="onLogin?'goLogin':'notGoToLogin'">
+            <Login></Login>
+          </div>
+          <div :class="onRegister?'goRegister':'notGoToRegister'">
+            <register></register>
+          </div>
+          <div :class="onForgetPasswd?'goRegister':'notGoToRegister'">
+            <forgetPasswd></forgetPasswd>
+          </div>
+        </div>
+      </div>
+      <div style="display:none;">
+        <register></register>
+        <forgetPasswd></forgetPasswd>
+      </div>
     </div>
   </div>
 </template>  
@@ -114,10 +135,14 @@ export default {
       activeIndex2: "1",
       loginState: "",
       i: "0",
-      scrollUpOrDown: true
-      // window: {
-      //   width: "0"
-      // }
+      scrollUpOrDown: true,
+      // 確認有無點擊登入按鈕
+      isGoToLogin: false,
+
+      // 判斷目前在哪個頁面上
+      onLogin: true,
+      onRegister: false,
+      onForgetPasswd: false
     };
   },
 
@@ -129,6 +154,33 @@ export default {
   },
 
   methods: {
+    goToforgerPasswd() {
+      this.onRegister = false;
+      this.onLogin = false;
+      this.onForgetPasswd = true;
+    },
+
+    goToRegister() {
+      this.onRegister = true;
+      this.onLogin = false;
+      this.onForgetPasswd = false;
+    },
+
+    goToLogin() {
+      this.onRegister = false;
+      this.onLogin = true;
+      this.onForgetPasswd = false;
+    },
+
+    // 判斷使用者是否點擊登入按鈕
+    openModal() {
+      this.isGoToLogin = true;
+    },
+    closeModal() {
+      this.isGoToLogin = false;
+    },
+    // 判斷使用者是否點擊登入按鈕
+
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -150,7 +202,7 @@ export default {
         this.toggleIsFalse = false;
       }
     },
-    //滾動隱藏、顯示Navbar，由於Bug太多，暫時不使用
+    //滾動隱藏、顯示Navbar
     handleScroll() {
       // 頁面滾動距頂部距離
       var scrollTop = window.pageYOffset;
@@ -165,9 +217,6 @@ export default {
         this.scrollUpOrDown = false;
       }
     },
-    // handleResize() {
-    //   this.window.width = window.innerWidth;
-    // },
 
     ...mapActions({
       logout: "auth/logout"
@@ -181,23 +230,98 @@ export default {
     } else {
       this.loginState = false;
     }
-    // if (this.window.width > "837") {
-    //   window.addEventListener("scroll", this.handleScroll, true);
-    // } else {
-    //   window.removeEventListener("scroll", this.handleScroll, true);
-    // }
-
-    // window.addEventListener("resize", this.handleResize);
-    // this.handleResize();
     //偵測卷軸滾動
-    // window.addEventListener("scroll", this.handleScroll, true);
-  },
-  created() {}
+    window.addEventListener("scroll", this.handleScroll, true);
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+/* modal 使用的CSS 類別 */
+
+/* 登入用 */
+.goLogin {
+  display: unset;
+}
+.notGoToLogin {
+  display: none;
+}
+/* 登入用 */
+
+/* 註冊用 */
+.goRegister {
+  display: unset;
+}
+.notGoToRegister {
+  display: none;
+}
+/* 註冊用 */
+
+/* 忘記密碼用 */
+.goForgetPasswd {
+  display: unset;
+}
+.notGoToForgetPasswd {
+  display: none;
+}
+/* 忘記密碼用 */
+
+.modalDivShow {
+  position: fixed;
+  height: 110vh;
+  width: 100vw;
+  top: -5vh;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  z-index: 7;
+}
+
+.modalDivNotShow {
+  display: none;
+}
+
+.background {
+  position: absolute;
+  height: 110vh;
+  width: 100vw;
+  z-index: -5;
+  background-color: #000000;
+  opacity: 0.5;
+  grid-column: 1/9;
+  grid-row: 1/9;
+}
+
+.loginDivCenter {
+  position: relative;
+  height: 500px;
+  width: 470px;
+  margin: auto;
+  z-index: 5;
+  grid-column: 1/9;
+  grid-row: 1/9;
+}
+
+.modalLoginSideBtn {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  background-color: violet;
+}
+
+.modalRegisterSideBtn {
+  grid-column: 2/3;
+  grid-row: 3/4;
+  background-color: red;
+}
+
+.modalForgetPasswdSideBtn {
+  grid-column: 2/3;
+  grid-row: 4/5;
+  background-color: rgb(170, 169, 169);
+}
+/* modal 使用的CSS 類別 */
+
 .navbar {
   z-index: 6;
 }
@@ -232,8 +356,7 @@ export default {
   align-items: center;
 }
 .login {
-  width: 80px;
-  padding: 0;
+  width: 100px;
 }
 .Icon {
   border: 0px;
@@ -364,36 +487,30 @@ export default {
   .loginFont {
     display: none;
   }
-  .login {
-    width: 60px;
-  }
 }
 @media screen and (max-width: 837px) {
-  /* #inputArea {
+  #inputArea {
     position: absolute;
     top: 60px;
     left: 50%;
     margin-left: -125px;
     width: 250px;
-  } */
-  #fl {
-    display: none;
   }
 }
 @media screen and (max-width: 555px) {
   .burger {
     position: absolute;
-    top: 0px;
+    top: 80px;
     right: 10px;
   }
   .toggle {
     position: absolute;
-    top: 0px;
+    top: 80px;
     right: 10px;
   }
   .loginArea {
     position: absolute;
-    top: 0px;
+    top: 60px;
     right: 10px;
   }
   .rightBtnGroup {
@@ -404,24 +521,8 @@ export default {
   }
   #check:checked ~ .rightBtnGroup {
     right: 0;
-    top: 62px;
+    top: 120px;
     opacity: 1;
-  }
-  .el-menu-item:nth-child(3) {
-    width: 200px;
-    padding: 0px;
-  }
-  .el-menu-item:nth-child(4) {
-    padding: 0;
-  }
-  .el-input-group__append button.el-button,
-  .el-input-group__append div.el-select .el-input__inner,
-  .el-input-group__append div.el-select:hover .el-input__inner,
-  .el-input-group__prepend button.el-button,
-  .el-input-group__prepend div.el-select .el-input__inner,
-  .el-input-group__prepend div.el-select:hover .el-input__inner {
-    width: 50px;
-    padding: 0 0 6px 3px;
   }
 }
 @media screen and (max-width: 480px) {
@@ -436,9 +537,6 @@ export default {
   }
   .uccItem {
     padding: 0;
-  }
-  .el-menu-item:nth-child(3) {
-    width: 150px;
   }
 }
 </style>
