@@ -115,6 +115,9 @@ export default {
       loginState: "",
       i: "0",
       scrollUpOrDown: true
+      // window: {
+      //   width: "0"
+      // }
     };
   },
 
@@ -147,18 +150,24 @@ export default {
         this.toggleIsFalse = false;
       }
     },
-    //滾動隱藏、顯示Navbar
+    //滾動隱藏、顯示Navbar，由於Bug太多，暫時不使用
     handleScroll() {
       // 頁面滾動距頂部距離
       var scrollTop = window.pageYOffset;
       var scroll = scrollTop - this.i;
       this.i = scrollTop;
-      if (scroll < 0) {
+
+      if (window.location.pathname === "/chat") {
+        window.removeEventListener("scroll", this.handleScroll, true);
+      } else if (scroll < 0) {
         this.scrollUpOrDown = true;
       } else {
         this.scrollUpOrDown = false;
       }
     },
+    // handleResize() {
+    //   this.window.width = window.innerWidth;
+    // },
 
     ...mapActions({
       logout: "auth/logout"
@@ -172,9 +181,18 @@ export default {
     } else {
       this.loginState = false;
     }
+    // if (this.window.width > "837") {
+    //   window.addEventListener("scroll", this.handleScroll, true);
+    // } else {
+    //   window.removeEventListener("scroll", this.handleScroll, true);
+    // }
+
+    // window.addEventListener("resize", this.handleResize);
+    // this.handleResize();
     //偵測卷軸滾動
-    window.addEventListener("scroll", this.handleScroll, true);
-  }
+    // window.addEventListener("scroll", this.handleScroll, true);
+  },
+  created() {}
 };
 </script>
 
@@ -214,7 +232,8 @@ export default {
   align-items: center;
 }
 .login {
-  width: 100px;
+  width: 80px;
+  padding: 0;
 }
 .Icon {
   border: 0px;
@@ -345,30 +364,36 @@ export default {
   .loginFont {
     display: none;
   }
+  .login {
+    width: 60px;
+  }
 }
 @media screen and (max-width: 837px) {
-  #inputArea {
+  /* #inputArea {
     position: absolute;
     top: 60px;
     left: 50%;
     margin-left: -125px;
     width: 250px;
+  } */
+  #fl {
+    display: none;
   }
 }
 @media screen and (max-width: 555px) {
   .burger {
     position: absolute;
-    top: 80px;
+    top: 0px;
     right: 10px;
   }
   .toggle {
     position: absolute;
-    top: 80px;
+    top: 0px;
     right: 10px;
   }
   .loginArea {
     position: absolute;
-    top: 60px;
+    top: 0px;
     right: 10px;
   }
   .rightBtnGroup {
@@ -379,8 +404,24 @@ export default {
   }
   #check:checked ~ .rightBtnGroup {
     right: 0;
-    top: 120px;
+    top: 62px;
     opacity: 1;
+  }
+  .el-menu-item:nth-child(3) {
+    width: 200px;
+    padding: 0px;
+  }
+  .el-menu-item:nth-child(4) {
+    padding: 0;
+  }
+  .el-input-group__append button.el-button,
+  .el-input-group__append div.el-select .el-input__inner,
+  .el-input-group__append div.el-select:hover .el-input__inner,
+  .el-input-group__prepend button.el-button,
+  .el-input-group__prepend div.el-select .el-input__inner,
+  .el-input-group__prepend div.el-select:hover .el-input__inner {
+    width: 50px;
+    padding: 0 0 6px 3px;
   }
 }
 @media screen and (max-width: 480px) {
@@ -395,6 +436,9 @@ export default {
   }
   .uccItem {
     padding: 0;
+  }
+  .el-menu-item:nth-child(3) {
+    width: 150px;
   }
 }
 </style>

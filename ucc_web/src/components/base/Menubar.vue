@@ -1,4 +1,5 @@
 <template>
+  <!-- 尚未加入在正常頁面滾動menubar時，鎖定主畫面 -->
   <div class="Menubar">
     <input type="checkbox" id="checkForMenu" />
 
@@ -10,6 +11,90 @@
       </div>
     </label>
     <ul :class="scrollUpOrDown?'menu-show':'menu-hide'">
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
+      <li class="menuItem">
+        <a href="https://google.com">
+          <img
+            class="menuIcon"
+            src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646029"
+            width="50px"
+            height="50px"
+            style="border-radius:50%;"
+          />
+        </a>
+        <span slot="title">社團名稱</span>
+      </li>
       <li class="menuItem">
         <a href="https://google.com">
           <img
@@ -72,6 +157,21 @@ export default {
     };
   },
   methods: {
+    // animation() {
+    //   if (this.toggleIsFalse === false) {
+    //     this.toggleIsFalse = true;
+    //     //偵測在小於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
+    //     if (document.body.offsetWidth < "837") {
+    //       window.removeEventListener("scroll", this.handleScroll, true);
+    //     }
+    //   } else {
+    //     this.toggleIsFalse = false;
+    //     //偵測在大於837px寬度及出現滿版Menubar時，把卷軸監聽器移除
+    //     if (document.body.offsetWidth > "837") {
+    //       window.addEventListener("scroll", this.handleScroll, true);
+    //     }
+    //   }
+    // },
     animation() {
       if (this.toggleIsFalse === false) {
         this.toggleIsFalse = true;
@@ -79,7 +179,7 @@ export default {
         this.toggleIsFalse = false;
       }
     },
-    //滾動隱藏、顯示Menu
+    //滾動隱藏、顯示Menu，由於Bug太多，暫時不使用
     handleScroll() {
       // 頁面滾動距頂部距離
       var scrollTop = window.pageYOffset;
@@ -93,11 +193,14 @@ export default {
         this.scrollUpOrDown = false;
       }
     }
-  },
-  mounted() {
-    //偵測卷軸滾動
-    window.addEventListener("scroll", this.handleScroll, true);
   }
+  // mounted() {
+  //   if (document.body.offsetWidth > "837") {
+  //     window.addEventListener("scroll", this.handleScroll, true);
+  //   } else {
+  //     window.removeEventListener("scroll", this.handleScroll, true);
+  //   }
+  // }
 };
 </script>
 
@@ -117,6 +220,10 @@ export default {
 .menuItem:hover {
   background-color: rgb(255, 166, 82);
   color: white;
+}
+ul {
+  height: 100vh;
+  overflow: auto;
 }
 ul li span {
   display: none;
@@ -154,6 +261,7 @@ label {
   left: 0px;
   margin: 0;
   padding: 0;
+  overflow: scroll;
   z-index: 5;
   transition: left 0.3s ease;
 }
@@ -161,7 +269,7 @@ label {
   list-style: none;
   position: absolute;
   top: 70px;
-  left: -80px;
+  left: -110vw;
   margin: 0;
   padding: 0;
   z-index: 5;
@@ -210,7 +318,7 @@ label {
   margin: 5px;
 }
 @media screen and (max-width: 837px) {
-  .menu {
+  .menu-show {
     transition: all 0.5s ease;
     width: 100vw;
     height: 100vh;
@@ -225,7 +333,7 @@ label {
     height: 60px;
     background-color: orange;
   }
-  #checkForMenu:checked ~ .menu {
+  #checkForMenu:checked ~ .menu-show {
     background-color: orange;
     opacity: 0.8;
     left: -20px;
@@ -247,12 +355,12 @@ label {
     background-color: rgb(252, 175, 87);
     color: white;
   }
-  #checkForMenu:checked ~ .menu {
+  #checkForMenu:checked ~ .menu-show {
     overflow-y: scroll;
   }
 }
 @media screen and (max-width: 480px) {
-  #checkForMenu:checked ~ .menu {
+  #checkForMenu:checked ~ .menu-show {
     left: 0;
   }
 }

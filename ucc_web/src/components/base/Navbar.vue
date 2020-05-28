@@ -115,6 +115,9 @@ export default {
       loginState: "",
       i: "0",
       scrollUpOrDown: true
+      // window: {
+      //   width: "0"
+      // }
     };
   },
 
@@ -147,7 +150,7 @@ export default {
         this.toggleIsFalse = false;
       }
     },
-    //滾動隱藏、顯示Navbar
+    //滾動隱藏、顯示Navbar，由於Bug太多，暫時不使用
     handleScroll() {
       // 頁面滾動距頂部距離
       var scrollTop = window.pageYOffset;
@@ -162,6 +165,9 @@ export default {
         this.scrollUpOrDown = false;
       }
     },
+    // handleResize() {
+    //   this.window.width = window.innerWidth;
+    // },
 
     ...mapActions({
       logout: "auth/logout"
@@ -175,9 +181,18 @@ export default {
     } else {
       this.loginState = false;
     }
+    // if (this.window.width > "837") {
+    //   window.addEventListener("scroll", this.handleScroll, true);
+    // } else {
+    //   window.removeEventListener("scroll", this.handleScroll, true);
+    // }
+
+    // window.addEventListener("resize", this.handleResize);
+    // this.handleResize();
     //偵測卷軸滾動
-    window.addEventListener("scroll", this.handleScroll, true);
-  }
+    // window.addEventListener("scroll", this.handleScroll, true);
+  },
+  created() {}
 };
 </script>
 
