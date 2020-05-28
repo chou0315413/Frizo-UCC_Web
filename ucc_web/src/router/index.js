@@ -49,12 +49,6 @@ export default new VueRouter({
         },
 
         {
-            path: '/test2',
-            name: 'test',
-            component: resolve => require(['@/components/test2.vue'], resolve),
-        },
-
-        {
             path: '/chat',
             name: 'chat',
             component: resolve => require(['@/pages/Chat.vue'], resolve),
