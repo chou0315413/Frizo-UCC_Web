@@ -206,6 +206,9 @@ export default {
   width: 470px;
   background-image: url(../../assets/signInBackground/login.jpg);
   background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
 }
 
 .forgetPasswdDivPading {

@@ -1,83 +1,80 @@
 <template>
   <!-- <div class="register"> -->
   <div class="registerDiv">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h4>歡迎註冊UCC帳號</h4>
+    <div class="title">
+      <h4>歡迎註冊UCC帳號</h4>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="input-group input-group-sm inputBorder">
+          <input
+            type="text"
+            id="name"
+            class="form-control textLetterSpacing"
+            placeholder="輸入您的稱謂"
+            aria-describedby="inputGroup-sizing-sm"
+            v-model="name"
+          />
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="input-group input-group-sm registerDivPading inputBorder">
-            <input
-              type="text"
-              id="name"
-              class="form-control textLetterSpacing"
-              placeholder="輸入您的稱謂"
-              aria-describedby="inputGroup-sizing-sm"
-              v-model="name"
-            />
-          </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="input-group input-group-sm mt-4 inputBorder">
+          <input
+            type="text"
+            id="userEmail"
+            class="form-control textLetterSpacing"
+            placeholder="輸入您的 E-mail 信箱"
+            aria-describedby="inputGroup-sizing-sm"
+            v-model="userEmail"
+          />
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="input-group input-group-sm registerDivPading mt-4 inputBorder">
-            <input
-              type="text"
-              id="userEmail"
-              class="form-control textLetterSpacing"
-              placeholder="輸入您的 E-mail 信箱"
-              aria-describedby="inputGroup-sizing-sm"
-              v-model="userEmail"
-            />
-          </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="input-group input-group-sm mt-5 inputBorder">
+          <input
+            type="password"
+            id="userPassword"
+            class="form-control textLetterSpacing"
+            placeholder="輸入您欲設定的密碼"
+            aria-describedby="inputGroup-sizing-sm"
+            v-model="userPassword"
+          />
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="input-group input-group-sm registerDivPading mt-5 inputBorder">
-            <input
-              type="password"
-              id="userPassword"
-              class="form-control textLetterSpacing"
-              placeholder="輸入您欲設定的密碼"
-              aria-describedby="inputGroup-sizing-sm"
-              v-model="userPassword"
-            />
-          </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="input-group input-group-sm mb-3 mt-4 inputBorder">
+          <input
+            type="password"
+            id="reUserPassword"
+            class="form-control textLetterSpacing"
+            placeholder="請重複輸入您設定的密碼"
+            aria-describedby="inputGroup-sizing-sm"
+            v-model="reUserPassword"
+          />
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="input-group input-group-sm registerDivPading mb-3 mt-4 inputBorder">
-            <input
-              type="password"
-              id="reUserPassword"
-              class="form-control textLetterSpacing"
-              placeholder="請重複輸入您設定的密碼"
-              aria-describedby="inputGroup-sizing-sm"
-              v-model="reUserPassword"
-            />
-          </div>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="alertDiv mb-3">{{alertText}}</div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="alertDiv mb-3">{{alertText}}</div>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="registerBtn">
-            <el-button type="primary" round :loading="isClick===true" @click="register">註冊</el-button>
-          </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="registerBtn">
+          <el-button type="primary" round :loading="isClick===true" @click="register">註冊</el-button>
         </div>
       </div>
     </div>
@@ -152,13 +149,21 @@ export default {
   width: 470px;
   background-image: url(../../assets/signInBackground/login.jpg);
   background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
 }
 
-.registerDivPading {
+.title {
+  grid-column: 1/9;
+  grid-row: 1/2;
+}
+
+/* .registerDivPading {
   position: relative;
   margin: auto;
   width: 350px;
-}
+} */
 
 h4 {
   margin-top: 30px;
