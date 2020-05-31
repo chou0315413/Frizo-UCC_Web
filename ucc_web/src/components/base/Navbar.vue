@@ -89,14 +89,16 @@
       <div :class="isGoToLogin?'modalDivShow':'modalDivNotShow'">
         <div class="background" @click="closeModal"></div>
         <!-- modalSideBar 左側按鈕區塊 -->
-        <div class="modalLoginSide">
-          <button class="modalSideBtn" @click="goToLogin">登入</button>
-        </div>
-        <div class="modalRegisterSide">
-          <button class="modalSideBtn" @click="goToRegister">註冊</button>
-        </div>
-        <div class="modalForgetPasswdSide">
-          <button class="modalSideBtn" @click="goToforgerPasswd">忘記密碼</button>
+        <div class="modalSideBar">
+          <div class="modalLoginSide">
+            <button class="modalSideBtn" @click="goToLogin">登入</button>
+          </div>
+          <div class="modalRegisterSide">
+            <button class="modalSideBtn" @click="goToRegister">註冊</button>
+          </div>
+          <div class="modalForgetPasswdSide">
+            <button class="modalSideBtn" @click="goToforgerPasswd">忘記密碼</button>
+          </div>
         </div>
         <!-- 中間畫面變換區域 -->
         <div class="loginDivCenter">
@@ -317,35 +319,49 @@ export default {
 }
 
 /* 此開始為左側side按鈕CSS樣式 */
-.modalLoginSide {
-  grid-column: 2/3;
+.modalSideBar {
+  display: flex;
+  grid-column: 1/9;
   grid-row: 2/3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modalRegisterSide {
-  grid-column: 2/3;
-  grid-row: 3/4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modalForgetPasswdSide {
-  grid-column: 2/3;
-  grid-row: 4/5;
-  display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
 .modalSideBtn {
-  height: 80%;
-  width: 80%;
-  border-radius: 15px;
-  border: 1px #e97474 solid;
+  height: 40px;
+  width: 135px;
+  border-radius: 10px;
+  margin: 15px 10px;
+  border: 1.5px orange solid;
+  background: none;
+  color: orange;
+  outline: none;
+  transition: color 0.3s linear;
+  position: relative;
+}
+.modalSideBtn:hover {
+  color: white;
+}
+.modalSideBtn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: -7px;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background-color: orange;
+  transition: transform 0.3s;
+  z-index: -1;
+  transform-origin: 0 0;
+  transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+.modalSideBtn::before {
+  transform: scaleX(0);
+}
+.modalSideBtn:hover::before {
+  transform: scaleX(1);
 }
 
 /* modal */
