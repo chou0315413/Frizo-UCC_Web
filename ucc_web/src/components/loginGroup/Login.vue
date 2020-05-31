@@ -33,9 +33,9 @@
           v-on:keyup.13="login"
         />
       </div>
-      <div class="forgetPasswd">
+      <!-- <div class="forgetPasswd">
         <a href="#" data-toggle="modal" data-target="#forgetPasswd">忘記密碼</a>
-      </div>
+      </div>-->
       <div class="passwdAlertText alertText">{{alertDiv.passwdAlertText}}</div>
       <div class="loginBtn">
         <el-button type="primary" round :loading="onLoading===isLoading" @click="login">登入</el-button>
@@ -61,10 +61,10 @@
       </div>
       <div class="getUCCAccount">
         <h6 class="mt-3">
-          沒有帳號嗎?
-          <span>
-            <a href="#" data-toggle="modal" data-target="#register">註冊</a>
-          </span>
+          沒有帳號嗎? 快去註冊吧!
+          <!-- <span>
+            <a href="#" data-toggle="modal" data-target="#register"></a>
+          </span>-->
         </h6>
       </div>
     </div>
@@ -255,13 +255,13 @@ export default {
   grid-row: 4/5;
 }
 
-.forgetPasswd {
+/* .forgetPasswd {
   position: relative;
   top: -10px;
   text-align: left;
   grid-column: 2/4;
   grid-row: 4/5;
-}
+} */
 
 .loginBtn {
   grid-column: 1/9;

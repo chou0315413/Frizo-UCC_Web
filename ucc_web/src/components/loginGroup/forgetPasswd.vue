@@ -11,98 +11,67 @@
   <!-- <div class="modal-dialog modal-dialog-centered" role="document"> -->
   <div class="forgetPasswdDiv">
     <!-- <div class="modal-body"> -->
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h4>忘記密碼</h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="input-group input-group-sm forgetPasswdDivPading inputBorder">
-            <input
-              type="text"
-              id="email"
-              class="form-control textLetterSpacing"
-              placeholder="請輸入您的 E-mail 信箱"
-              aria-describedby="inputGroup-sizing-sm"
-              v-model="email"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12 mb-3">
-          <div class="forgetPasswdBtn">
-            <el-button
-              type="primary"
-              round
-              :loading="sendEmailIsClick===true"
-              @click="sendVerifyEmail"
-            >送出</el-button>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="input-group input-group-sm forgetPasswdDivPading inputBorder">
-            <input
-              type="text"
-              id="verifyCode"
-              class="form-control textLetterSpacing"
-              placeholder="請輸入驗證碼"
-              aria-describedby="inputGroup-sizing-sm"
-              v-model="verifyCode"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="input-group input-group-sm forgetPasswdDivPading mt-4 inputBorder">
-            <input
-              type="password"
-              id="userPassword"
-              class="form-control textLetterSpacing"
-              placeholder="請輸入您欲設定的密碼"
-              aria-describedby="inputGroup-sizing-sm"
-              v-model="password"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="input-group input-group-sm forgetPasswdDivPading mt-4 inputBorder">
-            <input
-              type="password"
-              id="reUserPassword"
-              class="form-control textLetterSpacing"
-              placeholder="請重複輸入您設定的密碼"
-              aria-describedby="inputGroup-sizing-sm"
-              v-model="rePassword"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="alertDiv">{{alertText}}</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="forgetPasswdBtn">
-            <el-button type="primary" round :loading="resetIsClick===true" @click="resetPwd">確認</el-button>
-          </div>
-        </div>
-      </div>
+
+    <div class="title">
+      <h4>忘記密碼</h4>
     </div>
+
+    <div class="email">
+      <input
+        type="text"
+        id="email"
+        class="form-control textLetterSpacing"
+        placeholder="請輸入您的 E-mail 信箱"
+        aria-describedby="inputGroup-sizing-sm"
+        v-model="email"
+      />
+    </div>
+
+    <div class="sendVerification">
+      <el-button type="primary" round :loading="sendEmailIsClick===true" @click="sendVerifyEmail">送出</el-button>
+    </div>
+
+    <div class="verification">
+      <input
+        type="text"
+        id="verifyCode"
+        class="form-control textLetterSpacing"
+        placeholder="請輸入驗證碼"
+        aria-describedby="inputGroup-sizing-sm"
+        v-model="verifyCode"
+      />
+    </div>
+
+    <div class="passwd">
+      <input
+        type="password"
+        id="userPassword"
+        class="form-control textLetterSpacing"
+        placeholder="請輸入您欲設定的密碼"
+        aria-describedby="inputGroup-sizing-sm"
+        v-model="password"
+      />
+    </div>
+
+    <div class="confirmPasswd">
+      <input
+        type="password"
+        id="reUserPassword"
+        class="form-control textLetterSpacing"
+        placeholder="請重複輸入您設定的密碼"
+        aria-describedby="inputGroup-sizing-sm"
+        v-model="rePassword"
+      />
+    </div>
+
+    <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
+
+    <div class="alertDiv">{{alertText}}</div>
+
+    <div class="forgetPasswdBtn">
+      <el-button type="primary" round :loading="resetIsClick===true" @click="resetPwd">確認</el-button>
+    </div>
+
     <!-- </div> -->
   </div>
   <!-- </div> -->
@@ -206,6 +175,51 @@ export default {
   width: 470px;
   background-image: url(../../assets/signInBackground/login.jpg);
   background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+
+.title {
+  grid-column: 1/9;
+  grid-row: 2/3;
+}
+
+.email {
+  grid-column: 2/6;
+  grid-row: 3/4;
+}
+
+.sendVerification {
+  grid-column: 6/8;
+  grid-row: 3/4;
+}
+
+.verification {
+  grid-column: 2/8;
+  grid-row: 4/5;
+}
+
+.passwd {
+  grid-column: 2/8;
+  grid-row: 5/6;
+}
+
+.confirmPasswd {
+  grid-column: 2/8;
+  grid-row: 6/7;
+}
+
+.notice {
+  grid-column: 3/7;
+  grid-row: 5/6;
+  justify-self: center;
+  align-self: end;
+}
+
+.forgetPasswdBtn {
+  grid-column: 1/9;
+  grid-row: 7/8;
 }
 
 .forgetPasswdDivPading {
@@ -215,8 +229,7 @@ export default {
 }
 
 h4 {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .forgetPasswdPage {
@@ -236,16 +249,13 @@ h4 {
   left: 80px;
 }
 
-.forgetPasswdBtn {
-  margin-top: 25px;
-}
-
 .alertDiv {
-  position: relative;
   font-size: 10px;
   color: red;
   font-weight: bold;
-  left: 80px;
-  font-size: 14px;
+  grid-column: 5/8;
+  grid-row: 6/7;
+  align-self: end;
+  justify-self: end;
 }
 </style>
