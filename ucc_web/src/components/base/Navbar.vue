@@ -84,14 +84,23 @@
           <div class="line3"></div>
         </div>
       </label>
+
+      <!-- modal區塊從這裡開始 -->
       <div :class="isGoToLogin?'modalDivShow':'modalDivNotShow'">
         <div class="background" @click="closeModal"></div>
-        <!-- modalSideBar -->
-        <div class="modalLoginSideBtn" @click="goToLogin"></div>
-        <div class="modalRegisterSideBtn" @click="goToRegister"></div>
-        <div class="modalForgetPasswdSideBtn" @click="goToforgerPasswd"></div>
-        <!-- modalSideBar -->
+        <!-- modalSideBar 左側按鈕區塊 -->
+        <div class="modalLoginSide">
+          <button class="modalSideBtn" @click="goToLogin">登入</button>
+        </div>
+        <div class="modalRegisterSide">
+          <button class="modalSideBtn" @click="goToRegister">註冊</button>
+        </div>
+        <div class="modalForgetPasswdSide">
+          <button class="modalSideBtn" @click="goToforgerPasswd">忘記密碼</button>
+        </div>
+        <!-- 中間畫面變換區域 -->
         <div class="loginDivCenter">
+          <!-- 搭配三元判斷式偵測目前 true or false -->
           <div :class="onLogin?'goLogin':'notGoToLogin'">
             <Login></Login>
           </div>
@@ -103,10 +112,7 @@
           </div>
         </div>
       </div>
-      <div style="display:none;">
-        <register></register>
-        <forgetPasswd></forgetPasswd>
-      </div>
+      <!-- modal區塊結束 -->
     </div>
   </div>
 </template>  
@@ -253,34 +259,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* modal 使用的CSS 類別 */
-
-/* 登入用 */
+/* modal */
+/* 左側按鈕CSS類別 供三元判斷式使用 */
 .goLogin {
   display: unset;
 }
 .notGoToLogin {
   display: none;
 }
-/* 登入用 */
-
-/* 註冊用 */
 .goRegister {
   display: unset;
 }
 .notGoToRegister {
   display: none;
 }
-/* 註冊用 */
-
-/* 忘記密碼用 */
 .goForgetPasswd {
   display: unset;
 }
 .notGoToForgetPasswd {
   display: none;
 }
-/* 忘記密碼用 */
 
 .modalDivShow {
   position: fixed;
@@ -318,24 +316,39 @@ export default {
   grid-row: 1/9;
 }
 
-.modalLoginSideBtn {
+/* 此開始為左側side按鈕CSS樣式 */
+.modalLoginSide {
   grid-column: 2/3;
   grid-row: 2/3;
-  background-color: violet;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.modalRegisterSideBtn {
+.modalRegisterSide {
   grid-column: 2/3;
   grid-row: 3/4;
-  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.modalForgetPasswdSideBtn {
+.modalForgetPasswdSide {
   grid-column: 2/3;
   grid-row: 4/5;
-  background-color: rgb(170, 169, 169);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-/* modal 使用的CSS 類別 */
+
+.modalSideBtn {
+  height: 80%;
+  width: 80%;
+  border-radius: 15px;
+  border: 1px #e97474 solid;
+}
+
+/* modal */
 
 .navbar {
   z-index: 6;
