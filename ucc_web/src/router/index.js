@@ -54,6 +54,18 @@ export default new VueRouter({
             component: resolve => require(['@/pages/Chat.vue'], resolve),
         },
 
+        {
+            path: '/event',
+            name: 'event',
+            component: resolve => require(['@/pages/TestEvent.vue'], resolve),
+        },
+
+        {
+            path: '/findEvent',
+            name: 'fevent',
+            component: resolve => require(['@/pages/TestFindEvent.vue'], resolve),
+        },
+
         //必須置底
         {
             path: '/*',
