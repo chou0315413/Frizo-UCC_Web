@@ -99,15 +99,19 @@
                 </el-input>
               </div>
               <div class="time">
-                <span class="demonstration">選擇活動日期</span>
-                <el-date-picker
-                  v-model="value1"
+                <span class="demonstration">選擇活動開始日期</span>
+                <el-date-picker v-model="activityTime" type="date" placeholder="選擇日期">
+                  <template slot="prepend">活動報名截止日</template>
+                </el-date-picker>
+                <!-- <el-date-picker
+                  v-model="activityTime"
                   type="daterange"
                   unlink-panels
                   range-separator="至"
                   start-placeholder="開始日期"
                   end-placeholder="結束日期"
-                ></el-date-picker>
+                ></el-date-picker>-->
+                <button @click="test">test</button>
               </div>
               <div class="tag"></div>
             </div>
@@ -202,6 +206,8 @@ export default {
       peopleLimit: 0,
       cost: 0,
       deadline: "",
+      activityTime: "",
+      activityTimeString: "",
       place: "",
       // 訊息資料
       messageTitle: "",
@@ -217,6 +223,14 @@ export default {
   },
 
   methods: {
+    test() {
+      let activityY = this.activityTime.getFullYear();
+      let activityM = this.activityTime.getMonth() + 1;
+      let activityD = this.activityTime.getDate();
+      let activityDate = activityY + "-" + activityM + "-" + activityD;
+      console.log(activityDate);
+    },
+
     // sidebar使用之methods
     activityChangeMode() {
       // this.title = "發佈活動";
