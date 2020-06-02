@@ -84,14 +84,25 @@
           <div class="line3"></div>
         </div>
       </label>
+
+      <!-- modal區塊從這裡開始 -->
       <div :class="isGoToLogin?'modalDivShow':'modalDivNotShow'">
         <div class="background" @click="closeModal"></div>
-        <!-- modalSideBar -->
-        <div class="modalLoginSideBtn" @click="goToLogin"></div>
-        <div class="modalRegisterSideBtn" @click="goToRegister"></div>
-        <div class="modalForgetPasswdSideBtn" @click="goToforgerPasswd"></div>
-        <!-- modalSideBar -->
+        <!-- modalSideBar 左側按鈕區塊 -->
+        <div class="modalSideBar">
+          <div class="modalLoginSide">
+            <button class="modalSideBtn" @click="goToLogin">登入</button>
+          </div>
+          <div class="modalRegisterSide">
+            <button class="modalSideBtn" @click="goToRegister">註冊</button>
+          </div>
+          <div class="modalForgetPasswdSide">
+            <button class="modalSideBtn" @click="goToforgerPasswd">忘記密碼</button>
+          </div>
+        </div>
+        <!-- 中間畫面變換區域 -->
         <div class="loginDivCenter">
+          <!-- 搭配三元判斷式偵測目前 true or false -->
           <div :class="onLogin?'goLogin':'notGoToLogin'">
             <Login></Login>
           </div>
@@ -103,10 +114,7 @@
           </div>
         </div>
       </div>
-      <div style="display:none;">
-        <register></register>
-        <forgetPasswd></forgetPasswd>
-      </div>
+      <!-- modal區塊結束 -->
     </div>
   </div>
 </template>  
@@ -136,9 +144,12 @@ export default {
       loginState: "",
       i: "0",
       scrollUpOrDown: true,
+      // window: {
+      //   width: "0"
+      // }
+
       // 確認有無點擊登入按鈕
       isGoToLogin: false,
-
       // 判斷目前在哪個頁面上
       onLogin: true,
       onRegister: false,
@@ -202,7 +213,7 @@ export default {
         this.toggleIsFalse = false;
       }
     },
-    //滾動隱藏、顯示Navbar
+    //滾動隱藏、顯示Navbar，由於Bug太多，暫時不使用
     handleScroll() {
       // 頁面滾動距頂部距離
       var scrollTop = window.pageYOffset;
@@ -217,6 +228,9 @@ export default {
         this.scrollUpOrDown = false;
       }
     },
+    // handleResize() {
+    //   this.window.width = window.innerWidth;
+    // },
 
     ...mapActions({
       logout: "auth/logout"
@@ -230,42 +244,43 @@ export default {
     } else {
       this.loginState = false;
     }
+    // if (this.window.width > "837") {
+    //   window.addEventListener("scroll", this.handleScroll, true);
+    // } else {
+    //   window.removeEventListener("scroll", this.handleScroll, true);
+    // }
+
+    // window.addEventListener("resize", this.handleResize);
+    // this.handleResize();
     //偵測卷軸滾動
-    window.addEventListener("scroll", this.handleScroll, true);
-  }
+    // window.addEventListener("scroll", this.handleScroll, true);
+  },
+  created() {}
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* modal 使用的CSS 類別 */
-
-/* 登入用 */
+/* modal */
+/* 左側按鈕CSS類別 供三元判斷式使用 */
 .goLogin {
   display: unset;
 }
 .notGoToLogin {
   display: none;
 }
-/* 登入用 */
-
-/* 註冊用 */
 .goRegister {
   display: unset;
 }
 .notGoToRegister {
   display: none;
 }
-/* 註冊用 */
-
-/* 忘記密碼用 */
 .goForgetPasswd {
   display: unset;
 }
 .notGoToForgetPasswd {
   display: none;
 }
-/* 忘記密碼用 */
 
 .modalDivShow {
   position: fixed;
@@ -303,24 +318,57 @@ export default {
   grid-row: 1/9;
 }
 
-.modalLoginSideBtn {
-  grid-column: 2/3;
+/* 此開始為左側side按鈕CSS樣式 */
+.modalSideBar {
+  display: flex;
+  grid-column: 1/9;
   grid-row: 2/3;
-  background-color: violet;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.modalRegisterSideBtn {
-  grid-column: 2/3;
-  grid-row: 3/4;
-  background-color: red;
+.modalSideBtn {
+  height: 40px;
+  width: 120px;
+  border-radius: 10px;
+  margin: 15px 10px;
+  border: 1.5px orange solid;
+  background: none;
+  color: orange;
+  outline: none;
+  transition: color 0.3s linear;
+  position: relative;
 }
 
-.modalForgetPasswdSideBtn {
-  grid-column: 2/3;
-  grid-row: 4/5;
-  background-color: rgb(170, 169, 169);
+.modalSideBtn:hover {
+  color: white;
 }
-/* modal 使用的CSS 類別 */
+.modalSideBtn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: -7px;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background-color: orange;
+  transition: transform 0.3s;
+  z-index: -1;
+  transform-origin: 0 0;
+  transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+.modalSideBtn::before {
+  transform: scaleX(0);
+}
+.modalSideBtn:hover::before {
+  transform: scaleX(1);
+}
+.modealSideBtn:active {
+  transform: scaleX(1);
+}
+
+/* modal */
 
 .navbar {
   z-index: 6;
@@ -356,7 +404,8 @@ export default {
   align-items: center;
 }
 .login {
-  width: 100px;
+  width: 80px;
+  padding: 0;
 }
 .Icon {
   border: 0px;
@@ -433,6 +482,7 @@ export default {
   background-color: orange;
   margin: 5px;
 }
+
 @media screen and (max-width: 980px) {
   .rightBtnGroup {
     position: absolute;
@@ -464,17 +514,23 @@ export default {
   }
   .navFont {
     display: inline;
+    color: white;
+  }
+  .el-submenu__title,
+  .rightBtn:hover .navFont {
+    color: black;
+  }
+  .el-submenu__title:hover #followers {
+    color: black;
   }
   #check:checked ~ .rightBtnGroup {
     right: 0;
     top: 60px;
     opacity: 1;
   }
-  #followers:hover {
-    color: #000;
-  }
   #followers {
     display: inline;
+    color: white;
   }
   #followersBtn {
     width: 100%;
@@ -487,30 +543,29 @@ export default {
   .loginFont {
     display: none;
   }
+  .login {
+    width: 60px;
+  }
 }
 @media screen and (max-width: 837px) {
-  #inputArea {
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    margin-left: -125px;
-    width: 250px;
+  #fl {
+    display: none;
   }
 }
 @media screen and (max-width: 555px) {
   .burger {
     position: absolute;
-    top: 80px;
+    top: 18px;
     right: 10px;
   }
   .toggle {
     position: absolute;
-    top: 80px;
+    top: 18px;
     right: 10px;
   }
   .loginArea {
     position: absolute;
-    top: 60px;
+    top: 0px;
     right: 10px;
   }
   .rightBtnGroup {
@@ -521,8 +576,24 @@ export default {
   }
   #check:checked ~ .rightBtnGroup {
     right: 0;
-    top: 120px;
+    top: 62px;
     opacity: 1;
+  }
+  .el-menu-item:nth-child(3) {
+    width: 200px;
+    padding: 0px;
+  }
+  .el-menu-item:nth-child(4) {
+    padding: 0;
+  }
+  .el-input-group__append button.el-button,
+  .el-input-group__append div.el-select .el-input__inner,
+  .el-input-group__append div.el-select:hover .el-input__inner,
+  .el-input-group__prepend button.el-button,
+  .el-input-group__prepend div.el-select .el-input__inner,
+  .el-input-group__prepend div.el-select:hover .el-input__inner {
+    width: 50px;
+    padding: 0 0 6px 3px;
   }
 }
 @media screen and (max-width: 480px) {
@@ -537,6 +608,9 @@ export default {
   }
   .uccItem {
     padding: 0;
+  }
+  .el-menu-item:nth-child(3) {
+    width: 150px;
   }
 }
 </style>
