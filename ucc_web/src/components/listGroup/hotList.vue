@@ -1,36 +1,20 @@
 <template>
   <div class="hotList">
-    <!-- <div class="list-group">
-      <div v-for="index in followList" :key="index">
-        <router-link :to="index.link">
-          <a class="list-group-item list-group-item-action">
-            <div class="row">
-              <div class="col-lg-1">
-                <img class="smallPicture" src="@/assets/userPhoto/user.png" alt="userPhoto" />
-              </div>
-              <div class="col-lg-3 text-left">{{index.title}}</div>
-              <div class="col-lg-8 text-left">{{index.message}}</div>
-            </div>
-          </a>
-        </router-link>
-      </div>
-    </div>-->
-    <div class="item" v-for="index in hotList" :key="index">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 imgBox">
-            <img :src="index.img" class="itemImg" />
+    <div class="activity">
+      <div class="item" v-for="index in hotList" :key="index">
+        <div class="imgBox">
+          <img :src="index.img" class="itemImg" />
+        </div>
+        <div class="itemContent">
+          <div class="itemTitle">
+            <b>{{index.title}}</b>
           </div>
-          <div class="col-lg-9 itemContent">
-            <h3 class="itemTitle mb-3">{{index.title}}</h3>
-            <div class="itemIntroduction mb-4">
-              <h6>{{index.message}}</h6>
-            </div>
-            <div class="itemAttention">
-              關注度：12
-              <br />留言數：23
-            </div>
+          <div class="itemIntroduction mb-4">
+            <div class="description">{{index.message}}</div>
           </div>
+          <div class="deadline">活動截止日期：{{index.deadline}}</div>
+          <div class="joinPeople mt-2">目前參加人數：{{index.joinPeople}}人</div>
+          <div class="tag"></div>
         </div>
       </div>
     </div>
@@ -90,41 +74,92 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* .list-group-item {
-  height: 55px;
-  border-left: none;
-  border-right: none;
-  border-radius: 0px;
-}
-.smallPicture {
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-  border: 1px solid #acacac;
-} */
-.item {
-  position: relative;
-  height: 160px;
+.activity {
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  height: 450px;
+  width: 430px;
   box-shadow: 0 0 3px #2e2e2e;
   background-color: #ffffff;
-  margin: 20px 0px;
+  margin: 10px auto;
 }
+
+.imgBox {
+  padding: 5px;
+  grid-column: 1/9;
+  grid-row: 1/5;
+}
+
 .itemImg {
-  height: 160px;
+  height: 100%;
   width: 100%;
 }
-.imgBox {
-  padding: 0px;
+
+.itemContent {
+  grid-column: 1/9;
+  grid-row: 5/9;
+  padding: 0px 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
 }
+
 .itemTitle {
+  font-size: 22px;
+  grid-column: 1/5;
+  grid-row: 1/2;
   text-align: left;
 }
+
 .itemIntroduction {
   text-align: left;
+  grid-column: 1/5;
+  grid-row: 2/4;
   height: 35px;
 }
-.itemAttention {
-  text-align: right;
+
+/* 省略文字 */
+/* 和chat.vue的省略文字寫法有些許差異 */
+.description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.deadline {
+  grid-column: 1/3;
+  grid-row: 4/5;
+  text-align: left;
+}
+
+.joinPeople {
+  text-align: left;
+  grid-column: 1/3;
+  grid-row: 4/5;
+  position: relative;
+  top: 50%;
+}
+
+.tag {
+  position: relative;
+  top: -5px;
+  grid-column: 3/5;
+  grid-row: 4/6;
+  background-color: blue;
+}
+
+@media (max-width: 650px) {
+  .itemTitle {
+    font-size: 22px;
+  }
 }
 </style>

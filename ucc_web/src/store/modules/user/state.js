@@ -1,7 +1,7 @@
 const state = {
     userInfo: {
         userId: '',
-        userName: '',
+        name: '',
         imgUrl: '',
         backgroundUrl: '',
         gender: '',

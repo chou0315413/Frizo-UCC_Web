@@ -329,7 +329,7 @@ export default {
 
 .modalSideBtn {
   height: 40px;
-  width: 120px;
+  width: 135px;
   border-radius: 10px;
   margin: 15px 10px;
   border: 1.5px orange solid;
@@ -339,7 +339,6 @@ export default {
   transition: color 0.3s linear;
   position: relative;
 }
-
 .modalSideBtn:hover {
   color: white;
 }
@@ -362,9 +361,6 @@ export default {
   transform: scaleX(0);
 }
 .modalSideBtn:hover::before {
-  transform: scaleX(1);
-}
-.modealSideBtn:active {
   transform: scaleX(1);
 }
 

@@ -27,7 +27,7 @@ export default new VueRouter({
         {
             path: '/login',
             name: 'login',
-            component: resolve => require(['@/components/Login.vue'], resolve)
+            component: resolve => require(['@/components/loginGroup/Login.vue'], resolve)
         },
 
         {
@@ -37,7 +37,8 @@ export default new VueRouter({
             component: resolve => require(['@/pages/User.vue'], resolve),
             children: [
                 { path: 'info', component: resolve => require(['@/components/user/Info.vue'], resolve) },
-                { path: 'emailverify', component: resolve => require(['@/components/user/EmailVerify.vue'], resolve) }
+                { path: 'emailverify', component: resolve => require(['@/components/user/EmailVerify.vue'], resolve) },
+                { path: 'newActivity', component: resolve => require(['@/components/user/PostActivity.vue'], resolve) }
             ]
         },
 
@@ -48,15 +49,21 @@ export default new VueRouter({
         },
 
         {
-            path: '/file',
-            name: 'file',
-            component: resolve => require(['@/components/TestFile.vue'], resolve),
-        },
-
-        {
             path: '/chat',
             name: 'chat',
             component: resolve => require(['@/pages/Chat.vue'], resolve),
+        },
+
+        {
+            path: '/event',
+            name: 'event',
+            component: resolve => require(['@/pages/TestEvent.vue'], resolve),
+        },
+
+        {
+            path: '/findEvent',
+            name: 'fevent',
+            component: resolve => require(['@/pages/TestFindEvent.vue'], resolve),
         },
 
         //必須置底

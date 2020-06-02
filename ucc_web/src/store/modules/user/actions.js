@@ -6,29 +6,37 @@ const setUserInfo = function ({ commit }) {
     if (authenticated()) {
         getUserInfo()
             .then(res => {
-                let userInfo = {
-                    userId: res.data.id,
-                    userName: res.data.name,
-                    backgroundUrl: res.data.backgroundUrl,
-                    gender: res.data.gender,
-                    phoneNumber: res.data.phoneNumber,
-                    address: res.data.address,
-                    collageLocation: res.data.collageLocation,
-                    collageName: res.data.collageName,
-                    majorSubject: res.data.majorSubject,
-                    grade: res.data.grade,
-                    createdAt: res.data.createdAt,
-                    updatedAt: res.data.updatedAt,
-                    email: res.data.email,
-                    imgUrl: res.data.imageUrl,
-                    provider: res.data.provider,
-                    emailVerified: res.data.emailVerified
-                };
-                console.log("user actions: " + userInfo.userName + ": " + userInfo.email);
-                commit(types.SET_USER_INFO, userInfo)
+                if (res.data.success) {
+                    let userInfo = {
+                        userId: res.data.result.id,
+                        name: res.data.result.name,
+                        backgroundUrl: res.data.result.backgroundUrl,
+                        gender: res.data.result.gender,
+                        phoneNumber: res.data.result.phoneNumber,
+                        address: res.data.result.address,
+                        collageLocation: res.data.result.collageLocation,
+                        collageName: res.data.result.collageName,
+                        majorSubject: res.data.result.majorSubject,
+                        grade: res.data.result.grade,
+                        createdAt: res.data.result.createdAt,
+                        updatedAt: res.data.result.updatedAt,
+                        email: res.data.result.email,
+                        imgUrl: res.data.result.imageUrl,
+                        provider: res.data.result.provider,
+                        emailVerified: res.data.result.emailVerified
+                    };
+                    if (userInfo.phoneNumber != '') {
+                        userInfo.phoneNumber = '0' + userInfo.phoneNumber
+                    }
+                    console.log("user actions: " + userInfo.name + ": " + userInfo.email);
+                    commit(types.SET_USER_INFO, userInfo)
+                } else {
+                    alert(res.data.message)
+                }
+
             })
             .catch(error => {
-                alert('使用者憑證過期，請重新登入');
+                alert(error.response.data.message);
                 cleanAuthStore();
                 console.log('user not login');
                 console.log(error)
@@ -36,13 +44,12 @@ const setUserInfo = function ({ commit }) {
     }
 };
 
-const setUserInfoFromObj = function ({ commit }, { id, userName, imageUrl, backgroundUrl, gender, phoneNumber, address,
+const setUserInfoFromObj = function ({ commit }, { id, name, imageUrl, backgroundUrl, gender, phoneNumber, address,
     collageLocation, collageName, majorSubject, grade, email, provider, emailVerified, createdAt, updatedAt }) {
     if (authenticated()) {
         let userInfo = {
             userId: id,
-            userName: userName,
-            background: backgroundUrl,
+            name: name,
             gender: gender,
             phoneNumber: phoneNumber,
             address: address,
@@ -53,13 +60,16 @@ const setUserInfoFromObj = function ({ commit }, { id, userName, imageUrl, backg
             createdAt: createdAt,
             updatedAt: updatedAt,
             email: email,
-            imgUrl: imageUrl,
             provider: provider,
-            emailVerified: emailVerified
+            emailVerified: emailVerified,
+            imgUrl: imageUrl,
+            backgroundUrl: backgroundUrl,
         };
         commit(types.SET_USER_INFO, userInfo)
     }
 };
+
+
 
 const actions = {
     setUserInfo,

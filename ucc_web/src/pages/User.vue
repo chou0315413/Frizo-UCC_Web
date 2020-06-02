@@ -1,15 +1,13 @@
 <template>
   <div class="user">
     <Navbar></Navbar>
-    <menubar></menubar>
     <router-view />
   </div>
 </template>
 
 <script>
 import { authenticated } from "@/utils/AuthStore";
-import Navbar from "@/components/Navbar";
-import Menubar from "@/components/Menubar";
+import Navbar from "@/components/base/Navbar";
 
 export default {
   name: "User",
@@ -19,8 +17,7 @@ export default {
   },
 
   components: {
-    Navbar,
-    Menubar
+    Navbar
   },
 
   beforeRouteEnter(to, from, next) {
@@ -35,6 +32,8 @@ export default {
 
 <style scoped>
 .user {
+  position: relative;
+  top: 50px;
   background-color: #eeeeee;
   height: 100vh;
 }

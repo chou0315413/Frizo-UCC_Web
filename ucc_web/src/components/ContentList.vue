@@ -1,61 +1,24 @@
 <template>
   <div class="ContentList mt-4">
-    <!-- <nav aria-label="breadcrumb" class="float-right titieList">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item" @click="listPrint='hotList'">
-          <a href="#">熱門</a>
-        </li>
-        <li class="breadcrumb-item" @click="listPrint='newList'">
-          <a href="#">最新</a>
-        </li>
-        <li class="breadcrumb-item" @click="listPrint='followList'">
-          <a href="#">追蹤</a>
-        </li>
-      </ol>
-    </nav>-->
     <div class="selectList">
       <el-radio-group v-model="radio" @change="changeList">
         <el-radio :label="1">
-          <b>熱門活動</b>
+          <b>熱門</b>
         </el-radio>
         <el-radio :label="2">
-          <b>最新活動</b>
+          <b>最新</b>
         </el-radio>
         <el-radio :label="3">
-          <b>追蹤活動</b>
+          <b>追蹤</b>
         </el-radio>
       </el-radio-group>
     </div>
     <keep-alive>
       <component :is="listPrint"></component>
     </keep-alive>
-
-    <!-- <div class="block mt-3">
-      <el-pagination layout="prev, pager, next" :total="100"></el-pagination>
-    </div>-->
-
-    <!-- <div class="item">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 imgBox">
-            <img
-              src="https://exfast.me/wp-content/uploads/2019/04/1554182762-cddf42691119d44059a16a4095047a33-1140x600.jpg"
-              class="itemImg"
-            />
-          </div>
-          <div class="col-lg-9 itemContent">
-            <h3 class="itemTitle mb-3">活動主題，名稱。</h3>
-            <div class="itemIntroduction mb-4">
-              <h6>內容大綱介紹內容大綱介紹內紹內容大綱介紹大容大綱介紹內容大容大綱容大綱介紹內容大容大容大綱介紹內容大容大容大綱介紹內容大容大容大綱介紹內容大容大容大綱介紹內容大容大容大綱介紹內容大容大介紹內容大綱介</h6>
-            </div>
-            <div class="itemAttention">
-              關注度：12
-              <br />留言數：23
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->
+    <div>
+      <el-button type="primary" round class="mb-3">更多</el-button>
+    </div>
   </div>
 </template>
 
@@ -108,6 +71,7 @@ export default {
   position: relative;
   margin: auto;
   width: 900px;
+  box-sizing: border-box;
 }
 .selectList {
   text-align: right;
@@ -117,4 +81,28 @@ export default {
   padding-top: 8px;
   padding-right: 10px;
 }
+
+@media (max-width: 995px) {
+  .ContentList {
+    width: 750px;
+  }
+}
+
+@media (max-width: 837px) {
+  .ContentList {
+    width: 100%;
+  }
+}
+
+/* @media (max-width: 650px) {
+  .ContentList {
+    width: 450px;
+  }
+}
+
+@media (max-width: 450px) {
+  .ContentList {
+    width: 300px;
+  }
+} */
 </style>

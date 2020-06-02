@@ -38,13 +38,17 @@ export default {
   margin: 0;
 }
 
-.el-carousel__item:nth-child(2n) {
+.el-carousel__container {
+  height: 260px;
+}
+
+/* .el-carousel__item:nth-child(2n) {
   background-color: #99a9bf;
 }
 
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
-}
+} */
 
 .picture {
   width: 100%;
@@ -52,6 +56,22 @@ export default {
 }
 
 .banner {
-  margin: 10px 180px;
+  margin: 60px auto 10px auto;
+  width: 900px;
+}
+@media (max-width: 995px) {
+  .banner {
+    width: 750px;
+  }
+}
+@media screen and (max-width: 837px) {
+  .banner {
+    margin: 50px auto 0 auto;
+    width: 100%;
+    height: auto;
+  }
+  .picture {
+    height: auto;
+  }
 }
 </style>
