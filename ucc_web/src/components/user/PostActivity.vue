@@ -89,7 +89,12 @@
               </div>
               <div class="deadline">
                 <span class="demonstration">活動報名截止日</span>
-                <el-date-picker v-model="event.registrationDeadline" type="date" placeholder="選擇日期">
+                <el-date-picker
+                  v-model="event.registrationDeadline"
+                  type="date"
+                  placeholder="選擇日期"
+                  @change="deadlineDateChange"
+                >
                   <template slot="prepend">活動報名截止日</template>
                 </el-date-picker>
                 <!-- <button @click="getActivityDeadline">test</button> -->
@@ -101,8 +106,13 @@
               </div>
               <div class="time">
                 <span class="demonstration">選擇活動開始日期</span>
-                <el-date-picker v-model="event.eventStartTime" type="date" placeholder="選擇日期">
-                  <template slot="prepend">活動報名截止日</template>
+                <el-date-picker
+                  v-model="event.eventStartTime"
+                  type="date"
+                  placeholder="選擇日期"
+                  @change="startTimeDateChange"
+                >
+                  <template slot="prepend">選擇活動開始日期</template>
                 </el-date-picker>
                 <!-- <button @click="getActivityStartTime">test</button> -->
               </div>
@@ -235,6 +245,17 @@ export default {
       if (!files.length) return;
       alert(files[0].name);
       this.event.dmPicture = files[0];
+    },
+
+    deadlineDateChange() {
+      this.event.registrationDeadline = this.event.registrationDeadline
+        .toISOString()
+        .substr(0, 10);
+    },
+    startTimeDateChange() {
+      this.event.eventStartTime = this.event.eventStartTime
+        .toISOString()
+        .substr(0, 10);
     },
 
     // sidebar使用之methods
