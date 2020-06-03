@@ -211,10 +211,13 @@ export default {
 }
 
 .notice {
-  grid-column: 3/7;
+  grid-column: 2/8;
   grid-row: 5/6;
-  justify-self: center;
-  align-self: end;
+  justify-self: flex-end;
+  align-self: flex-end;
+  position: relative;
+  font-size: 10px;
+  margin: 0 1px 2px 0;
 }
 
 .forgetPasswdBtn {
@@ -242,13 +245,6 @@ h4 {
 .inputBorder {
   border: 1px #747474 solid;
 }
-
-.notice {
-  position: relative;
-  font-size: 10px;
-  left: 80px;
-}
-
 .alertDiv {
   font-size: 10px;
   color: red;
