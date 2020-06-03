@@ -177,11 +177,12 @@ h4 {
 }
 
 .notice {
-  grid-column: 4/8;
+  grid-column: 2/8;
   grid-row: 5/6;
-  align-self: end;
-  justify-self: end;
+  align-self: flex-end;
+  justify-self: flex-end;
   font-size: 10px;
+  margin: 0 1px 2px 0;
 }
 
 .registerBtn {

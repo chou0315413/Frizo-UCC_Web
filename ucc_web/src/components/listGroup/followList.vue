@@ -126,17 +126,23 @@ export default {
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
   height: 450px;
-  width: 430px;
+  width: 440px;
   box-shadow: 0 0 3px #2e2e2e;
   background-color: #ffffff;
-  margin: 10px auto;
+  margin-top: 20px;
   box-sizing: content-box;
+}
+.item:nth-child(odd) {
+  margin-right: 10px;
+}
+.item:nth-child(even) {
+  margin-left: 10px;
 }
 
 .item:hover {
-  /* border: 1px #acacac solid; */
   box-shadow: 0 0 15px #2e2e2e;
-  transition: all 0.5s ease-in;
+  transition: all 0.2s ease-in;
+  transform: scale(1.01);
 }
 
 .imgBox {
@@ -168,6 +174,7 @@ export default {
 
 .itemTitle b:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .itemIntroduction {

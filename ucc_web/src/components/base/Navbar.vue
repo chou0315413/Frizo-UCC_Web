@@ -88,29 +88,32 @@
       <!-- modal區塊從這裡開始 -->
       <div :class="isGoToLogin?'modalDivShow':'modalDivNotShow'">
         <div class="background" @click="closeModal"></div>
-        <!-- modalSideBar 左側按鈕區塊 -->
-        <div class="modalSideBar">
-          <div class="modalLoginSide">
-            <button class="modalSideBtn" @click="goToLogin">登入</button>
+        <!-- modalArea 包含切換按鈕及畫面區域 -->
+        <div class="modalArea">
+          <!-- modalSideBar 左側按鈕區塊 -->
+          <div class="modalSideBar">
+            <div class="modalLoginSide">
+              <button class="modalSideBtn" @click="goToLogin">登入</button>
+            </div>
+            <div class="modalRegisterSide">
+              <button class="modalSideBtn" @click="goToRegister">註冊</button>
+            </div>
+            <div class="modalForgetPasswdSide">
+              <button class="modalSideBtn" @click="goToforgerPasswd">忘記密碼</button>
+            </div>
           </div>
-          <div class="modalRegisterSide">
-            <button class="modalSideBtn" @click="goToRegister">註冊</button>
-          </div>
-          <div class="modalForgetPasswdSide">
-            <button class="modalSideBtn" @click="goToforgerPasswd">忘記密碼</button>
-          </div>
-        </div>
-        <!-- 中間畫面變換區域 -->
-        <div class="loginDivCenter">
-          <!-- 搭配三元判斷式偵測目前 true or false -->
-          <div :class="onLogin?'goLogin':'notGoToLogin'">
-            <Login></Login>
-          </div>
-          <div :class="onRegister?'goRegister':'notGoToRegister'">
-            <register></register>
-          </div>
-          <div :class="onForgetPasswd?'goRegister':'notGoToRegister'">
-            <forgetPasswd></forgetPasswd>
+          <!-- 中間畫面變換區域 -->
+          <div class="loginDivCenter">
+            <!-- 搭配三元判斷式偵測目前 true or false -->
+            <div :class="onLogin?'goLogin':'notGoToLogin'">
+              <Login></Login>
+            </div>
+            <div :class="onRegister?'goRegister':'notGoToRegister'">
+              <register></register>
+            </div>
+            <div :class="onForgetPasswd?'goRegister':'notGoToRegister'">
+              <forgetPasswd></forgetPasswd>
+            </div>
           </div>
         </div>
       </div>
@@ -307,29 +310,30 @@ export default {
   grid-column: 1/9;
   grid-row: 1/9;
 }
-
+.modalArea {
+  grid-column: 1/9;
+  grid-row: 1/9;
+  z-index: 5;
+  margin: auto;
+}
 .loginDivCenter {
   position: relative;
   height: 500px;
   width: 470px;
-  margin: auto;
   z-index: 5;
-  grid-column: 1/9;
-  grid-row: 1/9;
 }
 
 /* 此開始為左側side按鈕CSS樣式 */
 .modalSideBar {
   display: flex;
-  grid-column: 1/9;
-  grid-row: 2/3;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
 }
 
 .modalSideBtn {
   height: 40px;
-  width: 135px;
+  width: 120px;
   border-radius: 10px;
   margin: 15px 10px;
   border: 1.5px orange solid;
@@ -339,6 +343,7 @@ export default {
   transition: color 0.3s linear;
   position: relative;
 }
+
 .modalSideBtn:hover {
   color: white;
 }
@@ -361,6 +366,9 @@ export default {
   transform: scaleX(0);
 }
 .modalSideBtn:hover::before {
+  transform: scaleX(1);
+}
+.modealSideBtn:active {
   transform: scaleX(1);
 }
 
