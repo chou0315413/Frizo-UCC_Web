@@ -61,6 +61,13 @@ export default new VueRouter({
         },
 
         {
+            path: '/Event',
+            name: 'event',
+            component: resolve => require(['@/pages/TestEvent.vue'], resolve),
+        },
+
+
+        {
             path: '/findEvent',
             name: 'fevent',
             component: resolve => require(['@/pages/TestFindEvent.vue'], resolve),
