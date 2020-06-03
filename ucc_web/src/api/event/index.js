@@ -7,8 +7,8 @@ export const createEvent = ({ title, description, dmPicture, maxNumberOfPeople, 
     formData.append('title', title);
     formData.append('description', description);
     formData.append('maxNumberOfPeople', maxNumberOfPeople);
-    formData.append('registrationDeadline', registrationDeadline.toString());
-    formData.append('eventStartTime', eventStartTime.toString());
+    formData.append('registrationDeadline', registrationDeadline);
+    formData.append('eventStartTime', eventStartTime);
     formData.append('place', place);
     formData.append('fee', fee);
     if (labelNameList != null && labelNameList.size != 0) {
