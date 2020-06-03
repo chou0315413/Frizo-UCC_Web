@@ -37,7 +37,8 @@ export default new VueRouter({
             component: resolve => require(['@/pages/User.vue'], resolve),
             children: [
                 { path: 'info', component: resolve => require(['@/components/user/Info.vue'], resolve) },
-                { path: 'emailverify', component: resolve => require(['@/components/user/EmailVerify.vue'], resolve) }
+                { path: 'emailverify', component: resolve => require(['@/components/user/EmailVerify.vue'], resolve) },
+                { path: 'newActivity', component: resolve => require(['@/components/user/PostActivity.vue'], resolve) }
             ]
         },
 
@@ -51,6 +52,25 @@ export default new VueRouter({
             path: '/chat',
             name: 'chat',
             component: resolve => require(['@/pages/Chat.vue'], resolve),
+        },
+
+        {
+            path: '/event',
+            name: 'event',
+            component: resolve => require(['@/pages/TestEvent.vue'], resolve),
+        },
+
+        {
+            path: '/Event',
+            name: 'event',
+            component: resolve => require(['@/pages/TestEvent.vue'], resolve),
+        },
+
+
+        {
+            path: '/findEvent',
+            name: 'fevent',
+            component: resolve => require(['@/pages/TestFindEvent.vue'], resolve),
         },
 
         //必須置底

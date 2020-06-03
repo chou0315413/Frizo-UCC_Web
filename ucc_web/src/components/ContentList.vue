@@ -1,19 +1,6 @@
 <template>
   <div class="ContentList mt-4">
-    <!-- <nav aria-label="breadcrumb" class="float-right titieList">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item" @click="listPrint='hotList'">
-          <a href="#">熱門</a>
-        </li>
-        <li class="breadcrumb-item" @click="listPrint='newList'">
-          <a href="#">最新</a>
-        </li>
-        <li class="breadcrumb-item" @click="listPrint='followList'">
-          <a href="#">追蹤</a>
-        </li>
-      </ol>
-    </nav>-->
-    <div class="selectList">
+    <div class="selectList" ref="selectList4Event">
       <el-radio-group v-model="radio" @change="changeList">
         <el-radio :label="1">
           <b>熱門</b>
@@ -29,33 +16,9 @@
     <keep-alive>
       <component :is="listPrint"></component>
     </keep-alive>
-
-    <!-- <div class="block mt-3">
-      <el-pagination layout="prev, pager, next" :total="100"></el-pagination>
-    </div>-->
-
-    <!-- <div class="item">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 imgBox">
-            <img
-              src="https://exfast.me/wp-content/uploads/2019/04/1554182762-cddf42691119d44059a16a4095047a33-1140x600.jpg"
-              class="itemImg"
-            />
-          </div>
-          <div class="col-lg-9 itemContent">
-            <h3 class="itemTitle mb-3">活動主題，名稱。</h3>
-            <div class="itemIntroduction mb-4">
-              <h6>內容大綱介紹內容大綱介紹內紹內容大綱介紹大容大綱介紹內容大容大綱容大綱介紹內容大容大容大綱介紹內容大容大容大綱介紹內容大容大容大綱介紹內容大容大容大綱介紹內容大容大容大綱介紹內容大容大介紹內容大綱介</h6>
-            </div>
-            <div class="itemAttention">
-              關注度：12
-              <br />留言數：23
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->
+    <div>
+      <el-button type="primary" round class="mb-3">更多</el-button>
+    </div>
   </div>
 </template>
 
@@ -76,7 +39,11 @@ export default {
   data() {
     return {
       listPrint: "hotList",
-      radio: 1
+      radio: 1,
+      selectListHeight: "",
+      curHeight: "",
+      Height: "",
+      changeHeight: ""
     };
   },
 
@@ -89,7 +56,27 @@ export default {
       } else if (val == 3) {
         this.listPrint = "followList";
       }
+    },
+    // selectList Function
+    selectListFix() {
+      this.curHeight = window.pageYOffset;
+      if (this.curHeight > this.changeHeight) {
+        this.selectList.classList.add("selectFix");
+      } else {
+        this.selectList.classList.remove("selectFix");
+      }
     }
+  },
+  mounted() {
+    window.addEventListener("scroll", this.selectListFix, true);
+    this.selectList = this.$refs.selectList4Event;
+
+    // 偵測selectList 物件高度
+    this.selectListHeight = this.selectList.offsetTop;
+    // 計算selectList與使用者窗口的高度
+    this.Height = this.selectListHeight - this.curHeight;
+    // 計算要Fixed的高
+    this.changeHeight = this.Height - 62;
   }
 
   // mounted() {
@@ -105,7 +92,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ContentList {
-  position: relative;
   margin: auto;
   width: 900px;
   box-sizing: border-box;
@@ -117,6 +103,18 @@ export default {
   height: 35px;
   padding-top: 8px;
   padding-right: 10px;
+}
+.selectFix {
+  text-align: right;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 3px #000000;
+  height: 35px;
+  padding-top: 8px;
+  padding-right: 10px;
+  position: fixed;
+  width: 900px;
+  top: 62px;
+  z-index: 5;
 }
 
 @media (max-width: 995px) {

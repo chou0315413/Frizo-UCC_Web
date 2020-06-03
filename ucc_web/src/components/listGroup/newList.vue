@@ -1,17 +1,20 @@
 <template>
   <div class="newList">
-    <div class="item" v-for="index in newList" :key="index">
-      <div class="imgBox">
-        <img :src="index.img" class="itemImg" />
-      </div>
-      <div class="itemContent">
-        <div class="itemTitle">{{index.title}}</div>
-        <div class="itemIntroduction mb-4">
-          <div>{{index.message}}</div>
+    <div class="activity">
+      <div class="item" v-for="index in newList" :key="index">
+        <div class="imgBox">
+          <img :src="index.img" class="itemImg" />
         </div>
-        <div class="itemAttention">
-          關注度：12
-          <br />留言數：23
+        <div class="itemContent">
+          <div class="itemTitle">
+            <b>{{index.title}}</b>
+          </div>
+          <div class="itemIntroduction mb-4">
+            <div class="description">{{index.message}}</div>
+          </div>
+          <div class="deadline">活動截止日期：{{index.deadline}}</div>
+          <div class="joinPeople mt-2">目前參加人數：{{index.joinPeople}}人</div>
+          <div class="tag"></div>
         </div>
       </div>
     </div>
@@ -34,7 +37,7 @@ export default {
         {
           title: "「舜間發現愛，興善攝光彩」廟會創意攝影與創",
           message:
-            "木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人!",
+            "木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人木頭人!",
           img:
             "https://files.bountyhunter.co/contest/public/202004/8ae04293-cd11-40d0-9040-d7578369dcd6_640x640.png"
         },
@@ -71,47 +74,99 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.item {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  height: 170px;
+.activity {
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  height: 450px;
+  width: 440px;
   box-shadow: 0 0 3px #2e2e2e;
   background-color: #ffffff;
-  margin: 20px 0px;
+  margin-top: 20px;
 }
+
+.item:nth-child(odd) {
+  margin-right: 10px;
+}
+.item:nth-child(even) {
+  margin-left: 10px;
+}
+.item:hover {
+  box-shadow: 0 0 15px #2e2e2e;
+  transition: all 0.2s ease-in;
+  transform: scale(1.01);
+}
+
+.imgBox {
+  padding: 5px;
+  grid-column: 1/9;
+  grid-row: 1/5;
+}
+
 .itemImg {
-  height: 160px;
+  height: 100%;
   width: 100%;
 }
-.imgBox {
-  padding: 0px;
-  grid-column: 1/2;
-  grid-row: 1/4;
-}
+
 .itemContent {
-  grid-column: 2/5;
-  grid-row: 1/4;
+  grid-column: 1/9;
+  grid-row: 5/9;
   padding: 0px 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
 }
+
 .itemTitle {
-  text-align: left;
-  font-size: 28px;
-  grid-column: 2/5;
+  font-size: 22px;
+  grid-column: 1/5;
   grid-row: 1/2;
+  text-align: left;
 }
+
 .itemIntroduction {
   text-align: left;
+  grid-column: 1/5;
+  grid-row: 2/4;
   height: 35px;
-  grid-column: 2/5;
-  grid-row: 2/3;
 }
-.itemAttention {
-  text-align: right;
-  grid-column: 4/5;
-  grid-row: 3/4;
+
+/* 省略文字 */
+/* 和chat.vue的省略文字寫法有些許差異 */
+.description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.deadline {
+  grid-column: 1/3;
+  grid-row: 4/5;
+  text-align: left;
+}
+
+.joinPeople {
+  text-align: left;
+  grid-column: 1/3;
+  grid-row: 4/5;
+  position: relative;
+  top: 50%;
+}
+
+.tag {
+  position: relative;
+  top: -5px;
+  grid-column: 3/5;
+  grid-row: 4/6;
+  background-color: blue;
 }
 
 @media (max-width: 650px) {

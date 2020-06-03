@@ -1,101 +1,64 @@
 <template>
-  <div class="register">
-    <div
-      class="modal fade"
-      id="register"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-      ref="modal"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content registerDiv">
-          <div class="modal-body">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-12">
-                  <h4>歡迎註冊UCC帳號</h4>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm registerDivPading inputBorder">
-                    <input
-                      type="text"
-                      id="name"
-                      class="form-control textLetterSpacing"
-                      placeholder="輸入您的稱謂"
-                      aria-describedby="inputGroup-sizing-sm"
-                      v-model="name"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm registerDivPading mt-4 inputBorder">
-                    <input
-                      type="text"
-                      id="userEmail"
-                      class="form-control textLetterSpacing"
-                      placeholder="輸入您的 E-mail 信箱"
-                      aria-describedby="inputGroup-sizing-sm"
-                      v-model="userEmail"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm registerDivPading mt-5 inputBorder">
-                    <input
-                      type="password"
-                      id="userPassword"
-                      class="form-control textLetterSpacing"
-                      placeholder="輸入您欲設定的密碼"
-                      aria-describedby="inputGroup-sizing-sm"
-                      v-model="userPassword"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="input-group input-group-sm registerDivPading mb-3 mt-4 inputBorder">
-                    <input
-                      type="password"
-                      id="reUserPassword"
-                      class="form-control textLetterSpacing"
-                      placeholder="請重複輸入您設定的密碼"
-                      aria-describedby="inputGroup-sizing-sm"
-                      v-model="reUserPassword"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="alertDiv mb-3">{{alertText}}</div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="registerBtn">
-                    <el-button type="primary" round :loading="isClick===true" @click="register">註冊</el-button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- <div class="register"> -->
+  <div class="registerDiv">
+    <div class="title">
+      <h4>歡迎註冊UCC帳號</h4>
+    </div>
+
+    <div class="nickname">
+      <input
+        type="text"
+        id="name"
+        class="form-control textLetterSpacing"
+        placeholder="輸入您的稱謂"
+        aria-describedby="inputGroup-sizing-sm"
+        v-model="name"
+      />
+    </div>
+
+    <div class="email">
+      <input
+        type="text"
+        id="userEmail"
+        class="form-control textLetterSpacing"
+        placeholder="輸入您的 E-mail 信箱"
+        aria-describedby="inputGroup-sizing-sm"
+        v-model="userEmail"
+      />
+    </div>
+
+    <div class="passwd">
+      <input
+        type="password"
+        id="userPassword"
+        class="form-control textLetterSpacing"
+        placeholder="輸入您欲設定的密碼"
+        aria-describedby="inputGroup-sizing-sm"
+        v-model="userPassword"
+      />
+    </div>
+
+    <div class="confirmPasswd">
+      <input
+        type="password"
+        id="reUserPassword"
+        class="form-control textLetterSpacing"
+        placeholder="請重複輸入您設定的密碼"
+        aria-describedby="inputGroup-sizing-sm"
+        v-model="reUserPassword"
+      />
+    </div>
+
+    <div class="notice">請使用英文字母及阿拉伯數字和部分特殊符號</div>
+
+    <div class="alertDiv">{{alertText}}</div>
+
+    <div class="registerBtn">
+      <el-button type="primary" round :loading="isClick===true" @click="register">註冊</el-button>
     </div>
   </div>
+
+  <!-- </div> -->
 </template>
 
 <script>
@@ -162,26 +125,51 @@ export default {
 <style scoped>
 .registerDiv {
   height: 500px;
+  width: 470px;
   background-image: url(../../assets/signInBackground/login.jpg);
   background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
 }
 
-.registerDivPading {
+.title {
+  grid-column: 1/9;
+  grid-row: 2/3;
+}
+
+/* .registerDivPading {
   position: relative;
   margin: auto;
   width: 350px;
-}
+} */
 
 h4 {
-  margin-top: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
-.registerPage {
-  position: relative;
-  height: 460px;
-  box-shadow: 0 0 10px #000000;
-  padding-top: 60px;
+.textLetterSpacing {
+  letter-spacing: 1px;
+}
+
+.nickname {
+  grid-column: 2/8;
+  grid-row: 3/4;
+}
+
+.email {
+  grid-column: 2/8;
+  grid-row: 4/5;
+}
+
+.passwd {
+  grid-column: 2/8;
+  grid-row: 5/6;
+}
+
+.confirmPasswd {
+  grid-column: 2/8;
+  grid-row: 6/7;
 }
 
 .inputBorder {
@@ -189,20 +177,28 @@ h4 {
 }
 
 .notice {
-  position: relative;
+  grid-column: 2/8;
+  grid-row: 5/6;
+  align-self: flex-end;
+  justify-self: flex-end;
   font-size: 10px;
-  left: 80px;
+  margin: 0 1px 2px 0;
 }
 
 .registerBtn {
-  margin-top: 25px;
+  grid-column: 1/9;
+  grid-row: 7/8;
+  align-self: center;
+  justify-self: center;
 }
 
 .alertDiv {
-  position: relative;
+  grid-column: 4/8;
+  grid-row: 6/7;
+  align-self: end;
+  justify-self: end;
   font-size: 10px;
   color: red;
   font-weight: bold;
-  left: 80px;
 }
 </style>
