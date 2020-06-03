@@ -1,6 +1,6 @@
 <template>
   <div class="ContentList mt-4">
-    <div class="selectList">
+    <div class="selectList" ref="selectList4Event">
       <el-radio-group v-model="radio" @change="changeList">
         <el-radio :label="1">
           <b>熱門</b>
@@ -39,7 +39,11 @@ export default {
   data() {
     return {
       listPrint: "hotList",
-      radio: 1
+      radio: 1,
+      selectListHeight: "",
+      curHeight: "",
+      Height: "",
+      changeHeight: ""
     };
   },
 
@@ -52,7 +56,27 @@ export default {
       } else if (val == 3) {
         this.listPrint = "followList";
       }
+    },
+    // selectList Function
+    selectListFix() {
+      this.curHeight = window.pageYOffset;
+      if (this.curHeight > this.changeHeight) {
+        this.selectList.classList.add("selectFix");
+      } else {
+        this.selectList.classList.remove("selectFix");
+      }
     }
+  },
+  mounted() {
+    window.addEventListener("scroll", this.selectListFix, true);
+    this.selectList = this.$refs.selectList4Event;
+
+    // 偵測selectList 物件高度
+    this.selectListHeight = this.selectList.offsetTop;
+    // 計算selectList與使用者窗口的高度
+    this.Height = this.selectListHeight - this.curHeight;
+    // 計算要Fixed的高
+    this.changeHeight = this.Height - 62;
   }
 
   // mounted() {
@@ -68,7 +92,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ContentList {
-  position: relative;
   margin: auto;
   width: 900px;
   box-sizing: border-box;
@@ -80,6 +103,18 @@ export default {
   height: 35px;
   padding-top: 8px;
   padding-right: 10px;
+}
+.selectFix {
+  text-align: right;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 3px #000000;
+  height: 35px;
+  padding-top: 8px;
+  padding-right: 10px;
+  position: fixed;
+  width: 900px;
+  top: 62px;
+  z-index: 5;
 }
 
 @media (max-width: 995px) {
