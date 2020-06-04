@@ -16,7 +16,7 @@
     <keep-alive>
       <component :is="listPrint"></component>
     </keep-alive>
-    <div>
+    <div class="mt-3">
       <el-button type="primary" round class="mb-3">更多</el-button>
     </div>
   </div>

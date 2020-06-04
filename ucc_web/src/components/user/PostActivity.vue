@@ -50,16 +50,13 @@
             <!-- <img :src="dm" class="dmImg" /> -->
             <div class="dm">
               <label :class="isAddPic ? 'havePic' : 'noPic' ">
-                <input type="file" style="display:none;" v-on:change="selectDM" />
+                <input type="file" style="display:none;" accept="image/*" @change="selectDM" />
+                <!-- <input type="file" style="display:none;" v-on:change="selectDM" /> -->
                 <font-awesome-icon icon="plus-square" size="lg" class="imageIcon" />
                 <span>上傳照片</span>
               </label>
-              <img
-                src="http://ntcbadm1.ntub.edu.tw/Inc/ShowIndexStdImg.ashx?dataPic=10646034"
-                :class="isAddPic ? 'noPic' : 'havePic' "
-              />
+              <img :src="this.picPreview" class="dmImg" :class="isAddPic ? 'noPic' : 'havePic'" />
             </div>
-
             <div class="step">STEP.2 輸入活動名稱、活動內容介紹</div>
             <div class="title">
               <el-input placeholder="請輸入活動名稱" v-model="event.title" maxlength="20" show-word-limit>
@@ -223,7 +220,8 @@ export default {
       inputVisible: false,
       inputValue: "",
       // 將來接上後端時需標註引號
-      isAddPic: false
+      isAddPic: false,
+      picPreview: null
     };
   },
 
@@ -233,6 +231,7 @@ export default {
       createEvent(this.event)
         .then(resp => {
           console.log(resp.data);
+          alert("發佈成功");
         })
         .catch(error => {
           console.log(error.response);
@@ -241,10 +240,23 @@ export default {
 
     // 照片匯入
     selectDM(e) {
+      // 圖片上傳後端
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       alert(files[0].name);
       this.event.dmPicture = files[0];
+      this.isAddPic = true;
+
+      // 圖片預覽
+      var input = event.target;
+      if (input.files) {
+        var reader = new FileReader();
+        reader.onload = e => {
+          this.picPreview = e.target.result;
+        };
+        this.image = input.files[0];
+        reader.readAsDataURL(input.files[0]);
+      }
     },
 
     deadlineDateChange() {
@@ -303,7 +315,7 @@ export default {
 <style>
 /* 最外圍大框使用二擇一CSS */
 .postActivity {
-  height: 1550px;
+  height: 1180px;
   background-color: #eeeeee;
 }
 .postMessage {
@@ -313,7 +325,7 @@ export default {
 
 /* container使用二擇一CSS */
 .activityMode {
-  height: 1300px;
+  height: 1150px;
   width: 800px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -323,7 +335,9 @@ export default {
   background-color: #ffffff;
 }
 .messageMode {
-  height: 500px;
+  position: relative;
+  top: 30px;
+  height: 450px;
   width: 800px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -450,6 +464,13 @@ h4 {
   justify-content: center;
   align-items: center;
 }
+
+.dmImg {
+  height: 100%;
+  width: 100%;
+  border-radius: 3rem;
+}
+
 .dm span {
   display: none;
   font-size: 20px;

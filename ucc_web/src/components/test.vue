@@ -1,620 +1,606 @@
 <template>
-  <div class="navbar">
-    <div :class="scrollUpOrDown?'nav-show':'nav-hide'">
-      <el-menu
-        :default-active="activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-      >
-        <input type="checkbox" id="check" />
-        <el-menu-item index="1" class="uccItem">
-          <!-- Menu -->
-          <Menubar class="menubar"></Menubar>
-          <!-- Menu -->
-          <router-link to="/">
-            <img class="logo" src="@/assets/UCC Classic.jpg" />
-            <span id="fl">
-              <h3>University Club Center</h3>
-            </span>
-          </router-link>
-        </el-menu-item>
-        <el-menu-item id="inputArea">
-          <el-input v-model="search" @focus="searchOnfocus" @blur="searchOnblur" clearable>
-            <el-button slot="append" icon="el-icon-search"></el-button>
-          </el-input>
-        </el-menu-item>
+  <!-- 動態轉換CSS -->
+  <div :class="contentCssIsActivity?'postActivity':'postMessage'">
+    <!-- 本頁使用原生CSS-grid，未來有較好的寫法再另外更新。 -->
+    <!-- 動態轉換CSS -->
+    <div class="container" :class="contentCssIsActivity ? 'activityMode' : 'messageMode' ">
+      <div class="topTitle">
+        <!-- 未來可以增加transition變化 -->
+        <h4>{{title}}</h4>
+      </div>
 
-        <div class="loginArea">
-          <!-- 登入狀態改變時會有不同的項目出現 -->
-          <!-- 未登入 -->
-          <el-menu-item
-            index="6"
-            href="#"
-            class="login"
-            data-toggle="modal"
-            data-target="#Login"
-            v-if="loginState === false"
-            @click="openModal"
+      <!-- divider邊線 -->
+      <div class="divider"></div>
+
+      <!-- 左側選單 -->
+      <div class="sidebar">
+        <div class="list-group mt-3" id="list-tab" role="tablist">
+          <a
+            class="list-group-item list-group-item-action active listCSS"
+            id="list-activity-list"
+            data-toggle="list"
+            href="#list-activity"
+            role="tab"
+            aria-controls="activity"
+            @click="activityChangeMode"
+          >發佈活動</a>
+          <a
+            class="list-group-item list-group-item-action listCSS"
+            id="list-message-list"
+            data-toggle="list"
+            href="#list-message"
+            role="tab"
+            aria-controls="message"
+            @click="messageChangeMode"
+          >發佈消息</a>
+        </div>
+      </div>
+      <!-- 中間內容轉換 -->
+      <div class="content">
+        <div class="tab-content" id="nav-tabContent">
+          <!-- 發佈活動 -->
+          <div
+            class="tab-pane fade show active activity"
+            id="list-activity"
+            role="tabpanel"
+            aria-labelledby="list-activity-list"
           >
-            <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
-            <span class="loginFont">Login</span>
-          </el-menu-item>
-        </div>
-        <!-- 已登入 -->
-        <div class="rightBtnGroup" v-if="loginState === true">
-          <router-link to="/chat" style="text-decoration:none;">
-            <el-menu-item index="4" class="rightBtn">
-              <i class="el-icon-chat-line-square" size="medium"></i>
-              <span class="navFont">Chat</span>
-            </el-menu-item>
-          </router-link>
+            <div class="step">STEP.1 上傳活動宣傳照</div>
 
-          <el-submenu index="5" href="#" class="rightBtn" id="followersBtn">
-            <template slot="title" class="rightBtn">
-              <font-awesome-icon
-                icon="user-friends"
-                size="lg"
-                style="color:#A9A9A9;margin-right:8px;"
-              />
-              <span id="followers" style="font-size:16px;">Followers</span>
-            </template>
-            <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
-            <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
-          </el-submenu>
-          <el-submenu index="6" href="#" class="rightBtn">
-            <template slot="title" class="rightBtn">
-              <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
-              <span class="navFont">User</span>
-            </template>
-            <router-link to="/user/info" style="text-decoration:none;">
-              <el-menu-item class="rightBtn" index="6-1" href="#">個人資料</el-menu-item>
-            </router-link>
-            <router-link to="/user/newActivity" style="text-decoration:none;">
-              <el-menu-item class="rightBtn" index="6-2" href="#" id="dropDownBtn">發佈新活動、訊息</el-menu-item>
-            </router-link>
-            <el-menu-item class="rightBtn" index="6-3" @click.native="logout" id="dropDownBtn">登出</el-menu-item>
-          </el-submenu>
-        </div>
-      </el-menu>
-      <label for="check" @click="animation">
-        <div :class="loginState ?  (toggleIsFalse ? 'toggle' : 'burger') : 'nothing'">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="line3"></div>
-        </div>
-      </label>
-
-      <!-- modal區塊從這裡開始 -->
-      <div :class="isGoToLogin?'modalDivShow':'modalDivNotShow'">
-        <div class="background" @click="closeModal"></div>
-        <!-- modalArea 包含切換按鈕及畫面區域 -->
-        <div class="modalArea">
-          <!-- modalSideBar 左側按鈕區塊 -->
-          <div class="modalSideBar">
-            <div class="modalLoginSide">
-              <button class="modalSideBtn" @click="goToLogin">登入</button>
+            <!-- <img :src="dm" class="dmImg" /> -->
+            <div class="dm">
+              <label :class="isAddPic ? 'havePic' : 'noPic' ">
+                <input type="file" style="display:none;" accept="image/*" @change="selectDM" />
+                <!-- <input type="file" style="display:none;" v-on:change="selectDM" /> -->
+                <font-awesome-icon icon="plus-square" size="lg" class="imageIcon" />
+                <span>上傳照片</span>
+              </label>
+              <img :src="this.picPreview" class="dmImg" :class="isAddPic ? 'noPic' : 'havePic'" />
             </div>
-            <div class="modalRegisterSide">
-              <button class="modalSideBtn" @click="goToRegister">註冊</button>
+            <div class="step">STEP.2 輸入活動名稱、活動內容介紹</div>
+            <div class="title">
+              <el-input placeholder="請輸入活動名稱" v-model="event.title" maxlength="20" show-word-limit>
+                <template slot="prepend">活動名稱</template>
+              </el-input>
             </div>
-            <div class="modalForgetPasswdSide">
-              <button class="modalSideBtn" @click="goToforgerPasswd">忘記密碼</button>
+            <div class="description mt-3">
+              <el-input
+                type="textarea"
+                placeholder="請輸入活動內容"
+                v-model="event.description"
+                rows="25"
+                resize="none"
+              ></el-input>
+            </div>
+            <div class="step">STEP.3 輸入活動其他相關資訊</div>
+            <div class="otherInformation">
+              <div class="peopleLimit">
+                <el-input v-model="event.maxNumberOfPeople" type="number" min="0">
+                  <template slot="prepend">人數上限</template>
+                </el-input>
+              </div>
+              <div class="fee">
+                <el-input v-model="event.fee" type="number" min="0">
+                  <template slot="prepend">費用</template>
+                </el-input>
+              </div>
+              <div class="deadline">
+                <span class="demonstration">活動報名截止日</span>
+                <el-date-picker
+                  v-model="event.registrationDeadline"
+                  type="date"
+                  placeholder="選擇日期"
+                  @change="deadlineDateChange"
+                >
+                  <template slot="prepend">活動報名截止日</template>
+                </el-date-picker>
+                <!-- <button @click="getActivityDeadline">test</button> -->
+              </div>
+              <div class="place">
+                <el-input placeholder="請輸入活動地點" v-model="event.place" maxlength="20">
+                  <template slot="prepend">地點</template>
+                </el-input>
+              </div>
+              <div class="time">
+                <span class="demonstration">選擇活動開始日期</span>
+                <el-date-picker
+                  v-model="event.eventStartTime"
+                  type="date"
+                  placeholder="選擇日期"
+                  @change="startTimeDateChange"
+                >
+                  <template slot="prepend">選擇活動開始日期</template>
+                </el-date-picker>
+                <!-- <button @click="getActivityStartTime">test</button> -->
+              </div>
+              <div class="tag"></div>
+            </div>
+            <div class="step">STEP.4 輸入活動標籤類別</div>
+            <div>
+              <el-tag
+                :key="tag"
+                v-for="tag in event.labelNameList"
+                closable
+                :disable-transitions="false"
+                @close="handleClose(tag)"
+              >{{tag}}</el-tag>
+              <el-input
+                class="input-new-tag"
+                v-if="inputVisible"
+                v-model="inputValue"
+                ref="saveTagInput"
+                size="small"
+                @keyup.enter.native="handleInputConfirm"
+                @blur="handleInputConfirm"
+              ></el-input>
+              <el-button
+                v-else
+                class="button-new-tag"
+                size="small"
+                @click="newTag"
+                :disabled="tagsNumber == 5"
+              >新的標籤</el-button>
+            </div>
+            <div class="step">STEP.5 檢查活動內容並發佈活動</div>
+            <div class="activityPush">
+              <el-button type="primary" round class="ml-3" @click.prevent="sendCreateRequest">發佈活動</el-button>
             </div>
           </div>
-          <!-- 中間畫面變換區域 -->
-          <div class="loginDivCenter">
-            <!-- 搭配三元判斷式偵測目前 true or false -->
-            <div :class="onLogin?'goLogin':'notGoToLogin'">
-              <Login></Login>
+          <!-- 發佈消息 -->
+          <div
+            class="tab-pane fade show message"
+            id="list-message"
+            role="tabpanel"
+            aria-labelledby="list-message-list"
+          >
+            <!-- <div class="step">請輸入新消息的主題</div> -->
+            <div class="msgTop">
+              <div class="msgTopTitle">
+                <el-input placeholder="請輸入主題" v-model="messageTitle" clearable></el-input>
+              </div>
+              <div class="msgTopPhoto">
+                <div class="msgTopPhotoBorder">
+                  <label>
+                    <input type="file" style="display:none;" />
+                    <font-awesome-icon icon="image" size="lg" class="imageIcon" />
+                    <span>上傳照片</span>
+                  </label>
+                </div>
+              </div>
             </div>
-            <div :class="onRegister?'goRegister':'notGoToRegister'">
-              <register></register>
+            <div class="messageDescription mt-3">
+              <el-input
+                type="textarea"
+                placeholder="請輸入新消息內容"
+                v-model="messageDescription"
+                rows="10"
+                resize="none"
+              ></el-input>
             </div>
-            <div :class="onForgetPasswd?'goRegister':'notGoToRegister'">
-              <forgetPasswd></forgetPasswd>
+            <div class="messagePush mt-3">
+              <div class="messagePushBtn">
+                <el-button type="primary" round class="ml-3">發佈消息</el-button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- modal區塊結束 -->
     </div>
   </div>
-</template>  
+</template>
+
 <script>
-import { mapActions } from "vuex";
-import { authenticated } from "@/utils/AuthStore";
-import Login from "@/components/loginGroup/Login";
-import register from "@/components/loginGroup/Register";
-import forgetPasswd from "@/components/loginGroup/forgetPasswd";
-import Menubar from "@/components/base/Menubar";
+import { createEvent } from "@/api/event";
 
 export default {
-  name: "Navbar",
-
+  name: "postActivityAndMessage",
   data() {
     return {
-      toggleIsFalse: false,
-      email: "",
-      password: "",
-      search: "搜尋社團/活動",
-      token: {
-        tokenType: "",
-        accessToken: ""
+      // 判斷目前content是發佈活動或是發佈消息
+      contentCssIsActivity: true,
+      // title文字會隨著sidebar更動
+      title: "發佈活動",
+      // 活動資料
+      event: {
+        title: "",
+        description: "",
+        dmPicture: null,
+        maxNumberOfPeople: 10,
+        registrationDeadline: new Date().toISOString().substr(0, 10),
+        eventStartTime: new Date().toISOString().substr(0, 10),
+        place: "",
+        fee: 0,
+        labelNameList: []
       },
-      activeIndex: "1",
-      activeIndex2: "1",
-      loginState: "",
-      i: "0",
-      scrollUpOrDown: true,
-      // window: {
-      //   width: "0"
-      // }
-
-      // 確認有無點擊登入按鈕
-      isGoToLogin: false,
-      // 判斷目前在哪個頁面上
-      onLogin: true,
-      onRegister: false,
-      onForgetPasswd: false
+      // 訊息資料
+      messageTitle: "",
+      messageDescription: "",
+      // 標籤資料
+      tagsNumber: 0,
+      inputVisible: false,
+      inputValue: "",
+      // 將來接上後端時需標註引號
+      isAddPic: false,
+      picPreview: null
     };
   },
 
-  components: {
-    Login,
-    register,
-    Menubar,
-    forgetPasswd
-  },
-
   methods: {
-    goToforgerPasswd() {
-      this.onRegister = false;
-      this.onLogin = false;
-      this.onForgetPasswd = true;
+    // 送出活動發起請求
+    sendCreateRequest() {
+      createEvent(this.event)
+        .then(resp => {
+          console.log(resp.data);
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
     },
 
-    goToRegister() {
-      this.onRegister = true;
-      this.onLogin = false;
-      this.onForgetPasswd = false;
-    },
+    // 照片匯入
+    selectDM(e) {
+      // 圖片上傳後端
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      alert(files[0].name);
+      this.event.dmPicture = files[0];
+      this.isAddPic = true;
 
-    goToLogin() {
-      this.onRegister = false;
-      this.onLogin = true;
-      this.onForgetPasswd = false;
-    },
-
-    // 判斷使用者是否點擊登入按鈕
-    openModal() {
-      this.isGoToLogin = true;
-    },
-    closeModal() {
-      this.isGoToLogin = false;
-    },
-    // 判斷使用者是否點擊登入按鈕
-
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    // search的使用者友善
-    searchOnfocus() {
-      if (this.search === "搜尋社團/活動") {
-        this.search = "";
+      // 圖片預覽
+      var input = event.target;
+      if (input.files) {
+        var reader = new FileReader();
+        reader.onload = e => {
+          this.picPreview = e.target.result;
+        };
+        this.image = input.files[0];
+        reader.readAsDataURL(input.files[0]);
       }
     },
-    searchOnblur() {
-      if (this.search === "") {
-        this.search = "搜尋社團/活動";
+
+    deadlineDateChange() {
+      this.event.registrationDeadline = this.event.registrationDeadline
+        .toISOString()
+        .substr(0, 10);
+    },
+    startTimeDateChange() {
+      this.event.eventStartTime = this.event.eventStartTime
+        .toISOString()
+        .substr(0, 10);
+    },
+
+    // sidebar使用之methods
+    activityChangeMode() {
+      // this.title = "發佈活動";
+      if (this.contentCssIsActivity !== true) {
+        this.contentCssIsActivity = true;
       }
     },
-    animation() {
-      if (this.toggleIsFalse === false) {
-        this.toggleIsFalse = true;
-      } else {
-        this.toggleIsFalse = false;
+    messageChangeMode() {
+      // this.title = "發佈消息";
+      if (this.contentCssIsActivity == true) {
+        this.contentCssIsActivity = false;
       }
     },
-    //滾動隱藏、顯示Navbar，由於Bug太多，暫時不使用
-    handleScroll() {
-      // 頁面滾動距頂部距離
-      var scrollTop = window.pageYOffset;
-      var scroll = scrollTop - this.i;
-      this.i = scrollTop;
 
-      if (window.location.pathname === "/chat") {
-        window.removeEventListener("scroll", this.handleScroll, true);
-      } else if (scroll < 0) {
-        this.scrollUpOrDown = true;
-      } else {
-        this.scrollUpOrDown = false;
-      }
+    // 刪除標籤方法
+    handleClose(tag) {
+      this.event.labelNameList.splice(this.event.labelNameList.indexOf(tag), 1);
+      console.log("標籤被移除");
+      this.tagsNumber = this.tagsNumber - 1;
     },
-    // handleResize() {
-    //   this.window.width = window.innerWidth;
-    // },
-
-    ...mapActions({
-      logout: "auth/logout"
-    })
-  },
-
-  mounted() {
-    // 登入狀態偵測
-    if (authenticated()) {
-      this.loginState = true;
-    } else {
-      this.loginState = false;
+    // 新增標籤方法
+    newTag() {
+      this.inputVisible = true;
+      // eslint-disable-next-line no-unused-vars
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
+    },
+    // 輸入完畢將標籤推送至標籤集合
+    handleInputConfirm() {
+      let inputValue = this.inputValue;
+      if (inputValue) {
+        this.event.labelNameList.push(inputValue);
+        this.tagsNumber = this.tagsNumber + 1;
+      }
+      this.inputVisible = false;
+      this.inputValue = "";
     }
-    // if (this.window.width > "837") {
-    //   window.addEventListener("scroll", this.handleScroll, true);
-    // } else {
-    //   window.removeEventListener("scroll", this.handleScroll, true);
-    // }
-
-    // window.addEventListener("resize", this.handleResize);
-    // this.handleResize();
-    //偵測卷軸滾動
-    // window.addEventListener("scroll", this.handleScroll, true);
-  },
-  created() {}
+  }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-/* modal */
-/* 左側按鈕CSS類別 供三元判斷式使用 */
-.goLogin {
-  display: unset;
+<style>
+/* 最外圍大框使用二擇一CSS */
+.postActivity {
+  height: 1180px;
+  background-color: #eeeeee;
 }
-.notGoToLogin {
-  display: none;
-}
-.goRegister {
-  display: unset;
-}
-.notGoToRegister {
-  display: none;
-}
-.goForgetPasswd {
-  display: unset;
-}
-.notGoToForgetPasswd {
-  display: none;
+.postMessage {
+  height: 100vh;
+  background-color: #eeeeee;
 }
 
-.modalDivShow {
-  position: fixed;
-  height: 110vh;
-  width: 100vw;
-  top: -5vh;
+/* container使用二擇一CSS */
+.activityMode {
+  height: 1150px;
+  width: 800px;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  z-index: 7;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 10vh 5px 1fr;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 0px 1px #000000;
+  background-color: #ffffff;
 }
-
-.modalDivNotShow {
-  display: none;
-}
-
-.background {
-  position: absolute;
-  height: 110vh;
-  width: 100vw;
-  z-index: -5;
-  background-color: #000000;
-  opacity: 0.5;
-  grid-column: 1/9;
-  grid-row: 1/9;
-}
-.modalArea {
-  grid-column: 1/9;
-  grid-row: 1/9;
-  z-index: 5;
-  margin: auto;
-}
-.loginDivCenter {
+.messageMode {
   position: relative;
-  height: 500px;
-  width: 470px;
-  z-index: 5;
+  top: 30px;
+  height: 450px;
+  width: 800px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 10vh 5px 1fr;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 0px 1px #000000;
+  background-color: #ffffff;
 }
 
-/* 此開始為左側side按鈕CSS樣式 */
-.modalSideBar {
+/* activityMode裡元件使用之CSS */
+.topTitle {
+  grid-column: 1/11;
+  grid-row: 1/2;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  position: relative;
 }
-
-.modalSideBtn {
-  height: 40px;
-  width: 120px;
-  border-radius: 10px;
-  margin: 15px 10px;
-  border: 1.5px orange solid;
-  background: none;
-  color: orange;
-  outline: none;
-  transition: color 0.3s linear;
-  position: relative;
-}
-
-.modalSideBtn:hover {
-  color: white;
-}
-.modalSideBtn::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-top: -7px;
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  background-color: orange;
-  transition: transform 0.3s;
-  z-index: -1;
-  transform-origin: 0 0;
-  transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
-}
-.modalSideBtn::before {
-  transform: scaleX(0);
-}
-.modalSideBtn:hover::before {
-  transform: scaleX(1);
-}
-.modealSideBtn:active {
-  transform: scaleX(1);
-}
-
-/* modal */
-
-.navbar {
-  z-index: 6;
-}
-.nav-show,
-.nav-show .el-menu.el-menu--horizontal {
-  height: 61px;
-  padding: 0px;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  transition: top 0.3s ease;
-}
-.nav-hide,
-.nav-hide .el-menu.el-menu--horizontal {
-  height: 61px;
-  padding: 0px;
-  width: 100%;
-  position: fixed;
-  top: -61px;
-  left: 0;
-  transition: top 0.3s ease;
-}
-
-.rightBtnGroup {
+.sidebar {
+  grid-column: 1/11;
+  grid-row: 1/2;
   display: flex;
-  justify-content: flex-end;
-}
-.loginArea {
-  display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 }
-.login {
-  width: 80px;
+.list-group {
+  flex-direction: row;
+}
+.listCSS {
+  padding: 0px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  width: 150px;
+  border-radius: 0.25rem;
+}
+.list-group-item.active {
+  background-color: orange;
+  color: white;
+  border: orange;
+  margin-top: 0;
+}
+.list-group-item {
+  border: 1px orange solid;
+  color: orange;
+}
+.list-group-item:hover {
+  background-color: rgb(245, 187, 111);
+  color: white;
+  border: none;
+}
+.list-group-item + .list-group-item.active {
+  margin-top: 0;
+}
+.list-group-item + .list-group-item {
+  border-top-width: 1px;
+}
+.el-input-group__append,
+.el-input-group__prepend,
+.el-input .el-input__count {
+  color: orange;
+}
+.el-input .el-input__count {
+  color: orange;
+}
+.el-date-editor .el-range-separator {
   padding: 0;
 }
-.Icon {
-  border: 0px;
+.el-textarea__inner {
+  height: 30vh;
 }
-.logo {
-  height: 40px;
-  width: 70px;
-  margin: 0 13px 12px 70px;
+h4 {
+  margin: 0;
+  padding: 0;
 }
-.menubar {
-  width: 50px;
+
+.divider {
+  grid-column: 1/11;
+  grid-row: 2/3;
+  border-bottom: 1px #a5a5a5 solid;
 }
-#fl {
-  margin-top: 10px;
-  float: right;
+
+.content {
+  grid-column: 3/9;
+  grid-row: 3/4;
 }
-#followersBtn {
-  width: 80px;
+
+/* 內容定位 */
+.activity {
+  grid-column: 3/9;
+  grid-row: 3/4;
 }
-#followers {
+.message {
+  grid-column: 3/9;
+  grid-row: 3/4;
+}
+/* 內容定位 */
+
+.step {
+  font-size: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-left: 6px;
+  height: 5vh;
+  line-height: 5vh;
+  text-align: start;
+  background-image: linear-gradient(90deg, #ff9100 0%, rgb(255, 197, 131) 100%);
+  border-radius: 0.5rem;
   color: white;
-  display: none;
 }
-#check {
+.noPic {
+  display: block;
+}
+.havePic {
   display: none;
 }
 
-.burger {
-  display: none;
-  cursor: pointer;
-  position: absolute;
-  top: 15px;
-  right: 20px;
-}
-.toggle {
-  display: none;
-  cursor: pointer;
-  position: fixed;
-  top: 15px;
-  right: 20px;
-}
-.navFont {
-  display: none;
-}
-#dropDownBtn:hover {
-  background-color: #fff5e4;
+.dm {
+  color: orange;
+  grid-column: 3/9;
+  height: 20vh;
+  border-radius: 3rem;
+  border: 2px orange dashed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.burger div {
-  width: 25px;
-  height: 3px;
-  background-color: orange;
-  margin: 5px;
-  transition: all 0.2s ease-in;
-}
-.toggle div {
-  transition: all 0.2s ease-in;
+.dmImg {
+  height: 100%;
+  width: 100%;
+  border-radius: 3rem;
 }
 
-.toggle .line1 {
-  transform: rotate(-45deg) translate(-5px, 6px);
-  width: 25px;
-  height: 3px;
-  background-color: orange;
-  margin: 5px;
+.dm span {
+  display: none;
+  font-size: 20px;
 }
-.toggle .line2 {
-  opacity: 0;
+.dm:hover span {
+  display: inline-block;
+  animation: fadein 0.1s ease-in;
 }
-.toggle .line3 {
-  transform: rotate(45deg) translate(0px, 0px);
-  width: 25px;
-  height: 3px;
-  background-color: orange;
-  margin: 5px;
-}
-
-@media screen and (max-width: 980px) {
-  .rightBtnGroup {
-    position: absolute;
-    width: 200px;
-    height: 168px;
-    top: -200px;
-    right: 0;
-    flex-direction: column;
-    text-align: center;
-    background-color: rgb(255, 180, 94);
+/* 上傳圖片文字出現的動畫 */
+@keyframes fadein {
+  from {
     opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 5;
+    transform: translateY(20px);
   }
-  .rightBtn {
-    display: block;
-    font-size: 16px;
-    color: white;
-    text-decoration: none;
-  }
-  .rightBtn:hover {
-    color: black;
-  }
-  .burger {
-    display: block;
-  }
-  .toggle {
-    display: block;
-  }
-  .navFont {
-    display: inline;
-    color: white;
-  }
-  .el-submenu__title,
-  .rightBtn:hover .navFont {
-    color: black;
-  }
-  .el-submenu__title:hover #followers {
-    color: black;
-  }
-  #check:checked ~ .rightBtnGroup {
-    right: 0;
-    top: 60px;
+  to {
     opacity: 1;
-  }
-  #followers {
-    display: inline;
-    color: white;
-  }
-  #followersBtn {
-    width: 100%;
-  }
-  font-awesome-icon {
-    color: white;
+    transform: translateY(0px);
   }
 }
-@media screen and (max-width: 870px) {
-  .loginFont {
-    display: none;
-  }
-  .login {
-    width: 60px;
-  }
+.dm label {
+  height: 30px;
+  width: 150px;
+  font-size: 25px;
+  cursor: pointer;
 }
-@media screen and (max-width: 837px) {
-  #fl {
-    display: none;
-  }
+
+.otherInformation {
+  height: 300px;
+  display: grid;
+  grid-template-columns: 0.5fr 5px 0.5fr;
+  grid-template-rows: repeat(4, 1fr);
 }
-@media screen and (max-width: 555px) {
-  .burger {
-    position: absolute;
-    top: 18px;
-    right: 10px;
-  }
-  .toggle {
-    position: absolute;
-    top: 18px;
-    right: 10px;
-  }
-  .loginArea {
-    position: absolute;
-    top: 0px;
-    right: 10px;
-  }
-  .rightBtnGroup {
-    top: -200px;
-    right: 0;
-    width: 180px;
-    z-index: 5;
-  }
-  #check:checked ~ .rightBtnGroup {
-    right: 0;
-    top: 62px;
-    opacity: 1;
-  }
-  .el-menu-item:nth-child(3) {
-    width: 200px;
-    padding: 0px;
-  }
-  .el-menu-item:nth-child(4) {
-    padding: 0;
-  }
-  .el-input-group__append button.el-button,
-  .el-input-group__append div.el-select .el-input__inner,
-  .el-input-group__append div.el-select:hover .el-input__inner,
-  .el-input-group__prepend button.el-button,
-  .el-input-group__prepend div.el-select .el-input__inner,
-  .el-input-group__prepend div.el-select:hover .el-input__inner {
-    width: 50px;
-    padding: 0 0 6px 3px;
-  }
+
+.peopleLimit {
+  grid-column: 1/2;
+  grid-row: 1/2;
 }
-@media screen and (max-width: 480px) {
-  #fl h3 {
-    font-size: 1.5rem;
-    margin-top: 5px;
-  }
-  .logo {
-    height: 30px;
-    width: 55px;
-    margin-left: 50px;
-  }
-  .uccItem {
-    padding: 0;
-  }
-  .el-menu-item:nth-child(3) {
-    width: 150px;
-  }
+
+.fee {
+  grid-column: 3/4;
+  grid-row: 1/2;
 }
+
+.deadline {
+  grid-column: 1/4;
+  grid-row: 2/3;
+}
+
+.place {
+  grid-column: 1/4;
+  grid-row: 3/4;
+}
+
+.demonstration {
+  margin-right: 5px;
+}
+
+.time {
+  grid-column: 1/4;
+  grid-row: 4/5;
+}
+.msgTop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  margin-top: 20px;
+}
+.msgTopTitle {
+  display: flex;
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+.msgTopPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: orange;
+}
+.messagePush {
+  display: grid;
+  grid-template-columns: 0.65fr 0.35fr;
+  grid-template-rows: repeat(1, 1fr);
+}
+
+.messagePushBtn {
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+
+.imageIcon {
+  margin-right: 5px;
+}
+
+.msgTopPhoto label {
+  margin: 0;
+  cursor: pointer;
+}
+.msgTopPhotoBorder {
+  cursor: pointer;
+  margin: 0;
+  border: 1px orange solid;
+  border-radius: 1rem;
+  width: 9vw;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .msgTopPhoto label:hover {
+  transform: scale(1.2, 1.2);
+  transition: 0.5s;
+} */
+
+/* 標籤CSS */
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
+/* 標籤CSS */
 </style>
