@@ -458,7 +458,7 @@ h4 {
   color: orange;
   grid-column: 3/9;
   height: 20vh;
-  border-radius: 3rem;
+  border-radius: 1rem;
   border: 2px orange dashed;
   display: flex;
   justify-content: center;
@@ -468,7 +468,7 @@ h4 {
 .dmImg {
   height: 100%;
   width: 100%;
-  border-radius: 3rem;
+  border-radius: 1rem;
 }
 
 .dm span {
