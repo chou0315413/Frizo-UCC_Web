@@ -44,7 +44,7 @@ export default {
       followList: [
         {
           index: 1,
-          title: "聯網未來挑戰賽(follow)",
+          title: "聯網未來挑戰賽(followList)",
           message:
             "快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!快來參加!",
           deadline: "8月8號",
