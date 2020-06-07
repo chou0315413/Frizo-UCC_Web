@@ -1,4 +1,4 @@
-import { uploadFileRequest, postRequest } from '../../utils/UccSender'
+import { uploadFileRequest, postRequest, getRequest } from '../../utils/UccSender'
 
 // 新增 Event(活動) 的 API。
 export const createEvent = ({ title, description, dmPicture, maxNumberOfPeople, registrationDeadline, eventStartTime, place, fee, labelNameList }) => {
@@ -56,4 +56,20 @@ export const findEvent = ({ keywords, pageNumber, createTimeA, createTimeB, star
         params.sortBy = sortBy
     }
     return postRequest(actionUrl, params)
+};
+
+// 搜尋自身發佈 Event(活動) 的 API。
+export const searchOwnEvent = ({ pageNumber, sortBy, direction }) => {
+    let actionUrl = "/event/my/posted";
+    let params = {};
+    if (pageNumber != null && pageNumber != "") {
+        params.pageNumber = pageNumber
+    }
+    if (sortBy != null) {
+        params.sortBy = sortBy
+    }
+    if (direction != null && direction != "") {
+        params.direction = direction
+    }
+    return getRequest(actionUrl, params)
 };
