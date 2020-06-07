@@ -315,7 +315,7 @@ export default {
 <style>
 /* 最外圍大框使用二擇一CSS */
 .postActivity {
-  height: 1180px;
+  height: 1300px;
   background-color: #eeeeee;
 }
 .postMessage {
@@ -325,8 +325,10 @@ export default {
 
 /* container使用二擇一CSS */
 .activityMode {
-  height: 1150px;
+  position: relative;
+  height: 1250px;
   width: 800px;
+  top: 20px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 10vh 5px 1fr;
@@ -336,9 +338,9 @@ export default {
 }
 .messageMode {
   position: relative;
-  top: 30px;
-  height: 450px;
+  height: 460px;
   width: 800px;
+  top: 20px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 10vh 5px 1fr;
@@ -574,10 +576,17 @@ h4 {
   border: 1px orange solid;
   border-radius: 1rem;
   width: 9vw;
-  height: 80%;
+  height: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease-in;
+}
+
+.msgTopPhotoBorder:hover {
+  background-color: rgb(255, 197, 131);
+  color: white;
+  border: none;
 }
 
 /* .msgTopPhoto label:hover {
