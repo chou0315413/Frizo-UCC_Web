@@ -55,11 +55,36 @@
         </li>
       </ul>
     </div>
+
+    <hr />
+
+    <input type="number" v-model="uploadOwnActivity.eventId" />
+
+    <input type="text" v-model="uploadOwnActivity.title" />
+
+    <input type="text" v-model="uploadOwnActivity.description" />
+
+    <input type="number" v-model="uploadOwnActivity.maxNumberOfPeople" />
+
+    <input type="file" @change="selectDM" />
+
+    <input type="text" v-model="uploadOwnActivity.registrationDeadline" />
+
+    <input type="text" v-model="uploadOwnActivity.eventStartTime" />
+
+    <input type="text" v-model="uploadOwnActivity.place" />
+
+    <input type="number" v-model="uploadOwnActivity.fee" />
+
+    <input type="text" v-model="uploadOwnActivity.labelNameList" />
+
+    <button type="submit" @click.prevent="uploadOwnActivitys">修改</button>
+    <!-- <input type="submit" @click.prevent="uploadOwnActivitys" value="修改" /> -->
   </div>
 </template>
 
 <script>
-import { searchOwnEvent } from "@/api/event";
+import { searchOwnEvent, uploadOwnEvent } from "@/api/event";
 export default {
   data() {
     return {
@@ -67,6 +92,19 @@ export default {
         pageNumber: 0,
         sortBy: "",
         direction: ""
+      },
+
+      uploadOwnActivity: {
+        eventId: 0,
+        title: "",
+        description: "",
+        maxNumberOfPeople: 0,
+        dmPicture: null,
+        registrationDeadline: new Date().toISOString().substr(0, 10),
+        eventStartTime: new Date().toISOString().substr(0, 10),
+        place: "",
+        fee: 0,
+        labelNameList: []
       },
 
       searchResult: ["nothing.."]
@@ -87,6 +125,41 @@ export default {
           console.log(error.response.data.message);
         });
     }
+  },
+
+  uploadOwnActivitys() {
+    uploadOwnEvent(this.uploadOwnActivity)
+      .then(resp => {
+        if (resp.data.success) {
+          this.searchResult = resp.data.result;
+        } else {
+          console.log(resp.data.message);
+        }
+      })
+      .catch(error => {
+        console.log(error.response.data.message);
+      });
+  },
+
+  // 照片匯入
+  selectDM(e) {
+    // 圖片上傳後端
+    var files = e.target.files || e.dataTransfer.files;
+    if (!files.length) return;
+    alert(files[0].name);
+    this.uploadOwnActivity.dmPicture = files[0];
+    // this.isAddPic = true;
+
+    // // 圖片預覽
+    // var input = event.target;
+    // if (input.files) {
+    //   var reader = new FileReader();
+    //   reader.onload = e => {
+    //     this.picPreview = e.target.result;
+    //   };
+    //   this.image = input.files[0];
+    //   reader.readAsDataURL(input.files[0]);
+    // }
   }
 };
 </script>
