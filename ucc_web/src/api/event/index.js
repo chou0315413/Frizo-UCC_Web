@@ -73,3 +73,24 @@ export const searchOwnEvent = ({ pageNumber, sortBy, direction }) => {
     }
     return getRequest(actionUrl, params)
 };
+
+// 修改自身發佈 Event(活動) 的 API。
+export const uploadOwnEvent = ({ eventId, title, description, maxNumberOfPeople, dmPicture, registrationDeadline, eventStartTime, place, fee, labelNameList }) => {
+    let actionUrl = "/event/update";
+    let formData = new FormData();
+    formData.append('eventId', eventId);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('maxNumberOfPeople', maxNumberOfPeople);
+    formData.append('registrationDeadline', registrationDeadline);
+    formData.append('eventStartTime', eventStartTime);
+    formData.append('place', place);
+    formData.append('fee', fee);
+    if (labelNameList != null && labelNameList.size != 0) {
+        formData.append('labelNameList', labelNameList);
+    }
+    if (dmPicture != null) {
+        formData.append('dmPicture', dmPicture);
+    }
+    return uploadFileRequest(actionUrl, formData)
+}
