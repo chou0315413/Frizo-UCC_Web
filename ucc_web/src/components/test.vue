@@ -42,7 +42,8 @@
         />降序
       </label>
       <label>
-        <input type="radio" name="direction" value="ASC" v-model="searchOwnActivity.direction" />升序
+        <input type="radio" name="direction" value="ASC" v-model="searchOwnActivity.direction" />
+        升序
       </label>
     </div>
 
@@ -58,33 +59,43 @@
 
     <hr />
 
-    <input type="number" v-model="uploadOwnActivity.eventId" />
+    <div>
+      <input type="number" v-model="uploadOwnActivity.eventId" />
 
-    <input type="text" v-model="uploadOwnActivity.title" />
+      <input type="text" v-model="uploadOwnActivity.title" />
 
-    <input type="text" v-model="uploadOwnActivity.description" />
+      <input type="text" v-model="uploadOwnActivity.description" />
 
-    <input type="number" v-model="uploadOwnActivity.maxNumberOfPeople" />
+      <input type="number" v-model="uploadOwnActivity.maxNumberOfPeople" />
 
-    <input type="file" @change="selectDM" />
+      <!-- <input type="file" @change="selectDM" /> -->
 
-    <input type="text" v-model="uploadOwnActivity.registrationDeadline" />
+      <input type="text" v-model="uploadOwnActivity.registrationDeadline" />
 
-    <input type="text" v-model="uploadOwnActivity.eventStartTime" />
+      <input type="text" v-model="uploadOwnActivity.eventStartTime" />
 
-    <input type="text" v-model="uploadOwnActivity.place" />
+      <input type="text" v-model="uploadOwnActivity.place" />
 
-    <input type="number" v-model="uploadOwnActivity.fee" />
+      <input type="number" v-model="uploadOwnActivity.fee" />
 
-    <input type="text" v-model="uploadOwnActivity.labelNameList" />
+      <input type="text" v-model="uploadOwnActivity.labelNameList" />
 
-    <button type="submit" @click.prevent="uploadOwnActivitys">修改</button>
+      <button type="submit" @click.prevent="uploadOwnActivitys">修改</button>
+    </div>
     <!-- <input type="submit" @click.prevent="uploadOwnActivitys" value="修改" /> -->
+
+    <hr />
+
+    <div>
+      <input type="text" v-model="deleteId.eventId" />
+
+      <button type="submit" @click.prevent="deleteOwnActivitys">刪除</button>
+    </div>
   </div>
 </template>
 
 <script>
-import { searchOwnEvent, uploadOwnEvent } from "@/api/event";
+import { searchOwnEvent, uploadOwnEvent, deleteOwnEvent } from "@/api/event";
 export default {
   data() {
     return {
@@ -107,11 +118,29 @@ export default {
         labelNameList: []
       },
 
+      deleteId: {
+        eventId: 0
+      },
+
       searchResult: ["nothing.."]
     };
   },
 
   methods: {
+    uploadOwnActivitys() {
+      uploadOwnEvent(this.uploadOwnActivity)
+        .then(resp => {
+          if (resp.data.success) {
+            this.searchResult = resp.data.result;
+          } else {
+            console.log(resp.data.message);
+          }
+        })
+        .catch(error => {
+          console.log(error.response.data.message);
+        });
+    },
+
     searchOwnActivitys() {
       searchOwnEvent(this.searchOwnActivity)
         .then(resp => {
@@ -124,42 +153,42 @@ export default {
         .catch(error => {
           console.log(error.response.data.message);
         });
+    },
+
+    deleteOwnActivitys() {
+      deleteOwnEvent(this.deleteId)
+        .then(resp => {
+          if (resp.data.success) {
+            this.searchResult = resp.data.result;
+          } else {
+            console.log(resp.data.message);
+          }
+        })
+        .catch(error => {
+          console.log(error.response.data.message);
+        });
+    },
+
+    // 照片匯入
+    selectDM(e) {
+      // 圖片上傳後端
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      alert(files[0].name);
+      this.uploadOwnActivity.dmPicture = files[0];
+      // this.isAddPic = true;
+
+      // // 圖片預覽
+      // var input = event.target;
+      // if (input.files) {
+      //   var reader = new FileReader();
+      //   reader.onload = e => {
+      //     this.picPreview = e.target.result;
+      //   };
+      //   this.image = input.files[0];
+      //   reader.readAsDataURL(input.files[0]);
+      // }
     }
-  },
-
-  uploadOwnActivitys() {
-    uploadOwnEvent(this.uploadOwnActivity)
-      .then(resp => {
-        if (resp.data.success) {
-          this.searchResult = resp.data.result;
-        } else {
-          console.log(resp.data.message);
-        }
-      })
-      .catch(error => {
-        console.log(error.response.data.message);
-      });
-  },
-
-  // 照片匯入
-  selectDM(e) {
-    // 圖片上傳後端
-    var files = e.target.files || e.dataTransfer.files;
-    if (!files.length) return;
-    alert(files[0].name);
-    this.uploadOwnActivity.dmPicture = files[0];
-    // this.isAddPic = true;
-
-    // // 圖片預覽
-    // var input = event.target;
-    // if (input.files) {
-    //   var reader = new FileReader();
-    //   reader.onload = e => {
-    //     this.picPreview = e.target.result;
-    //   };
-    //   this.image = input.files[0];
-    //   reader.readAsDataURL(input.files[0]);
-    // }
   }
 };
 </script>
