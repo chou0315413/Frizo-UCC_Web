@@ -1,4 +1,4 @@
-import { uploadFileRequest, postRequest, getRequest } from '../../utils/UccSender'
+import { uploadFileRequest, postRequest, getRequest, deleteRequest } from '../../utils/UccSender'
 
 // 新增 Event(活動) 的 API。
 export const createEvent = ({ title, description, dmPicture, maxNumberOfPeople, registrationDeadline, eventStartTime, place, fee, labelNameList }) => {
@@ -74,10 +74,11 @@ export const searchOwnEvent = ({ pageNumber, sortBy, direction }) => {
     return getRequest(actionUrl, params)
 };
 
-// 修改 Event(活動) 的 API。
-export const uploadOwnEvent = ({ title, description, dmPicture, maxNumberOfPeople, registrationDeadline, eventStartTime, place, fee, labelNameList }) => {
+// 修改自身發佈 Event(活動) 的 API。
+export const uploadOwnEvent = ({ eventId, title, description, maxNumberOfPeople, dmPicture, registrationDeadline, eventStartTime, place, fee, labelNameList }) => {
     let actionUrl = "/event/update";
     let formData = new FormData();
+    formData.append('eventId', eventId);
     formData.append('title', title);
     formData.append('description', description);
     formData.append('maxNumberOfPeople', maxNumberOfPeople);
@@ -92,4 +93,11 @@ export const uploadOwnEvent = ({ title, description, dmPicture, maxNumberOfPeopl
         formData.append('dmPicture', dmPicture);
     }
     return uploadFileRequest(actionUrl, formData)
-};
+}
+
+// 刪除自身發佈 Event(活動) 的 API。
+
+export const deleteOwnEvent = ({ eventId }) => {
+    let actionUrl = "/event/delete/" + eventId;
+    return deleteRequest(actionUrl)
+}
