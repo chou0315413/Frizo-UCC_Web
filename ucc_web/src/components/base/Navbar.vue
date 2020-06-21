@@ -330,6 +330,10 @@ export default {
 .el-menu-item:hover {
   background-color: rgb(53, 33, 4);
 }
+.el-menu-item:focus,
+.el-menu--horizontal > .el-menu-item:focus {
+  background-color: rgb(53, 33, 4);
+}
 .el-menu--horizontal > .el-menu-item {
   height: 65px;
 }
@@ -435,6 +439,7 @@ export default {
 }
 .menubar {
   width: 50px;
+  left: 0;
 }
 #fl {
   margin-top: 10px;
