@@ -1,6 +1,12 @@
 <template>
   <div class="banner">
-    <el-carousel indicator-position="outside">
+    <!-- <el-carousel indicator-position="outside">
+      <el-carousel-item v-for="(item, index) in photoList" :key="index">
+        <img class="picture" :src="item.url" />
+      </el-carousel-item>
+    </el-carousel>-->
+
+    <el-carousel :interval="5000" arrow="always">
       <el-carousel-item v-for="(item, index) in photoList" :key="index">
         <img class="picture" :src="item.url" />
       </el-carousel-item>
@@ -55,10 +61,10 @@ export default {
   height: 100%;
 }
 
-.banner {
-  margin: 60px auto 10px auto;
+/* .banner {
+  margin: 120px auto 10px auto;
   width: 900px;
-}
+} */
 @media (max-width: 995px) {
   .banner {
     width: 750px;

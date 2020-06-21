@@ -1,36 +1,55 @@
 <template>
-  <div class="ContentList mt-4">
-    <div class="selectList" ref="selectList4Event">
-      <el-radio-group v-model="radio" @change="changeList">
-        <el-radio :label="1">
-          <b>熱門</b>
-        </el-radio>
-        <el-radio :label="2">
-          <b>最新</b>
-        </el-radio>
-        <el-radio :label="3">
-          <b>追蹤</b>
-        </el-radio>
-      </el-radio-group>
+  <div class="content">
+    <div class="banner mt-3">
+      <Banner></Banner>
     </div>
-    <keep-alive>
-      <component :is="listPrint"></component>
-    </keep-alive>
-    <div class="mt-3">
-      <el-button type="primary" round class="mb-3">更多</el-button>
+    <div class="activityList">
+      <div class="selectList" ref="selectList4Event">
+        <!-- <el-radio-group v-model="radio" @change="changeList" style="display:none;">
+          <el-radio :label="1">
+            <b>熱門</b>
+          </el-radio>
+          <el-radio :label="2">
+            <b>最新</b>
+          </el-radio>
+          <el-radio :label="3">
+            <b>追蹤</b>
+          </el-radio>
+        </el-radio-group>-->
+        <!-- {{this.radio}} -->
+        <div class="listBtnGroup">
+          <div class="listBtn" :class="{active:radio==1}">
+            <span @click.prevent="changeList(1)">熱門</span>
+          </div>
+          <div class="listBtn" :class="{active:radio==2}">
+            <span @click.prevent="changeList(2)">最新</span>
+          </div>
+          <div class="listBtn" :class="{active:radio==3}">
+            <span @click.prevent="changeList(3)">追蹤</span>
+          </div>
+        </div>
+      </div>
+      <keep-alive>
+        <component :is="listPrint"></component>
+      </keep-alive>
+      <div class="mt-3">
+        <el-button type="primary" round class="mb-3">更多</el-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Banner from "@/components/Banner";
 import hotList from "@/components/listGroup/hotList";
 import newList from "@/components/listGroup/newList";
 import followList from "@/components/listGroup/followList";
 
 export default {
-  name: "ContentList",
+  name: "Content",
 
   components: {
+    Banner,
     hotList,
     newList,
     followList
@@ -50,10 +69,13 @@ export default {
   methods: {
     changeList(val) {
       if (val == 1) {
+        this.radio = 1;
         this.listPrint = "hotList";
       } else if (val == 2) {
+        this.radio = 2;
         this.listPrint = "newList";
       } else if (val == 3) {
+        this.radio = 3;
         this.listPrint = "followList";
       }
     },
@@ -91,20 +113,51 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.ContentList {
+.content {
+  position: relative;
+  top: 40px;
   margin: auto;
   width: 900px;
   box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 15px;
 }
+.banner {
+  position: relative;
+  padding-top: 7px;
+}
+/* .activityList {
+  margin: auto;
+  width: 900px;
+  box-sizing: border-box;
+} */
 .selectList {
   text-align: right;
   background-color: #ffffff;
-  box-shadow: 0px 0px 3px #000000;
-  height: 35px;
-  padding-top: 8px;
-  padding-right: 10px;
+  display: grid;
+  grid-template-columns: auto auto 200px;
+  grid-template-rows: 100%;
+  /* height: 35px; */
 }
-.selectFix {
+.listBtnGroup {
+  position: relative;
+  grid-row: 1/2;
+  grid-column: 3/4;
+  display: grid;
+  grid-template-columns: auto auto auto 20px;
+  grid-template-rows: 100%;
+}
+.listBtn {
+  text-align: center;
+  font-size: 20px;
+}
+.listBtn span:hover {
+  cursor: pointer;
+}
+.active {
+  border-bottom: 2px rgb(255, 155, 23) solid;
+}
+/* .selectFix {
   text-align: right;
   background-color: #ffffff;
   box-shadow: 0px 0px 3px #000000;
@@ -115,28 +168,28 @@ export default {
   width: 900px;
   top: 62px;
   z-index: 5;
-}
+} */
 
 @media (max-width: 995px) {
-  .ContentList {
+  .activityList {
     width: 750px;
   }
 }
 
 @media (max-width: 837px) {
-  .ContentList {
+  .activityList {
     width: 100%;
   }
 }
 
 /* @media (max-width: 650px) {
-  .ContentList {
+  .activityList {
     width: 450px;
   }
 }
 
 @media (max-width: 450px) {
-  .ContentList {
+  .activityList {
     width: 300px;
   }
 } */
