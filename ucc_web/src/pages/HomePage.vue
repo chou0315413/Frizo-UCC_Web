@@ -1,30 +1,30 @@
 <template>
   <div class="HomePage">
     <Navbar></Navbar>
-    <Banner></Banner>
-    <ContentList></ContentList>
+    <!-- <Banner></Banner> -->
+    <Content></Content>
     <!-- <router-link to="/store">到 Store 測試頁</router-link> -->
   </div>
 </template>
 
 <script>
-import ContentList from "@/components/ContentList";
+import Content from "@/components/Content";
 import Navbar from "@/components/base/Navbar";
-import Banner from "@/components/Banner";
+// import Banner from "@/components/Banner";
 
 export default {
   name: "HomePage",
   components: {
-    ContentList,
-    Navbar,
-    Banner
+    Content,
+    Navbar
+    // Banner
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.login {
+/* .login {
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -71,5 +71,5 @@ export default {
 .UCCTitle {
   grid-column: 1/9;
   grid-row: 1/2;
-}
+} */
 </style>
