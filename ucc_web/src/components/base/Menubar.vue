@@ -221,6 +221,9 @@ export default {
   background-color: rgb(255, 166, 82);
   color: white;
 }
+.menuIcon {
+  margin-left: 4px;
+}
 ul {
   height: 100vh;
   overflow: auto;
@@ -252,12 +255,14 @@ ul li span {
 }
 label {
   height: 35px;
-  margin-top: 8px;
+  width: 50px;
+  margin-top: 10px;
+  margin-left: 15px;
 }
 .menu-show {
   list-style: none;
   position: absolute;
-  top: 70px;
+  top: 65px;
   left: 0px;
   margin: 0;
   padding: 0;
@@ -268,7 +273,7 @@ label {
 .menu-hide {
   list-style: none;
   position: absolute;
-  top: 70px;
+  top: 65px;
   left: -110vw;
   margin: 0;
   padding: 0;
@@ -276,13 +281,14 @@ label {
   transition: left 0.3s ease;
 }
 .menuItem {
-  background-color: #eeeeee;
+  background-color: #b2702f;
+  color: rgb(228, 225, 225);
   width: 60px;
   height: 70px;
   display: flex;
   align-items: center;
   transition: 0.3s ease;
-  border-right: orange 1px solid;
+  border-right: #4f3f2f 1px solid;
   font-weight: bold;
   cursor: pointer;
 }
@@ -331,12 +337,13 @@ label {
   .menuItem {
     width: 100vw;
     height: 60px;
-    background-color: orange;
+    background-color: #b2702f;
   }
   #checkForMenu:checked ~ .menu-show {
-    background-color: orange;
-    opacity: 0.8;
-    left: -20px;
+    background-color: #b2702f;
+    color: white;
+    opacity: 0.9;
+    left: -10px;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -344,9 +351,10 @@ label {
     justify-content: flex-start;
     align-items: center;
     overflow-y: scroll;
+    z-index: 2000;
   }
   #checkForMenu:checked ~ ul li {
-    background-color: orange;
+    background-color: #b2702f;
     width: 100%;
     justify-content: center;
     height: 60px;

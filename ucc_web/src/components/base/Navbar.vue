@@ -13,10 +13,10 @@
           <Menubar class="menubar"></Menubar>
           <!-- Menu -->
           <router-link to="/">
-            <img class="logo" src="@/assets/UCC Classic.jpg" />
-            <span id="fl">
+            <img class="logo" src="@/assets/UCC-Classic-PNG.png" />
+            <!-- <span id="fl">
               <h3>University Club Center</h3>
-            </span>
+            </span>-->
           </router-link>
         </el-menu-item>
         <el-menu-item id="inputArea">
@@ -37,8 +37,8 @@
             v-if="loginState === false"
             @click="openModal"
           >
-            <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
-            <span class="loginFont">Login</span>
+            <i class="el-icon-user-solid" style="color:#fff"></i>
+            <span class="loginFont" style="color:#fff">Login</span>
           </el-menu-item>
         </div>
         <!-- 已登入 -->
@@ -322,7 +322,24 @@ export default {
   width: 470px;
   z-index: 5;
 }
-
+/* Navbar CSS downbelow */
+.el-menu {
+  background-color: #4f3f2f;
+}
+.el-menu--horizontal > .el-menu-item:hover,
+.el-menu-item:hover {
+  background-color: rgb(53, 33, 4);
+}
+.el-menu-item:focus,
+.el-menu--horizontal > .el-menu-item:focus {
+  background-color: rgb(53, 33, 4);
+}
+.el-menu--horizontal > .el-menu-item {
+  height: 65px;
+}
+.el-menu.el-menu--horizontal {
+  border-bottom: none;
+}
 /* 此開始為左側side按鈕CSS樣式 */
 .modalSideBar {
   display: flex;
@@ -379,7 +396,7 @@ export default {
 }
 .nav-show,
 .nav-show .el-menu.el-menu--horizontal {
-  height: 61px;
+  height: 65px;
   padding: 0px;
   width: 100%;
   position: fixed;
@@ -389,7 +406,7 @@ export default {
 }
 .nav-hide,
 .nav-hide .el-menu.el-menu--horizontal {
-  height: 61px;
+  height: 65px;
   padding: 0px;
   width: 100%;
   position: fixed;
@@ -410,6 +427,7 @@ export default {
 .login {
   width: 80px;
   padding: 0;
+  height: 65px;
 }
 .Icon {
   border: 0px;
@@ -417,10 +435,11 @@ export default {
 .logo {
   height: 40px;
   width: 70px;
-  margin: 0 13px 12px 70px;
+  margin: 0 13px 8px 70px;
 }
 .menubar {
   width: 50px;
+  left: 0;
 }
 #fl {
   margin-top: 10px;
