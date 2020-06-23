@@ -115,7 +115,7 @@ export default {
 <style scoped>
 .content {
   position: relative;
-  top: 40px;
+  top: 50px;
   margin: auto;
   width: 900px;
   box-sizing: border-box;
@@ -146,6 +146,7 @@ export default {
   display: grid;
   grid-template-columns: auto auto auto 20px;
   grid-template-rows: 100%;
+  margin-top: 5px;
 }
 .listBtn {
   text-align: center;
