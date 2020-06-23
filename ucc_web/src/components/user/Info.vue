@@ -525,7 +525,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .info {
-  background-color: #eeeeee;
+  background-color: #b2702f;
   height: 780px;
 }
 
