@@ -316,11 +316,11 @@ export default {
 /* 最外圍大框使用二擇一CSS */
 .postActivity {
   height: 1300px;
-  background-color: #eeeeee;
+  background-color: #b2702f;
 }
 .postMessage {
   height: 100vh;
-  background-color: #eeeeee;
+  background-color: #b2702f;
 }
 
 /* container使用二擇一CSS */

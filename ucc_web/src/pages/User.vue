@@ -34,7 +34,7 @@ export default {
 .user {
   position: relative;
   top: 50px;
-  background-color: #eeeeee;
+  background-color: #b2702f;
   height: 100vh;
 }
 </style>
