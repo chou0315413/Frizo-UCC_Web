@@ -45,13 +45,13 @@
         <div class="rightBtnGroup" v-if="loginState === true">
           <router-link to="/chat" style="text-decoration:none;">
             <el-menu-item index="4" class="rightBtn">
-              <i class="el-icon-chat-line-square" size="medium"></i>
+              <i class="el-icon-chat-line-square" size="medium" style="color:#A9A9A9"></i>
               <span class="navFont">Chat</span>
             </el-menu-item>
           </router-link>
 
           <el-submenu index="5" href="#" class="rightBtn" id="followersBtn">
-            <template slot="title" class="rightBtn">
+            <template slot="title" class="rightBtnDropdown">
               <font-awesome-icon
                 icon="user-friends"
                 size="lg"
@@ -62,13 +62,13 @@
             <el-menu-item class="rightBtn" index="5-1" href="#" id="dropDownBtn">追蹤者</el-menu-item>
             <el-menu-item class="rightBtn" index="5-2" href="#" id="dropDownBtn">追蹤中的社團</el-menu-item>
           </el-submenu>
-          <el-submenu index="6" href="#" class="rightBtn">
-            <template slot="title" class="rightBtn">
+          <el-submenu index="6" href="#" class="rightBtn" id="userBtn">
+            <template slot="title" class="rightBtnDropdown">
               <i class="el-icon-user-solid" style="color:#A9A9A9"></i>
               <span class="navFont">User</span>
             </template>
             <router-link to="/user/info" style="text-decoration:none;">
-              <el-menu-item class="rightBtn" index="6-1" href="#">個人資料</el-menu-item>
+              <el-menu-item class="rightBtn" index="6-1" href="#" id="dropDownBtn">個人資料</el-menu-item>
             </router-link>
             <router-link to="/user/newActivity" style="text-decoration:none;">
               <el-menu-item class="rightBtn" index="6-2" href="#" id="dropDownBtn">發佈新活動、訊息</el-menu-item>
@@ -326,6 +326,9 @@ export default {
 .el-menu {
   background-color: #4f3f2f;
 }
+.el-submenu__title:hover {
+  background-color: rgb(53, 33, 4) !important;
+}
 .el-menu--horizontal > .el-menu-item:hover,
 .el-menu-item:hover {
   background-color: rgb(53, 33, 4);
@@ -334,8 +337,16 @@ export default {
 .el-menu--horizontal > .el-menu-item:focus {
   background-color: rgb(53, 33, 4);
 }
+/* Navigation左側兩個item */
 .el-menu--horizontal > .el-menu-item {
   height: 65px;
+}
+/* Navigation右側Chat item */
+.el-menu-item {
+  height: 56px;
+}
+.el-menu-item:hover {
+  background-color: #fff6e7;
 }
 .el-menu.el-menu--horizontal {
   border-bottom: none;
@@ -414,7 +425,6 @@ export default {
   left: 0;
   transition: top 0.3s ease;
 }
-
 .rightBtnGroup {
   display: flex;
   justify-content: flex-end;
@@ -539,10 +549,7 @@ export default {
     display: inline;
     color: white;
   }
-  .el-submenu__title,
-  .rightBtn:hover .navFont {
-    color: black;
-  }
+
   .el-submenu__title:hover #followers {
     color: black;
   }
