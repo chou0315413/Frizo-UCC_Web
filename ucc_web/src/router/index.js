@@ -36,7 +36,7 @@ export default new VueRouter({
             redirect: '/',
             component: resolve => require(['@/pages/User.vue'], resolve),
             children: [
-                { path: 'info', component: resolve => require(['@/components/user/Info.vue'], resolve) },
+                { path: 'info', component: resolve => require(['@/components/user/userinfo/Info.vue'], resolve) },
                 { path: 'emailverify', component: resolve => require(['@/components/user/EmailVerify.vue'], resolve) },
                 { path: 'newActivity', component: resolve => require(['@/components/user/PostActivity.vue'], resolve) }
             ]

@@ -37,15 +37,12 @@
         <div class="sideBar">
           <div class="userInfoUpDataBtn">
             <span
-              :class="{active:view=='testChangeInfo'}"
-              @click.prevent="changeView('testChangeInfo')"
+              :class="{active:view=='changeInfo'}"
+              @click.prevent="changeView('changeInfo')"
             >個人檔案</span>
           </div>
           <div class="userChangePwBtn">
-            <span
-              :class="{active:view=='testChangePw'}"
-              @click.prevent="changeView('testChangePw')"
-            >修改密碼</span>
+            <span :class="{active:view=='changePw'}" @click.prevent="changeView('changePw')">修改密碼</span>
           </div>
         </div>
         <div class="infoShow">
@@ -61,22 +58,22 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
-import testChangeInfo from "@/components/user/userinfo/changeInfo";
-import testChangePw from "@/components/user/userinfo/changePw";
+import changeInfo from "@/components/user/userinfo/changeInfo";
+import changePw from "@/components/user/userinfo/changePw";
 
 export default {
   name: "Info",
 
   components: {
-    testChangeInfo,
-    testChangePw
+    changeInfo,
+    changePw
   },
 
   data() {
     return {
       respond: "",
       phoneNumber: "",
-      view: "testChangeInfo",
+      view: "changeInfo",
 
       testUserBackgroundPhoto:
         "https://png.pngtree.com/thumb_back/fh260/back_pic/03/71/59/3557b810e06df32.jpg"
