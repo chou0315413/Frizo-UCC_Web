@@ -15,6 +15,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ElementUI from 'element-ui';
 import '../theme/index.css';
 
+//Croppie 圖片裁減套件
+import VueCroppie from 'vue-croppie';
+import '../node_modules/croppie/croppie.css' // import the croppie css manually
+
+Vue.use(VueCroppie);
+
 Vue.use(ElementUI);
 Vue.use(BootstrapVue);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
