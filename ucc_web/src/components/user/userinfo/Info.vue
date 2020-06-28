@@ -58,6 +58,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
+import { updateUserAvatar, updateProfileBackground } from "@/api/user";
 import changeInfo from "@/components/user/userinfo/changeInfo";
 import changePw from "@/components/user/userinfo/changePw";
 
@@ -88,6 +89,46 @@ export default {
     // 切換components的功能
     changeView(viewName) {
       this.view = viewName;
+    },
+
+    onAvatarChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      alert(files[0].name);
+      var imgBuffer = files[0];
+      updateUserAvatar(imgBuffer)
+        .then(resp => {
+          console.log(resp.data);
+          if (resp.data.success) {
+            let userInfo = {
+              imageUrl: resp.data.result
+            };
+            this.updateUserState(userInfo);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+
+    onBackgroundChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      alert(files[0].name);
+      var imgBuffer = files[0];
+      updateProfileBackground(imgBuffer)
+        .then(resp => {
+          console.log(resp.data);
+          if (resp.data.success) {
+            let userInfo = {
+              backgroundUrl: resp.data.result.message
+            };
+            this.updateUserState(userInfo);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
 
