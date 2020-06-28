@@ -45,13 +45,13 @@ export default new VueRouter({
         {
             path: '/test',
             name: 'test',
-            component: resolve => require(['@/components/test.vue'], resolve),
+            component: resolve => require(['@/components/test/test.vue'], resolve),
         },
 
         {
             path: '/testPhoto',
             name: 'test',
-            component: resolve => require(['@/components/testPhotoCroppie.vue'], resolve),
+            component: resolve => require(['@/components/test/testPhotoCroppie.vue'], resolve),
         },
 
         {
