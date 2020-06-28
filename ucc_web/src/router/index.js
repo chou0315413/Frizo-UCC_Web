@@ -49,6 +49,12 @@ export default new VueRouter({
         },
 
         {
+            path: '/testPhoto',
+            name: 'test',
+            component: resolve => require(['@/components/testPhotoCroppie.vue'], resolve),
+        },
+
+        {
             path: '/chat',
             name: 'chat',
             component: resolve => require(['@/pages/Chat.vue'], resolve),
