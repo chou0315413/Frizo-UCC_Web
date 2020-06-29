@@ -236,6 +236,7 @@ export default {
 
 .input100p {
   width: 100%;
+  height: 35px;
 }
 
 .rightInput90p-10 {
