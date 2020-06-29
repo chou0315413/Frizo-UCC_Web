@@ -231,6 +231,8 @@ export default {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  font-weight: bold;
+  color: #fff;
   top: 5px;
 }
 
