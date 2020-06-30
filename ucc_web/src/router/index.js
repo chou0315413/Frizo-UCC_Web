@@ -42,6 +42,7 @@ export default new VueRouter({
             ]
         },
 
+        // test區塊
         {
             path: '/test',
             name: 'test',
@@ -49,10 +50,17 @@ export default new VueRouter({
         },
 
         {
+            path: '/rogerTest',
+            name: 'test',
+            component: resolve => require(['@/components/test/navbarTest.vue'], resolve),
+        },
+
+        {
             path: '/testPhoto',
             name: 'test',
             component: resolve => require(['@/components/test/testPhotoCroppie.vue'], resolve),
         },
+        // test區塊
 
         {
             path: '/chat',
