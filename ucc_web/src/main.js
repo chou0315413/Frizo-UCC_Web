@@ -20,7 +20,6 @@ import VueCroppie from 'vue-croppie';
 import '../node_modules/croppie/croppie.css' // import the croppie css manually
 
 Vue.use(VueCroppie);
-
 Vue.use(ElementUI);
 Vue.use(BootstrapVue);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
