@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import child1 from "@/components/test/child1";
-import child2 from "@/components/test/child2";
+// import child1 from "@/components/test/child1";
+// import child2 from "@/components/test/child2";
 
 export default {
   name: "father",
-  components: { child1, child2 },
+  // components: { child1, child2 },
   data() {
     return {
       name: "father"
