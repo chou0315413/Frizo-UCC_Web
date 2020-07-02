@@ -56,12 +56,6 @@ export default new VueRouter({
         },
 
         {
-            path: '/APITest',
-            name: 'test',
-            component: resolve => require(['@/components/test/userTextAPI.vue'], resolve),
-        },
-
-        {
             path: '/testPhoto',
             name: 'test',
             component: resolve => require(['@/components/test/testPhotoCroppie.vue'], resolve),
