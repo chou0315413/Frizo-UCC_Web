@@ -37,8 +37,8 @@
             v-if="loginState === false"
             @click="openModal"
           >
-            <i class="el-icon-user-solid" style="color:#fff"></i>
-            <span class="loginFont" style="color:#fff">Login</span>
+            <i class="el-icon-user-solid"></i>
+            <span class="loginFont">Login</span>
           </el-menu-item>
         </div>
         <!-- 已登入 -->
@@ -392,6 +392,16 @@ export default {
   width: 80px;
   padding: 0;
   height: 65px;
+}
+.login i,
+.login span {
+  color: #fff;
+}
+.login:hover i {
+  color: #4f3f2f;
+}
+.login:hover span {
+  color: #4f3f2f;
 }
 .Icon {
   border: 0px;
