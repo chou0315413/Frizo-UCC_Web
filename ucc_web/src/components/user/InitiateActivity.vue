@@ -6,7 +6,7 @@
     <!-- Model 主體 -->
     <div class="Model" v-if="isModelOpen">
       <div :class="isActivityPage?'stateLine':'stateLine2'"></div>
-      <!-- 發起活動頁 -->
+      <!-------------------------- 發起活動頁面 -------------------------->
       <div class="initialActivityPage" v-if="isActivityPage">
         <div class="switchPage">
           <li>
@@ -22,10 +22,10 @@
         <!-- 活動描述 -->
         <textarea
           class="activityDescription"
-          style="width:300px;height:150px;"
+          style="width:300px;height:180px;"
           placeholder="活動描述..."
         ></textarea>
-        <!-- 上傳照片 -->
+        <!-- 上傳活動照片 -->
         <div class="dm">
           <label :class="isAddPic ? 'havePic' : 'noPic' ">
             <input type="file" style="display:none;" accept="image/*" @change="selectDM" />
@@ -38,7 +38,7 @@
         <div class="people">
           <label class="peopleDescription">人數</label>
           <select v-model="people" class="peopleSelect">
-            <option selected="true">請選擇</option>
+            <option>請選擇</option>
             <option value="5人">5人</option>
             <option value="5~10人">5~10人</option>
             <option value="10~20人">10~20人</option>
@@ -73,7 +73,6 @@
           >
             <template slot="prepend">活動開始日期</template>
           </el-date-picker>
-          <!-- <button @click="getActivityStartTime">test</button> -->
         </div>
         <!-- 活動標籤 -->
         <div class="tag">
@@ -101,12 +100,12 @@
             :disabled="tagsNumber == 5"
           >新增標籤</el-button>
         </div>
-        <!-- 提交後端 -->
+        <!-- 提交活動至後端 -->
         <div class="activityPush">
           <button class="pushActivityBtn" round @click.prevent="sendCreateRequest">發布</button>
         </div>
       </div>
-      <!-- 發起消息頁面 -->
+      <!-------------------------- 發起消息頁面 -------------------------->
       <div class="initialMessagePage" v-else>
         <div class="switchPage">
           <li>
@@ -122,7 +121,29 @@
           </li>
         </div>
         <div class="line"></div>
-        <h2>Message</h2>
+        <!-- 消息描述 -->
+        <textarea
+          class="messageDescription"
+          style="width:280px;height:280px;"
+          placeholder="有什麼消息..."
+        ></textarea>
+        <!-- 上傳消息照片 -->
+        <div class="msgPic">
+          <label :class="isAddMsgPic ? 'haveMsgPic' : 'noMsgPic' ">
+            <input type="file" style="display:none;" accept="image/*" @change="selectMsgPic" />
+            <font-awesome-icon icon="file-image" size="lg" class="imageIcon" />
+            <span>上傳照片</span>
+          </label>
+          <img
+            :src="this.msgPicPreview"
+            class="msgPicImg"
+            :class="isAddMsgPic ? 'noMsgPic' : 'haveMsgPic'"
+          />
+        </div>
+        <!-- 提交消息至後端 -->
+        <div class="messagePush">
+          <button class="pushMessageBtn">發布</button>
+        </div>
       </div>
     </div>
   </div>
@@ -136,10 +157,16 @@ export default {
     return {
       isModelOpen: false,
       isActivityPage: true,
+      // 發布活動的照片
       isAddPic: false,
       picPreview: null,
       dmPicture: null,
-      people: "",
+      // 發布訊息的照片
+      isAddMsgPic: false,
+      msgPicPreview: null,
+      msgPicture: null,
+
+      people: "請選擇",
       // 活動資料
       event: {
         title: "",
@@ -191,7 +218,7 @@ export default {
         this.isActivityPage = false;
       }
     },
-    // 照片匯入
+    // 活動照片匯入
     selectDM(e) {
       // 圖片上傳後端
       var files = e.target.files || e.dataTransfer.files;
@@ -200,12 +227,32 @@ export default {
       this.dmPicture = files[0];
       this.isAddPic = true;
 
-      // 圖片預覽
+      // 活動圖片預覽
       var input = event.target;
       if (input.files) {
         var reader = new FileReader();
         reader.onload = e => {
           this.picPreview = e.target.result;
+        };
+        this.image = input.files[0];
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    // 訊息照片匯入
+    selectMsgPic(e) {
+      // 圖片上傳後端
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      alert(files[0].name);
+      this.msgPicture = files[0];
+      this.isAddMsgPic = true;
+
+      // 訊息圖片預覽
+      var input = event.target;
+      if (input.files) {
+        var reader = new FileReader();
+        reader.onload = e => {
+          this.msgPicPreview = e.target.result;
         };
         this.image = input.files[0];
         reader.readAsDataURL(input.files[0]);
@@ -283,16 +330,6 @@ export default {
   border-radius: 10px;
   z-index: 5;
 }
-.initialActivityPage {
-  display: grid;
-  grid-template-rows: repeat(12, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-  height: 470px;
-}
-.initialMessagePage {
-  display: grid;
-  height: 470px;
-}
 .switchPage {
   grid-row: 1/2;
   display: flex;
@@ -336,6 +373,14 @@ export default {
   background-color: rgb(156, 156, 156);
   margin-top: 26px;
 }
+/* ---------------發布活動CSS--------------- */
+
+.initialActivityPage {
+  display: grid;
+  grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  height: 470px;
+}
 /* 活動標題CSS */
 .activityTitle {
   font-size: 20px;
@@ -377,8 +422,8 @@ export default {
   height: 25px;
   width: 100px;
   position: absolute;
-  left: 30%;
-  top: 50px;
+  left: 10px;
+  top: 5px;
   margin: 0;
 }
 .dm label span,
@@ -402,7 +447,7 @@ export default {
 .noPic {
   display: block;
 }
-/* 活動人數CSS */
+/* 活動人數 & 地點CSS */
 .people {
   grid-row: 8/9;
   display: flex;
@@ -421,6 +466,7 @@ export default {
   border: 1px #ddd solid;
   border-radius: 5px;
   outline: none;
+  color: rgb(105, 105, 105);
   background-color: #ddd;
   transition: all 0.2s ease;
 }
@@ -443,9 +489,11 @@ export default {
   padding: 5px;
   width: 220px;
 }
+/* 報名截止時間 */
 .deadline {
   grid-row: 10/11;
 }
+/* 活動時間 */
 .time {
   grid-row: 11/12;
 }
@@ -492,6 +540,26 @@ export default {
   grid-row: 12/13;
   grid-column: 1/3;
   display: flex;
+  width: 70%;
+  overflow: hidden;
+}
+.tag:hover {
+  overflow: scroll;
+}
+/* scroll樣式 */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: #bbb;
 }
 .el-button,
 .el-tag {
@@ -530,5 +598,95 @@ export default {
   color: white;
   font-size: 14px;
   border-radius: 5px;
+  transition: all 0.2s ease;
+}
+.pushActivityBtn:focus,
+.pushActivityBtn:hover {
+  outline: none;
+  background-color: rgb(110, 70, 33);
+}
+/* ---------------發布消息CSS--------------- */
+
+.initialMessagePage {
+  display: grid;
+  grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  height: 470px;
+}
+/* 消息描述CSS */
+.messageDescription {
+  grid-row: 2/13;
+  display: flex;
+  border: none;
+  transition: all 0.1s ease;
+  padding: 5px;
+}
+.messageDescription:focus {
+  outline: 1.5px rgb(165, 101, 42) solid;
+}
+/* 活動圖片CSS */
+.msgPic {
+  position: relative;
+  grid-row: 2/13;
+  grid-column: 2/3;
+  float: left;
+  max-width: 240px;
+  max-height: 200px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.msgPic label {
+  height: 25px;
+  width: 100px;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  margin: 0;
+}
+.msgPic label span,
+.imageIcon {
+  transition: color 0.2s;
+  margin-left: 3px;
+}
+.msgPic label:hover span,
+.msgPic label:hover .imageIcon {
+  color: rgb(165, 101, 42);
+}
+.msgPicImg {
+  position: absolute;
+  width: 250px;
+  height: 200px;
+  object-fit: contain;
+  margin-left: 10px;
+}
+.haveMsgPic {
+  display: none;
+}
+.noMsgPic {
+  display: block;
+}
+li {
+  height: 40px;
+}
+.messagePush {
+  position: absolute;
+  right: 50px;
+  bottom: 20px;
+}
+.pushMessageBtn {
+  width: 60px;
+  height: 30px;
+  border: none;
+  background-color: rgb(165, 101, 42);
+  color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+.pushMessageBtn:focus,
+.pushMessageBtn:hover {
+  outline: none;
+  background-color: rgb(110, 70, 33);
 }
 </style>
