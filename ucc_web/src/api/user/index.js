@@ -109,3 +109,13 @@ export const getOtherUserInfo = (id) => {
 
   return getRequest(actionUrl, params);
 };
+
+// 使用者被追蹤設定
+export const userFollowedSetting = (isAllow) => {
+  let actionUrl = "user/setting/auto/accept/following";
+  let params = {};
+  if (isAllow != null) {
+    params.isAllow = isAllow;
+  }
+  return getRequest(actionUrl, params);
+};

@@ -88,31 +88,17 @@
       <!-- modal區塊從這裡開始 -->
       <div :class="isGoToLogin?'modalDivShow':'modalDivNotShow'">
         <div class="background" @click="closeModal"></div>
-        <!-- modalArea 包含切換按鈕及畫面區域 -->
         <div class="modalArea">
-          <!-- modalSideBar 左側按鈕區塊 -->
-          <div class="modalSideBar">
-            <div class="modalLoginSide">
-              <button class="modalSideBtn" @click="goToLogin">登入</button>
-            </div>
-            <div class="modalRegisterSide">
-              <button class="modalSideBtn" @click="goToRegister">註冊</button>
-            </div>
-            <div class="modalForgetPasswdSide">
-              <button class="modalSideBtn" @click="goToforgerPasswd">忘記密碼</button>
-            </div>
-          </div>
           <!-- 中間畫面變換區域 -->
           <div class="loginDivCenter">
-            <!-- 搭配三元判斷式偵測目前 true or false -->
-            <div :class="onLogin?'goLogin':'notGoToLogin'">
-              <Login></Login>
+            <div v-if="this.view=='Login'">
+              <Login v-on:viewValue="viewValue"></Login>
             </div>
-            <div :class="onRegister?'goRegister':'notGoToRegister'">
-              <register></register>
+            <div v-if="this.view=='Register'">
+              <Register v-on:viewValue="viewValue"></Register>
             </div>
-            <div :class="onForgetPasswd?'goRegister':'notGoToRegister'">
-              <forgetPasswd></forgetPasswd>
+            <div v-if="this.view=='ForgetPassword'">
+              <ForgetPassword v-on:viewValue="viewValue"></ForgetPassword>
             </div>
           </div>
         </div>
@@ -124,9 +110,11 @@
 <script>
 import { mapActions } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
+// 採用測試檔案
 import Login from "@/components/loginGroup/Login";
-import register from "@/components/loginGroup/Register";
-import forgetPasswd from "@/components/loginGroup/forgetPasswd";
+import Register from "@/components/loginGroup/Register";
+import ForgetPassword from "@/components/loginGroup/ForgetPassword";
+// 採用測試檔案
 import Menubar from "@/components/base/Menubar";
 
 export default {
@@ -151,39 +139,25 @@ export default {
       //   width: "0"
       // }
 
+      // 初版data
       // 確認有無點擊登入按鈕
       isGoToLogin: false,
-      // 判斷目前在哪個頁面上
-      onLogin: true,
-      onRegister: false,
-      onForgetPasswd: false
+      // 二版data
+      view: "Login"
     };
   },
 
   components: {
     Login,
-    register,
+    Register,
     Menubar,
-    forgetPasswd
+    ForgetPassword
   },
 
   methods: {
-    goToforgerPasswd() {
-      this.onRegister = false;
-      this.onLogin = false;
-      this.onForgetPasswd = true;
-    },
-
-    goToRegister() {
-      this.onRegister = true;
-      this.onLogin = false;
-      this.onForgetPasswd = false;
-    },
-
-    goToLogin() {
-      this.onRegister = false;
-      this.onLogin = true;
-      this.onForgetPasswd = false;
+    viewValue: function(viewValue) {
+      // childValue就是子元件傳過來的值
+      this.view = viewValue;
     },
 
     // 判斷使用者是否點擊登入按鈕
@@ -265,26 +239,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 /* modal */
-/* 左側按鈕CSS類別 供三元判斷式使用 */
-.goLogin {
-  display: unset;
-}
-.notGoToLogin {
-  display: none;
-}
-.goRegister {
-  display: unset;
-}
-.notGoToRegister {
-  display: none;
-}
-.goForgetPasswd {
-  display: unset;
-}
-.notGoToForgetPasswd {
-  display: none;
-}
-
 .modalDivShow {
   position: fixed;
   height: 110vh;
@@ -318,8 +272,8 @@ export default {
 }
 .loginDivCenter {
   position: relative;
-  height: 500px;
-  width: 470px;
+  height: 480px;
+  width: 400px;
   z-index: 5;
 }
 /* Navbar CSS downbelow */
