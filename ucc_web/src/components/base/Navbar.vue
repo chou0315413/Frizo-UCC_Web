@@ -156,9 +156,16 @@ export default {
 
   methods: {
     viewValue: function(viewValue) {
-      // childValue就是子元件傳過來的值
+      // viewValue就是子元件傳過來的值
       this.view = viewValue;
     },
+
+    // closeValue: function(closeValue) {
+    //   // closeValue就是子元件傳過來的值
+    //   if (closeValue == "close") {
+    //     this.closeModal();
+    //   }
+    // },
 
     // 判斷使用者是否點擊登入按鈕
     openModal() {

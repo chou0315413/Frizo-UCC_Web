@@ -24,7 +24,8 @@ export default {
 
 <style>
 #app {
-  font-family: Malgun Gothic;
+  /* font-family: Malgun Gothic; */
+  font-family: Poppins, "Noto Sans TC";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

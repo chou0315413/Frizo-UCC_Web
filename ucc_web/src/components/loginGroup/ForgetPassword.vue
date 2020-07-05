@@ -3,10 +3,13 @@
     <div class="goBack">
       <img @click.prevent="goBack" class="img100" src="@/assets/loginGroup/left-arrow.png" />
     </div>
+    <div class="goClose">
+      <img class="img100" src="@/assets/loginGroup/close.png" />
+    </div>
     <div class="UCCLogo">
       <img class="logo" src="@/assets/UCC-Classic-PNG.png" />
     </div>
-    <div class="UCCTitle">登入UCC</div>
+    <div class="UCCTitle">取回帳號</div>
     <div class="emailText titleText">請輸入你的E-mail信箱</div>
     <div class="email">
       <input type="text" id="email" class="inputClass" v-model="email" />
@@ -110,7 +113,8 @@ export default {
       sendEmailIsClick: false,
       resetIsClick: false,
       // 回上一頁
-      viewValue: "Login"
+      viewValue: "Login",
+      closeValue: "close"
     };
   },
 
@@ -187,6 +191,12 @@ export default {
       // 第二個引數this.viewValue是需要傳的值
       this.$emit("viewValue", this.viewValue);
     }
+
+    // goClose() {
+    //   // viewValue是在父元件on監聽的方法
+    //   // 第二個引數this.viewValue是需要傳的值
+    //   this.$emit("closeValue", this.closeValue);
+    // }
   }
 };
 </script>
@@ -204,8 +214,19 @@ export default {
 }
 
 .goBack {
+  position: relative;
+  left: 5px;
+  top: 5px;
   grid-row: 1/2;
   grid-column: 1/2;
+}
+
+.goClose {
+  position: relative;
+  top: 7px;
+  left: -7px;
+  grid-row: 1/2;
+  grid-column: 10/11;
 }
 
 .img100 {
@@ -276,6 +297,7 @@ export default {
   width: 100%;
   border-radius: 15px;
   border: none;
+  outline: none;
   background-color: #a1662a;
   color: #fff;
   font-size: 18px;
@@ -332,7 +354,7 @@ export default {
 }
 
 .alertDiv {
-  font-size: 10px;
+  font-size: 14px;
   color: red;
   font-weight: bold;
   grid-column: 6/10;
@@ -354,9 +376,14 @@ export default {
   width: 100%;
   border-radius: 15px;
   border: none;
+  outline: none;
   background-color: #a1662a;
   color: #fff;
   font-size: 18px;
+}
+
+button:hover {
+  background-color: #be854c;
 }
 /* 初版------------------------------------------------------------------------ */
 
