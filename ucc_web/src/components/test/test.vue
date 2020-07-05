@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 <template>
   <div class="forgetPasswdDiv">
     <div class="goBack">
@@ -456,3 +458,4 @@ h4 {
   justify-self: end;
 } */
 </style>
+>>>>>>> 1aa83c07e43faac1d37b5dc5c3d9c10bd4834c2c
