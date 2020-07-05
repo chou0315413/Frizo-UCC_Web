@@ -21,7 +21,7 @@
         <!-- <input class="input100p" v-model="userInfo.gender" type="text" /> -->
       </div>
       <div class="email">
-        <input class="input100p" v-model="userInfo.email" type="text" />
+        <input class="input100p onlyRead" readonly="readonly" v-model="userInfo.email" type="text" />
         <span class="isVerify" v-if="userInfo.emailVerified">已驗證</span>
         <router-link to="/user/emailverify" v-else>
           <span class="unVerify">驗證</span>
@@ -273,6 +273,10 @@ export default {
   grid-template-rows: 100%;
 }
 
+.onlyRead {
+  cursor: not-allowed;
+}
+
 .email > a {
   display: flex;
   justify-content: flex-end;
@@ -348,5 +352,13 @@ export default {
   justify-content: flex-end;
   align-items: center;
   color: #ff5404;
+}
+
+input {
+  outline: none;
+}
+
+select {
+  outline: none;
 }
 </style>

@@ -5,6 +5,9 @@
       <div class="UCCLogo">
         <img class="logo" src="@/assets/UCC-Classic-PNG.png" />
       </div>
+      <div class="goClose">
+        <img class="img100" src="@/assets/loginGroup/close.png" />
+      </div>
       <div class="UCCTitle">登入UCC</div>
       <div class="emailText titleText">E-mail信箱</div>
       <div class="email">
@@ -173,6 +176,20 @@ export default {
   border-radius: 10px;
 }
 
+.goClose {
+  position: relative;
+  top: 7px;
+  left: -7px;
+  grid-row: 1/2;
+  grid-column: 10/11;
+}
+
+.img100 {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
 .UCCTitle {
   grid-column: 6/10;
   grid-row: 2/3;
@@ -229,7 +246,7 @@ export default {
 }
 
 .alertText {
-  font-size: 10px;
+  font-size: 14px;
   color: red;
   font-weight: bold;
 }
@@ -290,6 +307,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
 }
 
 .loginBtn {
@@ -306,9 +324,14 @@ export default {
   width: 100%;
   border-radius: 15px;
   border: none;
+  outline: none;
   background-color: #a1662a;
   color: #fff;
   font-size: 18px;
+}
+
+button:hover {
+  background-color: #be854c;
 }
 
 span {
@@ -322,7 +345,7 @@ hr {
 }
 
 .leftDivider {
-  grid-column: 1/5;
+  grid-column: 2/5;
   grid-row: 10/11;
 }
 
@@ -335,7 +358,7 @@ hr {
 }
 
 .rightDivider {
-  grid-column: 7/11;
+  grid-column: 7/10;
   grid-row: 10/11;
 }
 
