@@ -59,14 +59,14 @@
 import { mapActions, mapGetters } from "vuex";
 import { authenticated } from "@/utils/AuthStore";
 import { updateUserAvatar, updateProfileBackground } from "@/api/user";
-import changeInfo from "@/components/test/test2";
+// import changeInfo from "@/components/test/test2";
 import changePw from "@/components/user/userinfo/changePw";
 
 export default {
   name: "Info",
 
   components: {
-    changeInfo,
+    // changeInfo,
     changePw
   },
 

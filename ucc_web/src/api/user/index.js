@@ -24,7 +24,7 @@ export const updateUserInfo = ({
   grade,
   majorSubject,
   name,
-  phoneNumber,
+  phoneNumber
 }) => {
   let actionUrl = "/user/update/userinfo";
   let params = {};
