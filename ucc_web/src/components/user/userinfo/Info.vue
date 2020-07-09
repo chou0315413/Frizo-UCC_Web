@@ -152,7 +152,7 @@ export default {
 <style scoped>
 .info {
   background-color: #b2702f;
-  height: 780px;
+  height: 830px;
 }
 
 .userinfo {
@@ -245,7 +245,7 @@ export default {
 
 .userInfoContnet {
   background-color: #ffffff;
-  height: 500px;
+  height: 550px;
   margin-top: 20px;
   border-radius: 15px;
   border: 0.5px #3b3b3b solid;

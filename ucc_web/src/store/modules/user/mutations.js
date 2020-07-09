@@ -3,7 +3,7 @@ import * as types from './mutation-types'
 // Mutation 裡面的方法必須是同步的
 const mutations = {
     [types.SET_USER_INFO](state, { userId, name, imgUrl, backgroundUrl, gender, phoneNumber, address,
-        collageLocation, collageName, majorSubject, grade, email, provider, emailVerified, createdAt, updatedAt }) {
+        collageLocation, collageName, majorSubject, grade, email, provider, emailVerified, createdAt, updatedAt, activelyAcceptFollowRequest }) {
         console.log(`set User Info in mutations`);
         if (userId != null && userId != '') {
             state.userInfo.userId = userId;
@@ -52,6 +52,9 @@ const mutations = {
         }
         if (backgroundUrl != null && backgroundUrl != '') {
             state.userInfo.backgroundUrl = backgroundUrl;
+        }
+        if (activelyAcceptFollowRequest != null && activelyAcceptFollowRequest != '') {
+            state.userInfo.activelyAcceptFollowRequest = activelyAcceptFollowRequest;
         }
     },
 };

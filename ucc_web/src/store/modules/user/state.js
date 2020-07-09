@@ -15,8 +15,8 @@ const state = {
         provider: '',
         createdAt: '',
         updatedAt: '',
-        emailVerified: ''
-
+        emailVerified: '',
+        activelyAcceptFollowRequest: ''
     },
 };
 

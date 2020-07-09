@@ -23,7 +23,8 @@ const setUserInfo = function ({ commit }) {
                         email: res.data.result.email,
                         imgUrl: res.data.result.imageUrl,
                         provider: res.data.result.provider,
-                        emailVerified: res.data.result.emailVerified
+                        emailVerified: res.data.result.emailVerified,
+                        activelyAcceptFollowRequest: res.data.result.activelyAcceptFollowRequest
                     };
                     if (userInfo.phoneNumber != '') {
                         userInfo.phoneNumber = '0' + userInfo.phoneNumber
