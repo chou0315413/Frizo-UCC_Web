@@ -24,7 +24,7 @@ export const updateUserInfo = ({
   grade,
   majorSubject,
   name,
-  phoneNumber
+  phoneNumber,
 }) => {
   let actionUrl = "/user/update/userinfo";
   let params = {};
@@ -99,7 +99,7 @@ export const findUser = (keywords, page) => {
 
 //取得使用者資料 API
 export const getOtherUserInfo = (id) => {
-  let actionUrl = "user/get/info/" + id;
+  let actionUrl = "user/get/info/?id=" + id;
   let params = {};
   if (id == null) {
     return;
@@ -110,12 +110,15 @@ export const getOtherUserInfo = (id) => {
   return getRequest(actionUrl, params);
 };
 
-// 使用者被追蹤設定
-export const userFollowedSetting = (isAllow) => {
-  let actionUrl = "user/setting/auto/accept/following";
+//發送追蹤請求 API
+export const sendFllowingRequest = (fowllowingUserId) => {
+  let actionUrl = "following/send/request/?id=" + fowllowingUserId;
   let params = {};
-  if (isAllow != null) {
-    params.isAllow = isAllow;
+  if (typeof fowllowingUserId != Number) {
+    return;
+  } else {
+    params.fowllowingUserId = fowllowingUserId;
   }
+
   return getRequest(actionUrl, params);
 };
