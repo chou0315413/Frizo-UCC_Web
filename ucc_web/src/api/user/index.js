@@ -98,13 +98,13 @@ export const findUser = (keywords, page) => {
 };
 
 //取得使用者資料 API
-export const getOtherUserInfo = (id) => {
-  let actionUrl = "user/get/info/?id=" + id;
+export const getOtherUserInfo = (userId) => {
+  let actionUrl = "user/get/info/?id=" + userId;
   let params = {};
-  if (id == null) {
+  if (userId == null) {
     return;
   } else {
-    params.id = id;
+    params.userId = userId;
   }
 
   return getRequest(actionUrl, params);
@@ -123,7 +123,7 @@ export const sendFllowingRequest = (fowllowingUserId) => {
   return getRequest(actionUrl, params);
 };
 
-/// 使用者被追蹤設定
+//使用者被追蹤設定 API
 export const userFollowedSetting = (isAllow) => {
   let actionUrl = "user/setting/auto/accept/following";
   let params = {};
